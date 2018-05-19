@@ -19807,7 +19807,8 @@
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
 	    _this.state = {
-	      userSearchResults: null
+	      userSearchResults: null,
+	      errorFetchingResults: false
 	    };
 
 	    _this.onSubmitUserSearchForm = _this.onSubmitUserSearchForm.bind(_this);
@@ -19821,13 +19822,14 @@
 	      var _this2 = this;
 
 	      console.log('requesting json ....' + userName);
-
-	      fetch('/user/' + userName).then(function (resp) {
+	      this.setState({ errorFetchingResults: false });
+	      fetch('/api/user/' + userName + '/projects').then(function (resp) {
 	        return resp.json();
 	      }).then(function (data) {
 	        console.log(data);
 	        _this2.setState({ userSearchResults: data.data });
 	      }).catch(function (err) {
+	        _this2.setState({ errorFetchingResults: true });
 	        console.warn('Fail!');
 	        console.warn(err);
 	      });
@@ -19844,7 +19846,9 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_header2.default, null),
-	        this.state.userSearchResults === null ? _react2.default.createElement(_searchPage2.default, { handleSubmit: this.onSubmitUserSearchForm }) : _react2.default.createElement(_userProfilePage2.default, {
+	        this.state.userSearchResults === null ? _react2.default.createElement(_searchPage2.default, {
+	          handleSubmit: this.onSubmitUserSearchForm,
+	          errorFetchingResults: this.state.errorFetchingResults }) : _react2.default.createElement(_userProfilePage2.default, {
 	          userSearchResults: this.state.userSearchResults,
 	          handleBackBtnClick: this.handleBackBtnClick
 	        })
@@ -20591,7 +20595,12 @@
 	          null,
 	          'Search for users...'
 	        ),
-	        _react2.default.createElement(_searchUserInput2.default, { onSubmit: this.props.handleSubmit })
+	        _react2.default.createElement(_searchUserInput2.default, { onSubmit: this.props.handleSubmit }),
+	        this.props.errorFetchingResults && _react2.default.createElement(
+	          'p',
+	          null,
+	          'Error loading results...'
+	        )
 	      );
 	    }
 	  }]);

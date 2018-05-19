@@ -10,6 +10,7 @@ export default class SearchPage extends React.Component {
       <main>
         <h1>Search for users...</h1>
         <SearchUserInput onSubmit={this.props.handleSubmit}/>
+        {this.props.errorFetchingResults && <p>Error loading results...</p>}
       </main>
     )
   }
