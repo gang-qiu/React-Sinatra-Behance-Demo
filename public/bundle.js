@@ -19786,6 +19786,10 @@
 
 	var _searchPage2 = _interopRequireDefault(_searchPage);
 
+	var _userProfilePage = __webpack_require__(179);
+
+	var _userProfilePage2 = _interopRequireDefault(_userProfilePage);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19803,10 +19807,11 @@
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
 	    _this.state = {
-	      hasSearchResults: false
+	      userSearchResults: null
 	    };
 
 	    _this.onSubmitUserSearchForm = _this.onSubmitUserSearchForm.bind(_this);
+	    _this.handleBackBtnClick = _this.handleBackBtnClick.bind(_this);
 	    return _this;
 	  }
 
@@ -19814,6 +19819,12 @@
 	    key: 'onSubmitUserSearchForm',
 	    value: function onSubmitUserSearchForm(userName) {
 	      console.log('app' + userName);
+	      this.setState({ userSearchResults: userName });
+	    }
+	  }, {
+	    key: 'handleBackBtnClick',
+	    value: function handleBackBtnClick() {
+	      this.setState({ userSearchResults: null });
 	    }
 	  }, {
 	    key: 'render',
@@ -19822,7 +19833,10 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_header2.default, null),
-	        _react2.default.createElement(_searchPage2.default, { handleSubmit: this.onSubmitUserSearchForm })
+	        this.state.userSearchResults === null ? _react2.default.createElement(_searchPage2.default, { handleSubmit: this.onSubmitUserSearchForm }) : _react2.default.createElement(_userProfilePage2.default, {
+	          userSearchResults: this.state.userSearchResults,
+	          handleBackBtnClick: this.handleBackBtnClick
+	        })
 	      );
 	    }
 	  }]);
@@ -21723,6 +21737,65 @@
 
 	// exports
 
+
+/***/ }),
+/* 179 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var UserProfilePage = function (_React$Component) {
+	  _inherits(UserProfilePage, _React$Component);
+
+	  function UserProfilePage() {
+	    _classCallCheck(this, UserProfilePage);
+
+	    return _possibleConstructorReturn(this, (UserProfilePage.__proto__ || Object.getPrototypeOf(UserProfilePage)).apply(this, arguments));
+	  }
+
+	  _createClass(UserProfilePage, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'Results for User ',
+	          this.props.userSearchResults
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.props.handleBackBtnClick },
+	          'Back to Search'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return UserProfilePage;
+	}(_react2.default.Component);
+
+	exports.default = UserProfilePage;
 
 /***/ })
 /******/ ]);
