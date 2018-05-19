@@ -1,13 +1,17 @@
-Bare Sinatra and React app
+A sinatra - react app that utilizes the Behance API
 
-ruby, bundler gem and npm are required dependencies
+# Setup
+#### dependencies:
+`ruby 2.4.1`
+`node 8.3.0`
 
-run:
-- `git clone git@github.com:ilasorsa/bare-sinatra-react.git`
-- `bundle install`
-- `npm install`
-- `webpack`
-- `ruby server.rb`
-- `open your browser at the URL localhost:4567`
+#### run:
+`bundle install`
+`npm install`
+`npm run webpack`
+`ruby server.rb`
+`open your browser at the URL localhost:4567`
 
-and you're done :)
+
+## Credit
+Boilerplate: https://github.com/ilasorsa/bare-sinatra-react
