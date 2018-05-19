@@ -15,8 +15,17 @@ export default class App extends React.Component {
   }
 
   onSubmitUserSearchForm(userName) {
-    console.log('app'+ userName);
-    this.setState({userSearchResults: userName});
+    console.log('requesting json ....'+ userName);
+
+    fetch(`/user/${userName}`).then(resp => {
+      return resp.json();
+    }).then(data => {
+      console.log(data)
+      this.setState({userSearchResults: data.data});
+    }).catch(err => {
+      console.warn('Fail!');
+      console.warn(err);
+    });
   }
 
   handleBackBtnClick() {

@@ -4,10 +4,6 @@ import SearchUserInput from './search-user-input';
 export default class SearchPage extends React.Component {
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
-  onSubmit(userName) {
-    console.log('page', userName);
   }
   render() {
     return (

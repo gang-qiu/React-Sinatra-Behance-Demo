@@ -58,7 +58,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	__webpack_require__(177);
+	__webpack_require__(178);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19786,7 +19786,7 @@
 
 	var _searchPage2 = _interopRequireDefault(_searchPage);
 
-	var _userProfilePage = __webpack_require__(179);
+	var _userProfilePage = __webpack_require__(177);
 
 	var _userProfilePage2 = _interopRequireDefault(_userProfilePage);
 
@@ -19818,8 +19818,19 @@
 	  _createClass(App, [{
 	    key: 'onSubmitUserSearchForm',
 	    value: function onSubmitUserSearchForm(userName) {
-	      console.log('app' + userName);
-	      this.setState({ userSearchResults: userName });
+	      var _this2 = this;
+
+	      console.log('requesting json ....' + userName);
+
+	      fetch('/user/' + userName).then(function (resp) {
+	        return resp.json();
+	      }).then(function (data) {
+	        console.log(data);
+	        _this2.setState({ userSearchResults: data.data });
+	      }).catch(function (err) {
+	        console.warn('Fail!');
+	        console.warn(err);
+	      });
 	    }
 	  }, {
 	    key: 'handleBackBtnClick',
@@ -20566,18 +20577,10 @@
 	  function SearchPage(props) {
 	    _classCallCheck(this, SearchPage);
 
-	    var _this = _possibleConstructorReturn(this, (SearchPage.__proto__ || Object.getPrototypeOf(SearchPage)).call(this, props));
-
-	    _this.onSubmit = _this.onSubmit.bind(_this);
-	    return _this;
+	    return _possibleConstructorReturn(this, (SearchPage.__proto__ || Object.getPrototypeOf(SearchPage)).call(this, props));
 	  }
 
 	  _createClass(SearchPage, [{
-	    key: 'onSubmit',
-	    value: function onSubmit(userName) {
-	      console.log('page', userName);
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -21678,70 +21681,6 @@
 /* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	
-	var content = __webpack_require__(178);
-
-	if(typeof content === 'string') content = [[module.id, content, '']];
-
-	var transform;
-	var insertInto;
-
-
-
-	var options = {"hmr":true}
-
-	options.transform = transform
-	options.insertInto = undefined;
-
-	var update = __webpack_require__(164)(content, options);
-
-	if(content.locals) module.exports = content.locals;
-
-	if(false) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
-
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-			var locals = (function(a, b) {
-				var key, idx = 0;
-
-				for(key in a) {
-					if(!b || a[key] !== b[key]) return false;
-					idx++;
-				}
-
-				for(key in b) idx--;
-
-				return idx === 0;
-			}(content.locals, newContent.locals));
-
-			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-			update(newContent);
-		});
-
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
-/* 178 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)(false);
-	// imports
-
-
-	// module
-	exports.push([module.id, "* {\n  font-family: sans-serif;\n}", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 179 */
-/***/ (function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -21796,6 +21735,70 @@
 	}(_react2.default.Component);
 
 	exports.default = UserProfilePage;
+
+/***/ }),
+/* 178 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(179);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 179 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, "* {\n  font-family: sans-serif;\n}", ""]);
+
+	// exports
+
 
 /***/ })
 /******/ ]);
