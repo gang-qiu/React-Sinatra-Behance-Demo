@@ -19830,8 +19830,7 @@
 	        _this2.setState({ userSearchResults: data.data });
 	      }).catch(function (err) {
 	        _this2.setState({ errorFetchingResults: true });
-	        console.warn('Fail!');
-	        console.warn(err);
+	        console.log(err);
 	      });
 	    }
 	  }, {

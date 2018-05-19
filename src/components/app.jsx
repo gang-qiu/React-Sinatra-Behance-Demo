@@ -25,8 +25,7 @@ export default class App extends React.Component {
       this.setState({userSearchResults: data.data});
     }).catch(err => {
       this.setState({errorFetchingResults: true});
-      console.warn('Fail!');
-      console.warn(err);
+      console.log(err);
     });
   }
 

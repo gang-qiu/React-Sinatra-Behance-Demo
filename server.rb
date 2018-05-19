@@ -18,6 +18,8 @@ get '/api/user/:name/projects' do |name|
   case res
     when Net::HTTPSuccess then
       JSON.parse(res.body).to_json
+    when Net::HTTPNotFound then
+      status 404
     else
       puts behance_url
       puts res.body
