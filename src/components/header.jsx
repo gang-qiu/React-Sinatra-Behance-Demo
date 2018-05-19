@@ -6,7 +6,11 @@ export default class Header extends React.Component {
     return (
       <header>
         <div>
-          <span className="logo-text">Dealer Behanced</span> 
+          <span 
+            className="logo-text"
+            onClick={this.props.onClickLogo}>
+            Dealer Behanced
+          </span>
         </div>
       </header>
     )

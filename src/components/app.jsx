@@ -12,12 +12,12 @@ export default class App extends React.Component {
     };
 
     this.onSubmitUserSearchForm = this.onSubmitUserSearchForm.bind(this);
-    this.handleBackBtnClick = this.handleBackBtnClick.bind(this);
+    this.clearUserSearchResults = this.clearUserSearchResults.bind(this);
   }
 
   onSubmitUserSearchForm(userName) {
-    console.log('requesting json ....'+ userName);
     this.setState({errorFetchingResults: false});
+
     fetch(`/api/user/${userName}`).then(resp => {
       return resp.json();
     }).then(data => {
@@ -29,14 +29,17 @@ export default class App extends React.Component {
     });
   }
 
-  handleBackBtnClick() {
-    this.setState({userSearchResults: null});
+  clearUserSearchResults() {
+    this.setState({
+      userSearchResults: null,
+      errorFetchingResults: false,
+    })
   }
 
   render() {
     return (
       <div>
-        <Header/>
+        <Header onClickLogo={this.clearUserSearchResults}/>
         {
           this.state.userSearchResults === null 
           ? <SearchPage 
@@ -44,7 +47,7 @@ export default class App extends React.Component {
               errorFetchingResults={this.state.errorFetchingResults}/> 
           : <UserProfilePage 
               userSearchResults={this.state.userSearchResults} 
-              handleBackBtnClick={this.handleBackBtnClick}
+              handleBackBtnClick={this.clearUserSearchResults}
             />
         }
       </div>

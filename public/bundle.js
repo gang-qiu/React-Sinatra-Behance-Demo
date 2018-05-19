@@ -19812,7 +19812,7 @@
 	    };
 
 	    _this.onSubmitUserSearchForm = _this.onSubmitUserSearchForm.bind(_this);
-	    _this.handleBackBtnClick = _this.handleBackBtnClick.bind(_this);
+	    _this.clearUserSearchResults = _this.clearUserSearchResults.bind(_this);
 	    return _this;
 	  }
 
@@ -19821,8 +19821,8 @@
 	    value: function onSubmitUserSearchForm(userName) {
 	      var _this2 = this;
 
-	      console.log('requesting json ....' + userName);
 	      this.setState({ errorFetchingResults: false });
+
 	      fetch('/api/user/' + userName).then(function (resp) {
 	        return resp.json();
 	      }).then(function (data) {
@@ -19834,9 +19834,12 @@
 	      });
 	    }
 	  }, {
-	    key: 'handleBackBtnClick',
-	    value: function handleBackBtnClick() {
-	      this.setState({ userSearchResults: null });
+	    key: 'clearUserSearchResults',
+	    value: function clearUserSearchResults() {
+	      this.setState({
+	        userSearchResults: null,
+	        errorFetchingResults: false
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -19844,12 +19847,12 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_header2.default, null),
+	        _react2.default.createElement(_header2.default, { onClickLogo: this.clearUserSearchResults }),
 	        this.state.userSearchResults === null ? _react2.default.createElement(_searchPage2.default, {
 	          handleSubmit: this.onSubmitUserSearchForm,
 	          errorFetchingResults: this.state.errorFetchingResults }) : _react2.default.createElement(_userProfilePage2.default, {
 	          userSearchResults: this.state.userSearchResults,
-	          handleBackBtnClick: this.handleBackBtnClick
+	          handleBackBtnClick: this.clearUserSearchResults
 	        })
 	      );
 	    }
@@ -19906,7 +19909,9 @@
 	          null,
 	          _react2.default.createElement(
 	            'span',
-	            { className: 'logo-text' },
+	            {
+	              className: 'logo-text',
+	              onClick: this.props.onClickLogo },
 	            'Dealer Behanced'
 	          )
 	        )
@@ -19978,7 +19983,7 @@
 
 
 	// module
-	exports.push([module.id, "header {\n  border-bottom: 1px solid #ddd;\n}\n\n.logo-text {\n  font-weight: bold;\n  font-size: 24px;\n}\n\n", ""]);
+	exports.push([module.id, "header {\n  border-bottom: 1px solid #ddd;\n}\n\n.logo-text {\n  font-weight: bold;\n  font-size: 24px;\n}\n\n.logo-text:hover {\n  cursor: pointer;\n}\n\n", ""]);
 
 	// exports
 
