@@ -18,7 +18,7 @@ export default class App extends React.Component {
   onSubmitUserSearchForm(userName) {
     console.log('requesting json ....'+ userName);
     this.setState({errorFetchingResults: false});
-    fetch(`/api/user/${userName}/projects`).then(resp => {
+    fetch(`/api/user/${userName}`).then(resp => {
       return resp.json();
     }).then(data => {
       console.log(data);

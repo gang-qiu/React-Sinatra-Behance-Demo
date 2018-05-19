@@ -19823,7 +19823,7 @@
 
 	      console.log('requesting json ....' + userName);
 	      this.setState({ errorFetchingResults: false });
-	      fetch('/api/user/' + userName + '/projects').then(function (resp) {
+	      fetch('/api/user/' + userName).then(function (resp) {
 	        return resp.json();
 	      }).then(function (data) {
 	        console.log(data);
