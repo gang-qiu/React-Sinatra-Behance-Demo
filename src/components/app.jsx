@@ -8,6 +8,8 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       searchUsersResultsList: null,     // list of users from the initial search of users
+      selectedUser: null,               // the user that was selected from the query
+                                        // when defined, the profile page will be shown
       userInfoData: null,
       userWorkExperienceData: null,
       errorFetchingResults: false,
@@ -15,6 +17,7 @@ export default class App extends React.Component {
     };
 
     this.onSubmitUserSearchForm = this.onSubmitUserSearchForm.bind(this);
+    this.onSelectUser = this.onSelectUser.bind(this);
     this.clearUserSearchResults = this.clearUserSearchResults.bind(this);
   }
 
@@ -25,7 +28,15 @@ export default class App extends React.Component {
       isFinishedFetchingData: false,
     });
 
-    this._queryUsers(userName)
+    return fetch(`/api/user/${userName}/search`).then(resp => {
+      return resp.json();
+    }).then(data => {
+      this.setState({searchUsersResultsList: data.users});
+    }).catch(error => {
+      this.setState({errorFetchingResults: true});
+    }).finally(() => {
+      this.setState({isFinishedFetchingData: true});
+    });
 
     // Promise.all([
     //   this._fetchUserInfo(userName),
@@ -40,15 +51,16 @@ export default class App extends React.Component {
   }
 
   /**
+    handler when a user is selected from the list of queried users
+    Display the user profile page for this user
+  */
+  onSelectUser(user) {
+    this.setState({selectedUser: user});
+  }
+
+  /**
     The following helper methods return promises
   */
-  _queryUsers(userName) {
-    return fetch(`/api/user/${userName}/search`).then(resp => {
-      return resp.json();
-    }).then(data => {
-      this.setState({searchUsersResultsList: data.users});
-    });
-  }
 
   _fetchUserInfo(userName) {
     return fetch(`/api/user/${userName}`).then(resp => {
@@ -77,20 +89,17 @@ export default class App extends React.Component {
   }
 
   render() {
-    console.log(this.state.isFinishedFetchingData)
     return (
       <div>
         <Header onClickLogo={this.clearUserSearchResults}/>
         {
-          this.state.isFinishedFetchingData && !this.state.errorFetchingResults
-          ? <UserProfilePage 
-              userData={this.state.userInfoData} 
-              handleBackBtnClick={this.clearUserSearchResults}
-            />
+          this.state.selectedUser
+          ? <UserProfilePage userData={this.state.selectedUser} />
           : <SearchPage 
               handleSubmit={this.onSubmitUserSearchForm} 
               errorFetchingResults={this.state.errorFetchingResults}
-              searchUsersResultsList={this.state.searchUsersResultsList}/> 
+              searchUsersResultsList={this.state.searchUsersResultsList}
+              onSelectUser={this.onSelectUser}/> 
         }
       </div>
     )

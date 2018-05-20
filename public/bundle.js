@@ -19808,6 +19808,8 @@
 
 	    _this.state = {
 	      searchUsersResultsList: null, // list of users from the initial search of users
+	      selectedUser: null, // the user that was selected from the query
+	      // when defined, the profile page will be shown
 	      userInfoData: null,
 	      userWorkExperienceData: null,
 	      errorFetchingResults: false,
@@ -19815,6 +19817,7 @@
 	    };
 
 	    _this.onSubmitUserSearchForm = _this.onSubmitUserSearchForm.bind(_this);
+	    _this.onSelectUser = _this.onSelectUser.bind(_this);
 	    _this.clearUserSearchResults = _this.clearUserSearchResults.bind(_this);
 	    return _this;
 	  }
@@ -19822,13 +19825,23 @@
 	  _createClass(App, [{
 	    key: 'onSubmitUserSearchForm',
 	    value: function onSubmitUserSearchForm(userName) {
+	      var _this2 = this;
+
 	      // search for users based on user name
 	      this.setState({
 	        errorFetchingResults: false,
 	        isFinishedFetchingData: false
 	      });
 
-	      this._queryUsers(userName);
+	      return fetch('/api/user/' + userName + '/search').then(function (resp) {
+	        return resp.json();
+	      }).then(function (data) {
+	        _this2.setState({ searchUsersResultsList: data.users });
+	      }).catch(function (error) {
+	        _this2.setState({ errorFetchingResults: true });
+	      }).finally(function () {
+	        _this2.setState({ isFinishedFetchingData: true });
+	      });
 
 	      // Promise.all([
 	      //   this._fetchUserInfo(userName),
@@ -19843,20 +19856,20 @@
 	    }
 
 	    /**
-	      The following helper methods return promises
+	      handler when a user is selected from the list of queried users
+	      Display the user profile page for this user
 	    */
 
 	  }, {
-	    key: '_queryUsers',
-	    value: function _queryUsers(userName) {
-	      var _this2 = this;
-
-	      return fetch('/api/user/' + userName + '/search').then(function (resp) {
-	        return resp.json();
-	      }).then(function (data) {
-	        _this2.setState({ searchUsersResultsList: data.users });
-	      });
+	    key: 'onSelectUser',
+	    value: function onSelectUser(user) {
+	      this.setState({ selectedUser: user });
 	    }
+
+	    /**
+	      The following helper methods return promises
+	    */
+
 	  }, {
 	    key: '_fetchUserInfo',
 	    value: function _fetchUserInfo(userName) {
@@ -19891,18 +19904,15 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(this.state.isFinishedFetchingData);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(_header2.default, { onClickLogo: this.clearUserSearchResults }),
-	        this.state.isFinishedFetchingData && !this.state.errorFetchingResults ? _react2.default.createElement(_userProfilePage2.default, {
-	          userData: this.state.userInfoData,
-	          handleBackBtnClick: this.clearUserSearchResults
-	        }) : _react2.default.createElement(_searchPage2.default, {
+	        this.state.selectedUser ? _react2.default.createElement(_userProfilePage2.default, { userData: this.state.selectedUser }) : _react2.default.createElement(_searchPage2.default, {
 	          handleSubmit: this.onSubmitUserSearchForm,
 	          errorFetchingResults: this.state.errorFetchingResults,
-	          searchUsersResultsList: this.state.searchUsersResultsList })
+	          searchUsersResultsList: this.state.searchUsersResultsList,
+	          onSelectUser: this.onSelectUser })
 	      );
 	    }
 	  }]);
@@ -20620,6 +20630,10 @@
 
 	var _searchUserInput2 = _interopRequireDefault(_searchUserInput);
 
+	var _searchResult = __webpack_require__(186);
+
+	var _searchResult2 = _interopRequireDefault(_searchResult);
+
 	__webpack_require__(184);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -20642,8 +20656,9 @@
 	  _createClass(SearchPage, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      var results = Array.isArray(this.props.searchUsersResultsList) ? this.props.searchUsersResultsList : [];
-	      console.log(results);
 	      return _react2.default.createElement(
 	        'main',
 	        null,
@@ -20658,8 +20673,8 @@
 	          null,
 	          'Error loading results...'
 	        ),
-	        results.map(function (result) {
-	          return _react2.default.createElement(SearchResult, { userResult: result });
+	        results.map(function (user) {
+	          return _react2.default.createElement(_searchResult2.default, { key: user.id, user: user, onSelectUser: _this2.props.onSelectUser });
 	        })
 	      );
 	    }
@@ -20669,27 +20684,6 @@
 	}(_react2.default.Component);
 
 	exports.default = SearchPage;
-
-
-	function SearchResult(props) {
-	  var data = props.userResult;
-
-	  return _react2.default.createElement(
-	    'div',
-	    { key: data.id, className: 'search-result-row' },
-	    _react2.default.createElement('img', { src: data.images[50] }),
-	    _react2.default.createElement(
-	      'strong',
-	      null,
-	      data.display_name
-	    ),
-	    _react2.default.createElement(
-	      'span',
-	      null,
-	      data.location
-	    )
-	  );
-	}
 
 /***/ }),
 /* 167 */
@@ -22209,6 +22203,74 @@
 
 	// exports
 
+
+/***/ }),
+/* 186 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SearchResult = function (_React$Component) {
+	  _inherits(SearchResult, _React$Component);
+
+	  function SearchResult(props) {
+	    _classCallCheck(this, SearchResult);
+
+	    var _this = _possibleConstructorReturn(this, (SearchResult.__proto__ || Object.getPrototypeOf(SearchResult)).call(this, props));
+
+	    _this.handleClick = _this.handleClick.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(SearchResult, [{
+	    key: "handleClick",
+	    value: function handleClick() {
+	      this.props.onSelectUser(this.props.user);
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var user = this.props.user;
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "search-result-row", onClick: this.handleClick },
+	        _react2.default.createElement("img", { src: user.images[50] }),
+	        _react2.default.createElement(
+	          "strong",
+	          null,
+	          user.display_name
+	        ),
+	        _react2.default.createElement(
+	          "span",
+	          null,
+	          user.location
+	        )
+	      );
+	    }
+	  }]);
+
+	  return SearchResult;
+	}(_react2.default.Component);
+
+	exports.default = SearchResult;
 
 /***/ })
 /******/ ]);
