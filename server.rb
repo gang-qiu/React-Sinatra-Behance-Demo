@@ -18,15 +18,6 @@ get '/api/user/:name/search' do |name|
   _handleResponse(res)
 end
 
-
-# Fetch info for one user
-get '/api/user/:name' do |name|
-  content_type :json
-  behance_url = "https://api.behance.net/v2/users/#{name}?client_id=#{CLIENT_ID}"
-  res = Net::HTTP.get_response(URI(behance_url))
-  _handleResponse(res)
-end
-
 # Fetch work experience
 get '/api/user/:name/work_experience' do |name|
   content_type :json
