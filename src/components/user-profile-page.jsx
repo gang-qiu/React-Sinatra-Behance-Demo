@@ -68,7 +68,7 @@ export default class UserProfilePage extends React.Component {
     return fetch(`/api/user/${userName}/followers`).then(resp => {
       return resp.json();
     }).then(data => {
-      this.setState({followersData: data.work_experience});
+      this.setState({followersData: data.followers});
     }).finally(() => {
       this.setState({isLoadingFollowersData: false});
     });
@@ -79,14 +79,15 @@ export default class UserProfilePage extends React.Component {
       <div>
         <UserProfileSideBar 
           userData={this.props.userData}
+          onClickFollowersLink={this.onClickFollowersLink}
+          isLoadingFollowersData={this.state.isLoadingFollowersData}
+          followersData={this.state.followersData}
           isLoadingWorkExperienceData={this.state.isLoadingWorkExperienceData}
           workExperienceData={this.state.workExperienceData}/>
-        {this.state.activeView === 'projects' 
-          ? <UserProfileMainView
-              isLoadingProjectsData={this.state.isLoadingProjectsData}
-              projectsData={this.state.projectsData} />
-          : <p>viewing followers</p>
-        }
+        <UserProfileMainView
+          isLoadingProjectsData={this.state.isLoadingProjectsData}
+          projectsData={this.state.projectsData} 
+          activeView={this.state.activeView}/>
       </div>
     )
   }

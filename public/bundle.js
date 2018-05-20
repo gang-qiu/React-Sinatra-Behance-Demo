@@ -21967,7 +21967,7 @@
 	      return fetch('/api/user/' + userName + '/followers').then(function (resp) {
 	        return resp.json();
 	      }).then(function (data) {
-	        _this4.setState({ followersData: data.work_experience });
+	        _this4.setState({ followersData: data.followers });
 	      }).finally(function () {
 	        _this4.setState({ isLoadingFollowersData: false });
 	      });
@@ -21980,15 +21980,15 @@
 	        null,
 	        _react2.default.createElement(_userProfileSidebar2.default, {
 	          userData: this.props.userData,
+	          onClickFollowersLink: this.onClickFollowersLink,
+	          isLoadingFollowersData: this.state.isLoadingFollowersData,
+	          followersData: this.state.followersData,
 	          isLoadingWorkExperienceData: this.state.isLoadingWorkExperienceData,
 	          workExperienceData: this.state.workExperienceData }),
-	        this.state.activeView === 'projects' ? _react2.default.createElement(_userProfileMainView2.default, {
+	        _react2.default.createElement(_userProfileMainView2.default, {
 	          isLoadingProjectsData: this.state.isLoadingProjectsData,
-	          projectsData: this.state.projectsData }) : _react2.default.createElement(
-	          'p',
-	          null,
-	          'viewing followers'
-	        )
+	          projectsData: this.state.projectsData,
+	          activeView: this.state.activeView })
 	      );
 	    }
 	  }]);
@@ -22050,7 +22050,7 @@
 	        { style: { float: 'left' } },
 	        _react2.default.createElement(UserBasicInfo, { data: userBasicInfoData }),
 	        _react2.default.createElement('hr', null),
-	        _react2.default.createElement(UserStats, { data: userStatsData }),
+	        _react2.default.createElement(UserStats, { data: userStatsData, onClickFollowersLink: this.props.onClickFollowersLink }),
 	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(UserWorkExperience, { data: workExperienceData })
 	      );
@@ -22109,7 +22109,7 @@
 	    ),
 	    _react2.default.createElement(
 	      'p',
-	      null,
+	      { onClick: props.onClickFollowersLink },
 	      'Followers ',
 	      props.data.followers
 	    ),
