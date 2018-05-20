@@ -19807,8 +19807,10 @@
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
 	    _this.state = {
-	      userSearchResults: null,
-	      errorFetchingResults: false
+	      userInfoData: null,
+	      userWorkExperienceData: null,
+	      errorFetchingResults: false,
+	      isFinishedFetchingData: false
 	    };
 
 	    _this.onSubmitUserSearchForm = _this.onSubmitUserSearchForm.bind(_this);
@@ -19821,22 +19823,51 @@
 	    value: function onSubmitUserSearchForm(userName) {
 	      var _this2 = this;
 
-	      this.setState({ errorFetchingResults: false });
+	      this.setState({
+	        errorFetchingResults: false,
+	        isFinishedFetchingData: false
+	      });
 
-	      fetch('/api/user/' + userName).then(function (resp) {
-	        return resp.json();
-	      }).then(function (data) {
-	        _this2.setState({ userSearchResults: data.user });
-	      }).catch(function (err) {
+	      Promise.all([this._fetchUserInfo(userName), this._fetchUserWorkExperience(userName)]).catch(function (err) {
 	        _this2.setState({ errorFetchingResults: true });
 	        console.log(err);
+	      }).finally(function () {
+	        _this2.setState({ isFinishedFetchingData: true });
+	      });
+	    }
+
+	    /**
+	      The following helper methods return promises
+	    */
+
+	  }, {
+	    key: '_fetchUserInfo',
+	    value: function _fetchUserInfo(userName) {
+	      var _this3 = this;
+
+	      return fetch('/api/user/' + userName).then(function (resp) {
+	        return resp.json();
+	      }).then(function (data) {
+	        _this3.setState({ userInfoData: data.user });
+	      });
+	    }
+	  }, {
+	    key: '_fetchUserWorkExperience',
+	    value: function _fetchUserWorkExperience(userName) {
+	      var _this4 = this;
+
+	      return fetch('/api/user/' + userName + '/work_experience').then(function (resp) {
+	        return resp.json();
+	      }).then(function (data) {
+	        console.log(data);
+	        _this4.setState({ userWorkExperienceData: data.work_experience });
 	      });
 	    }
 	  }, {
 	    key: 'clearUserSearchResults',
 	    value: function clearUserSearchResults() {
 	      this.setState({
-	        userSearchResults: null,
+	        userInfoData: null,
 	        errorFetchingResults: false
 	      });
 	    }
@@ -19847,10 +19878,10 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_header2.default, { onClickLogo: this.clearUserSearchResults }),
-	        this.state.userSearchResults === null ? _react2.default.createElement(_searchPage2.default, {
+	        this.state.isFinishedFetchingData ? _react2.default.createElement(_searchPage2.default, {
 	          handleSubmit: this.onSubmitUserSearchForm,
 	          errorFetchingResults: this.state.errorFetchingResults }) : _react2.default.createElement(_userProfilePage2.default, {
-	          userData: this.state.userSearchResults,
+	          userData: this.state.userInfoData,
 	          handleBackBtnClick: this.clearUserSearchResults
 	        })
 	      );

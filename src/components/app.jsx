@@ -7,8 +7,10 @@ export default class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      userSearchResults: null,
+      userInfoData: null,
+      userWorkExperienceData: null,
       errorFetchingResults: false,
+      isFinishedFetchingData: false,
     };
 
     this.onSubmitUserSearchForm = this.onSubmitUserSearchForm.bind(this);
@@ -16,21 +18,47 @@ export default class App extends React.Component {
   }
 
   onSubmitUserSearchForm(userName) {
-    this.setState({errorFetchingResults: false});
+    this.setState({
+      errorFetchingResults: false,
+      isFinishedFetchingData: false,
+    });
 
-    fetch(`/api/user/${userName}`).then(resp => {
-      return resp.json();
-    }).then(data => {
-      this.setState({userSearchResults: data.user});
-    }).catch(err => {
+    Promise.all([
+      this._fetchUserInfo(userName),
+      this._fetchUserWorkExperience(userName),
+    ]).catch(err => {
       this.setState({errorFetchingResults: true});
       console.log(err);
+    }).finally(() => {
+      this.setState({isFinishedFetchingData: true});
     });
   }
 
+  /**
+    The following helper methods return promises
+  */
+  _fetchUserInfo(userName) {
+    return fetch(`/api/user/${userName}`).then(resp => {
+      return resp.json();
+    }).then(data => {
+      this.setState({userInfoData: data.user});
+    });
+  }
+
+  _fetchUserWorkExperience(userName) {
+    return fetch(`/api/user/${userName}/work_experience`).then(resp => {
+      return resp.json();
+    }).then(data => {
+      console.log(data)
+      this.setState({userWorkExperienceData: data.work_experience});
+    });
+  }
+
+
+
   clearUserSearchResults() {
     this.setState({
-      userSearchResults: null,
+      userInfoData: null,
       errorFetchingResults: false,
     })
   }
@@ -40,12 +68,12 @@ export default class App extends React.Component {
       <div>
         <Header onClickLogo={this.clearUserSearchResults}/>
         {
-          this.state.userSearchResults === null 
+          this.state.isFinishedFetchingData 
           ? <SearchPage 
               handleSubmit={this.onSubmitUserSearchForm} 
               errorFetchingResults={this.state.errorFetchingResults}/> 
           : <UserProfilePage 
-              userData={this.state.userSearchResults} 
+              userData={this.state.userInfoData} 
               handleBackBtnClick={this.clearUserSearchResults}
             />
         }
