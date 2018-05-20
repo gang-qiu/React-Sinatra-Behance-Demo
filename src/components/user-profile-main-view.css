@@ -15,6 +15,11 @@
   width: 200px;
   height: 300px;
   float: left;
+  cursor: pointer;
+}
+
+.project-card:hover {
+  background: #eee
 }
 
 .project-card img {

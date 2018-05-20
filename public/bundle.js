@@ -22214,14 +22214,18 @@
 	  }
 
 	  _createClass(UserProfileProjectCard, [{
+	    key: "handleClick",
+	    value: function handleClick() {
+	      window.location.href = this.props.project.url;
+	    }
+	  }, {
 	    key: "render",
 	    value: function render() {
-	      console.log(this.props);
 	      var project = this.props.project;
 
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "project-card" },
+	        { className: "project-card", onClick: this.handleClick.bind(this) },
 	        _react2.default.createElement("img", { src: project.covers[230] }),
 	        _react2.default.createElement(
 	          "p",
@@ -22432,7 +22436,7 @@
 
 
 	// module
-	exports.push([module.id, ".projects-container {\n  float: left;\n  width: 750px;\n}\n\n.projects-container::after {\n  content: '';\n  clear: both;\n  display: block;\n}\n\n.project-card {\n  background: lightgrey;\n  margin: 10px 20px;\n  width: 200px;\n  height: 300px;\n  float: left;\n}\n\n.project-card img {\n  width: 200px;\n  height: auto;\n}", ""]);
+	exports.push([module.id, ".projects-container {\n  float: left;\n  width: 750px;\n}\n\n.projects-container::after {\n  content: '';\n  clear: both;\n  display: block;\n}\n\n.project-card {\n  background: lightgrey;\n  margin: 10px 20px;\n  width: 200px;\n  height: 300px;\n  float: left;\n  cursor: pointer;\n}\n\n.project-card:hover {\n  background: #eee\n}\n\n.project-card img {\n  width: 200px;\n  height: auto;\n}", ""]);
 
 	// exports
 
