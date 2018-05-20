@@ -27,7 +27,6 @@ export default class UserProfilePage extends React.Component {
     return fetch(`/api/user/${userName}/work_experience`).then(resp => {
       return resp.json();
     }).then(data => {
-      console.log(data);
       this.setState({workExperienceData: data.work_experience});
     }).finally(() => {
       this.setState({isLoadingWorkExperienceData: false});

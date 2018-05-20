@@ -21916,7 +21916,6 @@
 	      return fetch('/api/user/' + userName + '/work_experience').then(function (resp) {
 	        return resp.json();
 	      }).then(function (data) {
-	        console.log(data);
 	        _this2.setState({ workExperienceData: data.work_experience });
 	      }).finally(function () {
 	        _this2.setState({ isLoadingWorkExperienceData: false });
@@ -21972,46 +21971,15 @@
 	var UserProfileSideBar = function (_React$Component) {
 	  _inherits(UserProfileSideBar, _React$Component);
 
-	  function UserProfileSideBar(props) {
+	  function UserProfileSideBar() {
 	    _classCallCheck(this, UserProfileSideBar);
 
-	    var _this = _possibleConstructorReturn(this, (UserProfileSideBar.__proto__ || Object.getPrototypeOf(UserProfileSideBar)).call(this, props));
-
-	    _this.state = {};
-	    return _this;
+	    return _possibleConstructorReturn(this, (UserProfileSideBar.__proto__ || Object.getPrototypeOf(UserProfileSideBar)).apply(this, arguments));
 	  }
 
-	  /**
-	    The following helper methods return promises
-	  */
-
 	  _createClass(UserProfileSideBar, [{
-	    key: '_fetchUserInfo',
-	    value: function _fetchUserInfo(userName) {
-	      var _this2 = this;
-
-	      return fetch('/api/user/' + userName).then(function (resp) {
-	        return resp.json();
-	      }).then(function (data) {
-	        _this2.setState({ userInfoData: data.user });
-	      });
-	    }
-	  }, {
-	    key: '_fetchUserWorkExperience',
-	    value: function _fetchUserWorkExperience(userName) {
-	      var _this3 = this;
-
-	      return fetch('/api/user/' + userName + '/work_experience').then(function (resp) {
-	        return resp.json();
-	      }).then(function (data) {
-	        console.log(data);
-	        _this3.setState({ userWorkExperienceData: data.work_experience });
-	      });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log(this.props.userData);
 	      var userBasicInfoData = {
 	        name: this.props.userData.display_name,
 	        website: this.props.userData.website,
@@ -22021,6 +21989,7 @@
 	      };
 
 	      var userStatsData = this.props.userData.stats;
+	      var workExperienceData = this.props.workExperienceData;
 
 	      return _react2.default.createElement(
 	        'aside',
@@ -22028,7 +21997,8 @@
 	        _react2.default.createElement(UserBasicInfo, { data: userBasicInfoData }),
 	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(UserStats, { data: userStatsData }),
-	        _react2.default.createElement('hr', null)
+	        _react2.default.createElement('hr', null),
+	        _react2.default.createElement(UserWorkExperience, { data: workExperienceData })
 	      );
 	    }
 	  }]);
@@ -22095,6 +22065,37 @@
 	      'Following ',
 	      props.data.following
 	    )
+	  );
+	}
+
+	function UserWorkExperience(props) {
+	  var workExperiences = Array.isArray(props.data) ? props.data : [];
+
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      workExperiences.length > 0 ? 'Work Experience: ' : 'No work experience'
+	    ),
+	    workExperiences.map(function (workExperiece) {
+	      return _react2.default.createElement(
+	        'div',
+	        { key: workExperiece.start_date, className: 'work-experience-row' },
+	        _react2.default.createElement(
+	          'em',
+	          null,
+	          workExperiece.start_date
+	        ),
+	        ' ',
+	        workExperiece.location,
+	        _react2.default.createElement('br', null),
+	        workExperiece.organization,
+	        _react2.default.createElement('br', null),
+	        workExperiece.position
+	      );
+	    })
 	  );
 	}
 
@@ -22221,7 +22222,7 @@
 
 
 	// module
-	exports.push([module.id, "aside {\n  width: 300px;\n  height: 100%;\n  background: lightgrey;\n}", ""]);
+	exports.push([module.id, "aside {\n  width: 300px;\n  height: 100%;\n  background: lightgrey;\n}\n\n.work-experience-row {\n  padding: 5px 10px;\n  border-bottom: 1px solid #eee;\n}", ""]);
 
 	// exports
 

@@ -3,3 +3,8 @@ aside {
   height: 100%;
   background: lightgrey;
 }
+
+.work-experience-row {
+  padding: 5px 10px;
+  border-bottom: 1px solid #eee;
+}
