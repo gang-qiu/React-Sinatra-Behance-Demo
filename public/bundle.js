@@ -58,7 +58,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	__webpack_require__(186);
+	__webpack_require__(185);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21873,7 +21873,7 @@
 
 	var _userProfileMainView2 = _interopRequireDefault(_userProfileMainView);
 
-	__webpack_require__(184);
+	__webpack_require__(183);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22220,7 +22220,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _userProfileProjectCard = __webpack_require__(183);
+	var _userProfileProjectCard = __webpack_require__(187);
 
 	var _userProfileProjectCard2 = _interopRequireDefault(_userProfileProjectCard);
 
@@ -22250,9 +22250,31 @@
 	      return _react2.default.createElement(
 	        'main',
 	        { className: 'projects-container' },
-	        projects.map(function (project) {
-	          return _react2.default.createElement(_userProfileProjectCard2.default, { key: project.id, project: project });
-	        })
+	        function (activeView) {
+
+	          switch (activeView) {
+	            case 'projects':
+	              return projects.map(function (project) {
+	                return _react2.default.createElement(_userProfileProjectCard2.default, { key: project.id, project: project });
+	              });
+	            case 'followers':
+	              return _react2.default.createElement(
+	                'h2',
+	                null,
+	                'followers'
+	              );
+
+	            case 'following':
+	              return _react2.default.createElement(
+	                'h2',
+	                null,
+	                'following'
+	              );
+
+	            default:
+	              return null;
+	          }
+	        }(this.props.activeView)
 	      );
 	    }
 	  }]);
@@ -22264,6 +22286,134 @@
 
 /***/ }),
 /* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(184);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, "aside {\n  width: 300px;\n  height: 100%;\n  background: lightgrey;\n}\n\n.work-experience-row {\n  padding: 5px 10px;\n  border-bottom: 1px solid #eee;\n}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 185 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(186);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 186 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, "* {\n  font-family: sans-serif;\n}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22330,134 +22480,6 @@
 	}(_react2.default.Component);
 
 	exports.default = UserProfileProjectCard;
-
-/***/ }),
-/* 184 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	var content = __webpack_require__(185);
-
-	if(typeof content === 'string') content = [[module.id, content, '']];
-
-	var transform;
-	var insertInto;
-
-
-
-	var options = {"hmr":true}
-
-	options.transform = transform
-	options.insertInto = undefined;
-
-	var update = __webpack_require__(164)(content, options);
-
-	if(content.locals) module.exports = content.locals;
-
-	if(false) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css");
-
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-			var locals = (function(a, b) {
-				var key, idx = 0;
-
-				for(key in a) {
-					if(!b || a[key] !== b[key]) return false;
-					idx++;
-				}
-
-				for(key in b) idx--;
-
-				return idx === 0;
-			}(content.locals, newContent.locals));
-
-			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-			update(newContent);
-		});
-
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
-/* 185 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)(false);
-	// imports
-
-
-	// module
-	exports.push([module.id, "aside {\n  width: 300px;\n  height: 100%;\n  background: lightgrey;\n}\n\n.work-experience-row {\n  padding: 5px 10px;\n  border-bottom: 1px solid #eee;\n}", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 186 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	var content = __webpack_require__(187);
-
-	if(typeof content === 'string') content = [[module.id, content, '']];
-
-	var transform;
-	var insertInto;
-
-
-
-	var options = {"hmr":true}
-
-	options.transform = transform
-	options.insertInto = undefined;
-
-	var update = __webpack_require__(164)(content, options);
-
-	if(content.locals) module.exports = content.locals;
-
-	if(false) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
-
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-			var locals = (function(a, b) {
-				var key, idx = 0;
-
-				for(key in a) {
-					if(!b || a[key] !== b[key]) return false;
-					idx++;
-				}
-
-				for(key in b) idx--;
-
-				return idx === 0;
-			}(content.locals, newContent.locals));
-
-			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-			update(newContent);
-		});
-
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
-/* 187 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)(false);
-	// imports
-
-
-	// module
-	exports.push([module.id, "* {\n  font-family: sans-serif;\n}", ""]);
-
-	// exports
-
 
 /***/ }),
 /* 188 */
