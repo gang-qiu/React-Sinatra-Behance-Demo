@@ -2,6 +2,7 @@ require 'sinatra'
 require 'json'
 require 'net/http'
 require 'yaml'
+require './mock'
 
 config = YAML::load(File.open('./config.yaml'))
 CLIENT_ID = config['BEHANCE_API_KEY']
@@ -14,8 +15,9 @@ end
 get '/api/user/:name/search' do |name|
   content_type :json
   behance_url = "https://api.behance.net/v2/users/?q=#{name}&client_id=#{CLIENT_ID}"
-  res = Net::HTTP.get_response(URI(behance_url))
-  _handleResponse(res)
+  # res = Net::HTTP.get_response(URI(behance_url))
+  # _handleResponse(res)
+  Mock::USER_QUERY.to_json
 end
 
 # Fetch work experience
@@ -23,14 +25,24 @@ get '/api/user/:name/work_experience' do |name|
   content_type :json
   # behance_url = "https://api.behance.net/v2/users/#{name}/work_experience?client_id=#{CLIENT_ID}"
   behance_url = "https://www.behance.net/v2/users/#{name}/work_experience?client_id=#{CLIENT_ID}"
-  res = Net::HTTP.get_response(URI(behance_url))
-  _handleResponse(res)
+  # res = Net::HTTP.get_response(URI(behance_url))
+  # _handleResponse(res)
+  Mock::WORK_EXPERIENCE.to_json
 end
 
 # Fetch projects for one user
 get '/api/user/:name/projects' do |name|
   content_type :json
   behance_url = "https://api.behance.net/v2/users/#{name}/projects?client_id=#{CLIENT_ID}"
+  # res = Net::HTTP.get_response(URI(behance_url))
+  # _handleResponse(res)
+  Mock::PROJECTS.to_json
+end
+
+# Fetch followers for one user
+get '/api/user/:name/followers' do |name|
+  content_type :json
+  behance_url = "https://api.behance.net/v2/users/#{name}/followers?client_id=#{CLIENT_ID}"
   res = Net::HTTP.get_response(URI(behance_url))
   _handleResponse(res)
 end

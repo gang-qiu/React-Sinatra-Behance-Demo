@@ -7,20 +7,31 @@ export default class UserProfilePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeView: 'projects',    // can be 'projects', 'followers', 'following'
+
       isLoadingWorkExperienceData: false,
       workExperienceData: null,
 
       isLoadingProjectsData: false,
       projectsData: null,
+
+      isLoadingFollowersData: false,
+      followersData: null,
     };
+
+    this.onClickFollowersLink = this.onClickFollowersLink.bind(this);
   }
 
   componentDidMount() {
     // immediately fire off requests for additional user info
-    const userName = this.props.userData.username;
+    this._fetchUserWorkExperience(this.props.userData.username);
+    this._fetchUserProjects(this.props.userData.username);
+  }
 
-    this._fetchUserWorkExperience(userName);
-    this._fetchUserProjects(userName);
+  onClickFollowersLink() {
+    // fetch for user followers info when the "followers" link on the profile page is clicked
+    this.setState({activeView: 'followers'});
+    this._fetchUserFollowers(this.props.userData.username);
   }
 
   /**
@@ -28,18 +39,6 @@ export default class UserProfilePage extends React.Component {
   */
 
   _fetchUserWorkExperience(userName) {
-    this.setState({isLoadingProjectsData: true});
-
-    return fetch(`/api/user/${userName}/projects`).then(resp => {
-      return resp.json();
-    }).then(data => {
-      this.setState({projectsData: data.projects});
-    }).finally(() => {
-      this.setState({isLoadingProjectsData: false});
-    });
-  }
-
-  _fetchUserProjects(userName) {
     this.setState({isLoadingWorkExperienceData: true});
 
     return fetch(`/api/user/${userName}/work_experience`).then(resp => {
@@ -51,6 +50,30 @@ export default class UserProfilePage extends React.Component {
     });
   }
 
+  _fetchUserProjects(userName) {
+    this.setState({isLoadingProjectsData: true});
+
+    return fetch(`/api/user/${userName}/projects`).then(resp => {
+      return resp.json();
+    }).then(data => {
+      this.setState({projectsData: data.projects});
+    }).finally(() => {
+      this.setState({isLoadingProjectsData: false});
+    });
+  }
+
+  _fetchUserFollowers(userName) {
+    this.setState({isLoadingFollowersData: true});
+
+    return fetch(`/api/user/${userName}/followers`).then(resp => {
+      return resp.json();
+    }).then(data => {
+      this.setState({followersData: data.work_experience});
+    }).finally(() => {
+      this.setState({isLoadingFollowersData: false});
+    });
+  }
+
   render() {
     return (
       <div>
@@ -58,9 +81,12 @@ export default class UserProfilePage extends React.Component {
           userData={this.props.userData}
           isLoadingWorkExperienceData={this.state.isLoadingWorkExperienceData}
           workExperienceData={this.state.workExperienceData}/>
-        <UserProfileMainView
-          isLoadingProjectsData={this.state.isLoadingProjectsData}
-          projectsData={this.state.projectsData} />
+        {this.state.activeView === 'projects' 
+          ? <UserProfileMainView
+              isLoadingProjectsData={this.state.isLoadingProjectsData}
+              projectsData={this.state.projectsData} />
+          : <p>viewing followers</p>
+        }
       </div>
     )
   }

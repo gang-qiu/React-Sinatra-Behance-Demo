@@ -21892,12 +21892,19 @@
 	    var _this = _possibleConstructorReturn(this, (UserProfilePage.__proto__ || Object.getPrototypeOf(UserProfilePage)).call(this, props));
 
 	    _this.state = {
+	      activeView: 'projects', // can be 'projects', 'followers', 'following'
+
 	      isLoadingWorkExperienceData: false,
 	      workExperienceData: null,
 
 	      isLoadingProjectsData: false,
-	      projectsData: null
+	      projectsData: null,
+
+	      isLoadingFollowersData: false,
+	      followersData: null
 	    };
+
+	    _this.onClickFollowersLink = _this.onClickFollowersLink.bind(_this);
 	    return _this;
 	  }
 
@@ -21905,10 +21912,15 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      // immediately fire off requests for additional user info
-	      var userName = this.props.userData.username;
-
-	      this._fetchUserWorkExperience(userName);
-	      this._fetchUserProjects(userName);
+	      this._fetchUserWorkExperience(this.props.userData.username);
+	      this._fetchUserProjects(this.props.userData.username);
+	    }
+	  }, {
+	    key: 'onClickFollowersLink',
+	    value: function onClickFollowersLink() {
+	      // fetch for user followers info when the "followers" link on the profile page is clicked
+	      this.setState({ activeView: 'followers' });
+	      this._fetchUserFollowers(this.props.userData.username);
 	    }
 
 	    /**
@@ -21920,14 +21932,14 @@
 	    value: function _fetchUserWorkExperience(userName) {
 	      var _this2 = this;
 
-	      this.setState({ isLoadingProjectsData: true });
+	      this.setState({ isLoadingWorkExperienceData: true });
 
-	      return fetch('/api/user/' + userName + '/projects').then(function (resp) {
+	      return fetch('/api/user/' + userName + '/work_experience').then(function (resp) {
 	        return resp.json();
 	      }).then(function (data) {
-	        _this2.setState({ projectsData: data.projects });
+	        _this2.setState({ workExperienceData: data.work_experience });
 	      }).finally(function () {
-	        _this2.setState({ isLoadingProjectsData: false });
+	        _this2.setState({ isLoadingWorkExperienceData: false });
 	      });
 	    }
 	  }, {
@@ -21935,14 +21947,29 @@
 	    value: function _fetchUserProjects(userName) {
 	      var _this3 = this;
 
-	      this.setState({ isLoadingWorkExperienceData: true });
+	      this.setState({ isLoadingProjectsData: true });
 
-	      return fetch('/api/user/' + userName + '/work_experience').then(function (resp) {
+	      return fetch('/api/user/' + userName + '/projects').then(function (resp) {
 	        return resp.json();
 	      }).then(function (data) {
-	        _this3.setState({ workExperienceData: data.work_experience });
+	        _this3.setState({ projectsData: data.projects });
 	      }).finally(function () {
-	        _this3.setState({ isLoadingWorkExperienceData: false });
+	        _this3.setState({ isLoadingProjectsData: false });
+	      });
+	    }
+	  }, {
+	    key: '_fetchUserFollowers',
+	    value: function _fetchUserFollowers(userName) {
+	      var _this4 = this;
+
+	      this.setState({ isLoadingFollowersData: true });
+
+	      return fetch('/api/user/' + userName + '/followers').then(function (resp) {
+	        return resp.json();
+	      }).then(function (data) {
+	        _this4.setState({ followersData: data.work_experience });
+	      }).finally(function () {
+	        _this4.setState({ isLoadingFollowersData: false });
 	      });
 	    }
 	  }, {
@@ -21955,9 +21982,13 @@
 	          userData: this.props.userData,
 	          isLoadingWorkExperienceData: this.state.isLoadingWorkExperienceData,
 	          workExperienceData: this.state.workExperienceData }),
-	        _react2.default.createElement(_userProfileMainView2.default, {
+	        this.state.activeView === 'projects' ? _react2.default.createElement(_userProfileMainView2.default, {
 	          isLoadingProjectsData: this.state.isLoadingProjectsData,
-	          projectsData: this.state.projectsData })
+	          projectsData: this.state.projectsData }) : _react2.default.createElement(
+	          'p',
+	          null,
+	          'viewing followers'
+	        )
 	      );
 	    }
 	  }]);
