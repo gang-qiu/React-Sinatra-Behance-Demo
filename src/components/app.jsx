@@ -27,6 +27,7 @@ export default class App extends React.Component {
       this._fetchUserInfo(userName),
       this._fetchUserWorkExperience(userName),
     ]).catch(err => {
+      // all requests have failed with 
       this.setState({errorFetchingResults: true});
       console.log(err);
     }).finally(() => {
@@ -64,18 +65,19 @@ export default class App extends React.Component {
   }
 
   render() {
+    console.log(this.state.isFinishedFetchingData)
     return (
       <div>
         <Header onClickLogo={this.clearUserSearchResults}/>
         {
-          this.state.isFinishedFetchingData 
-          ? <SearchPage 
-              handleSubmit={this.onSubmitUserSearchForm} 
-              errorFetchingResults={this.state.errorFetchingResults}/> 
-          : <UserProfilePage 
+          this.state.isFinishedFetchingData && !this.state.errorFetchingResults
+          ? <UserProfilePage 
               userData={this.state.userInfoData} 
               handleBackBtnClick={this.clearUserSearchResults}
             />
+          : <SearchPage 
+              handleSubmit={this.onSubmitUserSearchForm} 
+              errorFetchingResults={this.state.errorFetchingResults}/> 
         }
       </div>
     )

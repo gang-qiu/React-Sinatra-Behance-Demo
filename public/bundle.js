@@ -58,7 +58,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	__webpack_require__(178);
+	__webpack_require__(182);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19829,6 +19829,7 @@
 	      });
 
 	      Promise.all([this._fetchUserInfo(userName), this._fetchUserWorkExperience(userName)]).catch(function (err) {
+	        // all requests have failed with 
 	        _this2.setState({ errorFetchingResults: true });
 	        console.log(err);
 	      }).finally(function () {
@@ -19874,16 +19875,17 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      console.log(this.state.isFinishedFetchingData);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(_header2.default, { onClickLogo: this.clearUserSearchResults }),
-	        this.state.isFinishedFetchingData ? _react2.default.createElement(_searchPage2.default, {
-	          handleSubmit: this.onSubmitUserSearchForm,
-	          errorFetchingResults: this.state.errorFetchingResults }) : _react2.default.createElement(_userProfilePage2.default, {
+	        this.state.isFinishedFetchingData && !this.state.errorFetchingResults ? _react2.default.createElement(_userProfilePage2.default, {
 	          userData: this.state.userInfoData,
 	          handleBackBtnClick: this.clearUserSearchResults
-	        })
+	        }) : _react2.default.createElement(_searchPage2.default, {
+	          handleSubmit: this.onSubmitUserSearchForm,
+	          errorFetchingResults: this.state.errorFetchingResults })
 	      );
 	    }
 	  }]);
@@ -21736,11 +21738,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _userProfileSidebar = __webpack_require__(180);
+	var _userProfileSidebar = __webpack_require__(178);
 
 	var _userProfileSidebar2 = _interopRequireDefault(_userProfileSidebar);
 
-	__webpack_require__(182);
+	__webpack_require__(180);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21784,70 +21786,6 @@
 /* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	
-	var content = __webpack_require__(179);
-
-	if(typeof content === 'string') content = [[module.id, content, '']];
-
-	var transform;
-	var insertInto;
-
-
-
-	var options = {"hmr":true}
-
-	options.transform = transform
-	options.insertInto = undefined;
-
-	var update = __webpack_require__(164)(content, options);
-
-	if(content.locals) module.exports = content.locals;
-
-	if(false) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
-
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-			var locals = (function(a, b) {
-				var key, idx = 0;
-
-				for(key in a) {
-					if(!b || a[key] !== b[key]) return false;
-					idx++;
-				}
-
-				for(key in b) idx--;
-
-				return idx === 0;
-			}(content.locals, newContent.locals));
-
-			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-			update(newContent);
-		});
-
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
-/* 179 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)(false);
-	// imports
-
-
-	// module
-	exports.push([module.id, "* {\n  font-family: sans-serif;\n}", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 180 */
-/***/ (function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -21860,7 +21798,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _userProfileSidebarBasicInfo = __webpack_require__(181);
+	var _userProfileSidebarBasicInfo = __webpack_require__(179);
 
 	var _userProfileSidebarBasicInfo2 = _interopRequireDefault(_userProfileSidebarBasicInfo);
 
@@ -21972,7 +21910,7 @@
 	}
 
 /***/ }),
-/* 181 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22036,11 +21974,11 @@
 	};
 
 /***/ }),
-/* 182 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	var content = __webpack_require__(183);
+	var content = __webpack_require__(181);
 
 	if(typeof content === 'string') content = [[module.id, content, '']];
 
@@ -22086,7 +22024,7 @@
 	}
 
 /***/ }),
-/* 183 */
+/* 181 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(163)(false);
@@ -22095,6 +22033,70 @@
 
 	// module
 	exports.push([module.id, "aside {\n  width: 300px;\n  height: 100%;\n  background: lightgrey;\n}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(183);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, "* {\n  font-family: sans-serif;\n}", ""]);
 
 	// exports
 
