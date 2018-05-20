@@ -21853,6 +21853,7 @@
 	  _createClass(UserProfileSideBar, [{
 	    key: 'render',
 	    value: function render() {
+	      console.log(this.props.userData);
 	      var userBasicInfoData = {
 	        name: this.props.userData.display_name,
 	        website: this.props.userData.website,
@@ -21861,10 +21862,15 @@
 	        imgUrl: this.props.userData.images[50]
 	      };
 
+	      var userStatsData = this.props.userData.stats;
+
 	      return _react2.default.createElement(
 	        'aside',
 	        null,
-	        _react2.default.createElement(UserBasicInfo, { data: userBasicInfoData })
+	        _react2.default.createElement(UserBasicInfo, { data: userBasicInfoData }),
+	        _react2.default.createElement('hr', null),
+	        _react2.default.createElement(UserStats, { data: userStatsData }),
+	        _react2.default.createElement('hr', null)
 	      );
 	    }
 	  }]);
@@ -21900,6 +21906,37 @@
 	      props.data.website
 	    ),
 	    _react2.default.createElement('img', { src: props.data.imgUrl })
+	  );
+	}
+
+	function UserStats(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      'Project Views ',
+	      props.data.views
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      'Appreciations ',
+	      props.data.appreciations
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      'Followers ',
+	      props.data.followers
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      'Following ',
+	      props.data.following
+	    )
 	  );
 	}
 
