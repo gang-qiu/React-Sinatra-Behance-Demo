@@ -21909,6 +21909,7 @@
 
 	    _this.onClickFollowersLink = _this.onClickFollowersLink.bind(_this);
 	    _this.onClickFollowingLink = _this.onClickFollowingLink.bind(_this);
+	    _this.onClickUserName = _this.onClickUserName.bind(_this);
 	    return _this;
 	  }
 
@@ -21917,6 +21918,13 @@
 	    value: function componentDidMount() {
 	      // immediately fire off requests for additional user info
 	      this._fetchUserWorkExperience(this.props.userData.username);
+	      this._fetchUserProjects(this.props.userData.username);
+	    }
+	  }, {
+	    key: 'onClickUserName',
+	    value: function onClickUserName() {
+	      // fetch for user projects
+	      this.setState({ activeView: 'projects' });
 	      this._fetchUserProjects(this.props.userData.username);
 	    }
 	  }, {
@@ -22011,14 +22019,15 @@
 	        ),
 	        _react2.default.createElement(_userProfileSidebar2.default, {
 	          userData: this.props.userData,
+	          onClickUserName: this.onClickUserName,
 
-	          onClickFollowersLink: this.onClickFollowersLink,
 	          isLoadingFollowersData: this.state.isLoadingFollowersData,
 	          followersData: this.state.followersData,
+	          onClickFollowersLink: this.onClickFollowersLink,
 
-	          onClickFollowingLink: this.onClickFollowingLink,
 	          isLoadingFollowingData: this.state.isLoadingFollowingData,
 	          followingData: this.state.followingData,
+	          onClickFollowingLink: this.onClickFollowingLink,
 
 	          isLoadingWorkExperienceData: this.state.isLoadingWorkExperienceData,
 	          workExperienceData: this.state.workExperienceData }),
@@ -22085,7 +22094,9 @@
 	      return _react2.default.createElement(
 	        'aside',
 	        { style: { float: 'left' } },
-	        _react2.default.createElement(UserBasicInfo, { data: userBasicInfoData }),
+	        _react2.default.createElement(UserBasicInfo, {
+	          data: userBasicInfoData,
+	          onClickUserName: this.props.onClickUserName }),
 	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(UserStats, {
 	          data: userStatsData,
@@ -22109,7 +22120,7 @@
 	    null,
 	    _react2.default.createElement(
 	      'h3',
-	      null,
+	      { onClick: props.onClickUserName },
 	      props.data.name
 	    ),
 	    _react2.default.createElement(

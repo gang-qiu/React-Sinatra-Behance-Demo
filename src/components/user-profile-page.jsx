@@ -24,11 +24,18 @@ export default class UserProfilePage extends React.Component {
 
     this.onClickFollowersLink = this.onClickFollowersLink.bind(this);
     this.onClickFollowingLink = this.onClickFollowingLink.bind(this);
+    this.onClickUserName = this.onClickUserName.bind(this);
   }
 
   componentDidMount() {
     // immediately fire off requests for additional user info
     this._fetchUserWorkExperience(this.props.userData.username);
+    this._fetchUserProjects(this.props.userData.username);
+  }
+
+  onClickUserName() {
+    // fetch for user projects
+    this.setState({activeView: 'projects'});
     this._fetchUserProjects(this.props.userData.username);
   }
 
@@ -102,14 +109,15 @@ export default class UserProfilePage extends React.Component {
         <p>{this.state.activeView}</p>
         <UserProfileSideBar 
           userData={this.props.userData}
+          onClickUserName={this.onClickUserName}
 
-          onClickFollowersLink={this.onClickFollowersLink}
           isLoadingFollowersData={this.state.isLoadingFollowersData}
           followersData={this.state.followersData}
+          onClickFollowersLink={this.onClickFollowersLink}
 
-          onClickFollowingLink={this.onClickFollowingLink}
           isLoadingFollowingData={this.state.isLoadingFollowingData}
           followingData={this.state.followingData}
+          onClickFollowingLink={this.onClickFollowingLink}
 
           isLoadingWorkExperienceData={this.state.isLoadingWorkExperienceData}
           workExperienceData={this.state.workExperienceData}/>

@@ -16,7 +16,9 @@ export default class UserProfileSideBar extends React.Component {
 
     return (
       <aside style={{float: 'left'}}>
-        <UserBasicInfo data={userBasicInfoData}/>
+        <UserBasicInfo 
+          data={userBasicInfoData}
+          onClickUserName={this.props.onClickUserName}/>
         <hr/>
         <UserStats 
           data={userStatsData} 
@@ -32,7 +34,7 @@ export default class UserProfileSideBar extends React.Component {
 function UserBasicInfo(props) {
   return (
     <div>
-      <h3>{props.data.name}</h3> 
+      <h3 onClick={props.onClickUserName}>{props.data.name}</h3> 
       <p>{props.data.job}</p>
       <p>{props.data.location}</p>
       <p>{props.data.website}</p>
