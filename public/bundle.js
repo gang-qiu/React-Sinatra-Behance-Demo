@@ -58,7 +58,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	__webpack_require__(185);
+	__webpack_require__(186);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21869,7 +21869,11 @@
 
 	var _userProfileSidebar2 = _interopRequireDefault(_userProfileSidebar);
 
-	__webpack_require__(183);
+	var _userProfileMainView = __webpack_require__(182);
+
+	var _userProfileMainView2 = _interopRequireDefault(_userProfileMainView);
+
+	__webpack_require__(184);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21889,7 +21893,10 @@
 
 	    _this.state = {
 	      isLoadingWorkExperienceData: false,
-	      workExperienceData: null
+	      workExperienceData: null,
+
+	      isLoadingProjectsData: false,
+	      projectsData: null
 	    };
 	    return _this;
 	  }
@@ -21899,7 +21906,9 @@
 	    value: function componentDidMount() {
 	      // immediately fire off requests for additional user info
 	      var userName = this.props.userData.username;
+
 	      this._fetchUserWorkExperience(userName);
+	      this._fetchUserProjects(userName);
 	    }
 
 	    /**
@@ -21911,14 +21920,29 @@
 	    value: function _fetchUserWorkExperience(userName) {
 	      var _this2 = this;
 
+	      this.setState({ isLoadingProjectsData: true });
+
+	      return fetch('/api/user/' + userName + '/projects').then(function (resp) {
+	        return resp.json();
+	      }).then(function (data) {
+	        _this2.setState({ projectsData: data.projects });
+	      }).finally(function () {
+	        _this2.setState({ isLoadingProjectsData: false });
+	      });
+	    }
+	  }, {
+	    key: '_fetchUserProjects',
+	    value: function _fetchUserProjects(userName) {
+	      var _this3 = this;
+
 	      this.setState({ isLoadingWorkExperienceData: true });
 
 	      return fetch('/api/user/' + userName + '/work_experience').then(function (resp) {
 	        return resp.json();
 	      }).then(function (data) {
-	        _this2.setState({ workExperienceData: data.work_experience });
+	        _this3.setState({ workExperienceData: data.work_experience });
 	      }).finally(function () {
-	        _this2.setState({ isLoadingWorkExperienceData: false });
+	        _this3.setState({ isLoadingWorkExperienceData: false });
 	      });
 	    }
 	  }, {
@@ -21930,7 +21954,10 @@
 	        _react2.default.createElement(_userProfileSidebar2.default, {
 	          userData: this.props.userData,
 	          isLoadingWorkExperienceData: this.state.isLoadingWorkExperienceData,
-	          workExperienceData: this.state.workExperienceData })
+	          workExperienceData: this.state.workExperienceData }),
+	        _react2.default.createElement(_userProfileMainView2.default, {
+	          isLoadingProjectsData: this.state.isLoadingProjectsData,
+	          projectsData: this.state.projectsData })
 	      );
 	    }
 	  }]);
@@ -21955,10 +21982,6 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
-
-	var _userProfileSidebarBasicInfo = __webpack_require__(182);
-
-	var _userProfileSidebarBasicInfo2 = _interopRequireDefault(_userProfileSidebarBasicInfo);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21993,7 +22016,7 @@
 
 	      return _react2.default.createElement(
 	        'aside',
-	        null,
+	        { style: { float: 'left' } },
 	        _react2.default.createElement(UserBasicInfo, { data: userBasicInfoData }),
 	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(UserStats, { data: userStatsData }),
@@ -22115,9 +22138,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _propTypes = __webpack_require__(168);
+	var _userProfileProjectCard = __webpack_require__(183);
 
-	var _propTypes2 = _interopRequireDefault(_propTypes);
+	var _userProfileProjectCard2 = _interopRequireDefault(_userProfileProjectCard);
+
+	__webpack_require__(188);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22127,48 +22152,105 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var UserProfileSideBarBasicInfo = function (_React$Component) {
-	  _inherits(UserProfileSideBarBasicInfo, _React$Component);
+	var UserProfileMainView = function (_React$Component) {
+	  _inherits(UserProfileMainView, _React$Component);
 
-	  function UserProfileSideBarBasicInfo() {
-	    _classCallCheck(this, UserProfileSideBarBasicInfo);
+	  function UserProfileMainView() {
+	    _classCallCheck(this, UserProfileMainView);
 
-	    return _possibleConstructorReturn(this, (UserProfileSideBarBasicInfo.__proto__ || Object.getPrototypeOf(UserProfileSideBarBasicInfo)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (UserProfileMainView.__proto__ || Object.getPrototypeOf(UserProfileMainView)).apply(this, arguments));
 	  }
 
-	  _createClass(UserProfileSideBarBasicInfo, [{
+	  _createClass(UserProfileMainView, [{
 	    key: 'render',
 	    value: function render() {
-	      _react2.default.createElement(
-	        'div',
-	        null,
-	        JSON.stringify(this.props.data)
+	      var projects = Array.isArray(this.props.projectsData) ? this.props.projectsData : [];
+	      return _react2.default.createElement(
+	        'main',
+	        { className: 'projects-container' },
+	        projects.map(function (project) {
+	          return _react2.default.createElement(_userProfileProjectCard2.default, { key: project.id, project: project });
+	        })
 	      );
 	    }
 	  }]);
 
-	  return UserProfileSideBarBasicInfo;
+	  return UserProfileMainView;
 	}(_react2.default.Component);
 
-	exports.default = UserProfileSideBarBasicInfo;
-
-
-	UserProfileSideBarBasicInfo.propTypes = {
-	  data: _propTypes2.default.shape({
-	    name: _propTypes2.default.string.isRequired,
-	    jobTitle: _propTypes2.default.string.isRequired,
-	    websiteUrl: _propTypes2.default.string.isRequired,
-	    location: _propTypes2.default.string.isRequired,
-	    imgUrl: _propTypes2.default.string.isRequired
-	  }).isRequired
-	};
+	exports.default = UserProfileMainView;
 
 /***/ }),
 /* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var UserProfileProjectCard = function (_React$Component) {
+	  _inherits(UserProfileProjectCard, _React$Component);
+
+	  function UserProfileProjectCard() {
+	    _classCallCheck(this, UserProfileProjectCard);
+
+	    return _possibleConstructorReturn(this, (UserProfileProjectCard.__proto__ || Object.getPrototypeOf(UserProfileProjectCard)).apply(this, arguments));
+	  }
+
+	  _createClass(UserProfileProjectCard, [{
+	    key: "render",
+	    value: function render() {
+	      console.log(this.props);
+	      var project = this.props.project;
+
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "project-card" },
+	        _react2.default.createElement("img", { src: project.covers[230] }),
+	        _react2.default.createElement(
+	          "p",
+	          null,
+	          project.name
+	        ),
+	        _react2.default.createElement(
+	          "p",
+	          null,
+	          "Likes ",
+	          project.stats.appreciations,
+	          " | Views ",
+	          project.stats.views
+	        )
+	      );
+	    }
+	  }]);
+
+	  return UserProfileProjectCard;
+	}(_react2.default.Component);
+
+	exports.default = UserProfileProjectCard;
+
+/***/ }),
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	
-	var content = __webpack_require__(184);
+	var content = __webpack_require__(185);
 
 	if(typeof content === 'string') content = [[module.id, content, '']];
 
@@ -22214,7 +22296,7 @@
 	}
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(163)(false);
@@ -22228,11 +22310,11 @@
 
 
 /***/ }),
-/* 185 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	var content = __webpack_require__(186);
+	var content = __webpack_require__(187);
 
 	if(typeof content === 'string') content = [[module.id, content, '']];
 
@@ -22278,7 +22360,7 @@
 	}
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(163)(false);
@@ -22287,6 +22369,70 @@
 
 	// module
 	exports.push([module.id, "* {\n  font-family: sans-serif;\n}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 188 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(189);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../../node_modules/css-loader/index.js!./user-profile-main-view.css", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!./user-profile-main-view.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, ".projects-container {\n  float: left;\n  width: 750px;\n}\n\n.projects-container::after {\n  content: '';\n  clear: both;\n  display: block;\n}\n\n.project-card {\n  background: lightgrey;\n  margin: 10px 20px;\n  width: 200px;\n  height: 300px;\n  float: left;\n}\n\n.project-card img {\n  width: 200px;\n  height: auto;\n}", ""]);
 
 	// exports
 

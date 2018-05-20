@@ -1,11 +1,7 @@
 import React from 'react';
-import UserProfileSideBarBasicInfo from './user-profile-sidebar-basic-info';
 
 export default class UserProfileSideBar extends React.Component {
 
-
-
-  
   render() {
     const userBasicInfoData = {
       name: this.props.userData.display_name,
@@ -19,7 +15,7 @@ export default class UserProfileSideBar extends React.Component {
     const workExperienceData = this.props.workExperienceData;
 
     return (
-      <aside>
+      <aside style={{float: 'left'}}>
         <UserBasicInfo data={userBasicInfoData}/>
         <hr/>
         <UserStats data={userStatsData}/>
