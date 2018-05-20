@@ -19826,8 +19826,7 @@
 	      fetch('/api/user/' + userName).then(function (resp) {
 	        return resp.json();
 	      }).then(function (data) {
-	        console.log(data);
-	        _this2.setState({ userSearchResults: data.data });
+	        _this2.setState({ userSearchResults: data.user });
 	      }).catch(function (err) {
 	        _this2.setState({ errorFetchingResults: true });
 	        console.log(err);
@@ -19851,7 +19850,7 @@
 	        this.state.userSearchResults === null ? _react2.default.createElement(_searchPage2.default, {
 	          handleSubmit: this.onSubmitUserSearchForm,
 	          errorFetchingResults: this.state.errorFetchingResults }) : _react2.default.createElement(_userProfilePage2.default, {
-	          userSearchResults: this.state.userSearchResults,
+	          userData: this.state.userSearchResults,
 	          handleBackBtnClick: this.clearUserSearchResults
 	        })
 	      );
@@ -21706,6 +21705,12 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _userProfileSidebar = __webpack_require__(180);
+
+	var _userProfileSidebar2 = _interopRequireDefault(_userProfileSidebar);
+
+	__webpack_require__(182);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21730,16 +21735,11 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Results for User ',
-	          this.props.userSearchResults
-	        ),
-	        _react2.default.createElement(
 	          'button',
 	          { onClick: this.props.handleBackBtnClick },
 	          'Back to Search'
-	        )
+	        ),
+	        _react2.default.createElement(_userProfileSidebar2.default, { userData: this.props.userData })
 	      );
 	    }
 	  }]);
@@ -21809,6 +21809,224 @@
 
 	// module
 	exports.push([module.id, "* {\n  font-family: sans-serif;\n}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 180 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _userProfileSidebarBasicInfo = __webpack_require__(181);
+
+	var _userProfileSidebarBasicInfo2 = _interopRequireDefault(_userProfileSidebarBasicInfo);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var UserProfileSideBar = function (_React$Component) {
+	  _inherits(UserProfileSideBar, _React$Component);
+
+	  function UserProfileSideBar() {
+	    _classCallCheck(this, UserProfileSideBar);
+
+	    return _possibleConstructorReturn(this, (UserProfileSideBar.__proto__ || Object.getPrototypeOf(UserProfileSideBar)).apply(this, arguments));
+	  }
+
+	  _createClass(UserProfileSideBar, [{
+	    key: 'render',
+	    value: function render() {
+	      var userBasicInfoData = {
+	        name: this.props.userData.display_name,
+	        website: this.props.userData.website,
+	        job: this.props.userData.occupation,
+	        location: this.props.userData.location,
+	        imgUrl: this.props.userData.images[50]
+	      };
+
+	      return _react2.default.createElement(
+	        'aside',
+	        null,
+	        _react2.default.createElement(UserBasicInfo, { data: userBasicInfoData })
+	      );
+	    }
+	  }]);
+
+	  return UserProfileSideBar;
+	}(_react2.default.Component);
+
+	exports.default = UserProfileSideBar;
+
+
+	function UserBasicInfo(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h3',
+	      null,
+	      props.data.name
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      props.data.job
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      props.data.location
+	    ),
+	    _react2.default.createElement(
+	      'p',
+	      null,
+	      props.data.website
+	    ),
+	    _react2.default.createElement('img', { src: props.data.imgUrl })
+	  );
+	}
+
+/***/ }),
+/* 181 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _propTypes = __webpack_require__(168);
+
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var UserProfileSideBarBasicInfo = function (_React$Component) {
+	  _inherits(UserProfileSideBarBasicInfo, _React$Component);
+
+	  function UserProfileSideBarBasicInfo() {
+	    _classCallCheck(this, UserProfileSideBarBasicInfo);
+
+	    return _possibleConstructorReturn(this, (UserProfileSideBarBasicInfo.__proto__ || Object.getPrototypeOf(UserProfileSideBarBasicInfo)).apply(this, arguments));
+	  }
+
+	  _createClass(UserProfileSideBarBasicInfo, [{
+	    key: 'render',
+	    value: function render() {
+	      _react2.default.createElement(
+	        'div',
+	        null,
+	        JSON.stringify(this.props.data)
+	      );
+	    }
+	  }]);
+
+	  return UserProfileSideBarBasicInfo;
+	}(_react2.default.Component);
+
+	exports.default = UserProfileSideBarBasicInfo;
+
+
+	UserProfileSideBarBasicInfo.propTypes = {
+	  data: _propTypes2.default.shape({
+	    name: _propTypes2.default.string.isRequired,
+	    jobTitle: _propTypes2.default.string.isRequired,
+	    websiteUrl: _propTypes2.default.string.isRequired,
+	    location: _propTypes2.default.string.isRequired,
+	    imgUrl: _propTypes2.default.string.isRequired
+	  }).isRequired
+	};
+
+/***/ }),
+/* 182 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(183);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, "aside {\n  width: 300px;\n  height: 100%;\n  background: lightgrey;\n}", ""]);
 
 	// exports
 

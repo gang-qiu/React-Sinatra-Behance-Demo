@@ -29,7 +29,7 @@ get '/api/user/:name/projects' do |name|
 end
 
 def _handleResponse(response)
-  sleep(1.5)   # short delay to show loading states
+  # sleep(1.5)   # short delay to show loading states
   case response
     when Net::HTTPSuccess then
       JSON.parse(response.body).to_json

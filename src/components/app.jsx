@@ -21,8 +21,7 @@ export default class App extends React.Component {
     fetch(`/api/user/${userName}`).then(resp => {
       return resp.json();
     }).then(data => {
-      console.log(data);
-      this.setState({userSearchResults: data.data});
+      this.setState({userSearchResults: data.user});
     }).catch(err => {
       this.setState({errorFetchingResults: true});
       console.log(err);
@@ -46,7 +45,7 @@ export default class App extends React.Component {
               handleSubmit={this.onSubmitUserSearchForm} 
               errorFetchingResults={this.state.errorFetchingResults}/> 
           : <UserProfilePage 
-              userSearchResults={this.state.userSearchResults} 
+              userData={this.state.userSearchResults} 
               handleBackBtnClick={this.clearUserSearchResults}
             />
         }
