@@ -7,6 +7,7 @@ export default class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      searchUsersResultsList: null,     // list of users from the initial search of users
       userInfoData: null,
       userWorkExperienceData: null,
       errorFetchingResults: false,
@@ -18,26 +19,37 @@ export default class App extends React.Component {
   }
 
   onSubmitUserSearchForm(userName) {
+    // search for users based on user name
     this.setState({
       errorFetchingResults: false,
       isFinishedFetchingData: false,
     });
 
-    Promise.all([
-      this._fetchUserInfo(userName),
-      this._fetchUserWorkExperience(userName),
-    ]).catch(err => {
-      // all requests have failed with 
-      this.setState({errorFetchingResults: true});
-      console.log(err);
-    }).finally(() => {
-      this.setState({isFinishedFetchingData: true});
-    });
+    this._queryUsers(userName)
+
+    // Promise.all([
+    //   this._fetchUserInfo(userName),
+    //   this._fetchUserWorkExperience(userName),
+    // ]).catch(err => {
+    //   // all requests have failed with 
+    //   this.setState({errorFetchingResults: true});
+    //   console.log(err);
+    // }).finally(() => {
+    //   this.setState({isFinishedFetchingData: true});
+    // });
   }
 
   /**
     The following helper methods return promises
   */
+  _queryUsers(userName) {
+    return fetch(`/api/user/${userName}/search`).then(resp => {
+      return resp.json();
+    }).then(data => {
+      this.setState({searchUsersResultsList: data.users});
+    });
+  }
+
   _fetchUserInfo(userName) {
     return fetch(`/api/user/${userName}`).then(resp => {
       return resp.json();
@@ -77,7 +89,8 @@ export default class App extends React.Component {
             />
           : <SearchPage 
               handleSubmit={this.onSubmitUserSearchForm} 
-              errorFetchingResults={this.state.errorFetchingResults}/> 
+              errorFetchingResults={this.state.errorFetchingResults}
+              searchUsersResultsList={this.state.searchUsersResultsList}/> 
         }
       </div>
     )

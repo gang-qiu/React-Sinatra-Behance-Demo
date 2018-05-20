@@ -19807,6 +19807,7 @@
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
 	    _this.state = {
+	      searchUsersResultsList: null, // list of users from the initial search of users
 	      userInfoData: null,
 	      userWorkExperienceData: null,
 	      errorFetchingResults: false,
@@ -19821,26 +19822,41 @@
 	  _createClass(App, [{
 	    key: 'onSubmitUserSearchForm',
 	    value: function onSubmitUserSearchForm(userName) {
-	      var _this2 = this;
-
+	      // search for users based on user name
 	      this.setState({
 	        errorFetchingResults: false,
 	        isFinishedFetchingData: false
 	      });
 
-	      Promise.all([this._fetchUserInfo(userName), this._fetchUserWorkExperience(userName)]).catch(function (err) {
-	        // all requests have failed with 
-	        _this2.setState({ errorFetchingResults: true });
-	        console.log(err);
-	      }).finally(function () {
-	        _this2.setState({ isFinishedFetchingData: true });
-	      });
+	      this._queryUsers(userName);
+
+	      // Promise.all([
+	      //   this._fetchUserInfo(userName),
+	      //   this._fetchUserWorkExperience(userName),
+	      // ]).catch(err => {
+	      //   // all requests have failed with 
+	      //   this.setState({errorFetchingResults: true});
+	      //   console.log(err);
+	      // }).finally(() => {
+	      //   this.setState({isFinishedFetchingData: true});
+	      // });
 	    }
 
 	    /**
 	      The following helper methods return promises
 	    */
 
+	  }, {
+	    key: '_queryUsers',
+	    value: function _queryUsers(userName) {
+	      var _this2 = this;
+
+	      return fetch('/api/user/' + userName + '/search').then(function (resp) {
+	        return resp.json();
+	      }).then(function (data) {
+	        _this2.setState({ searchUsersResultsList: data.users });
+	      });
+	    }
 	  }, {
 	    key: '_fetchUserInfo',
 	    value: function _fetchUserInfo(userName) {
@@ -19885,7 +19901,8 @@
 	          handleBackBtnClick: this.clearUserSearchResults
 	        }) : _react2.default.createElement(_searchPage2.default, {
 	          handleSubmit: this.onSubmitUserSearchForm,
-	          errorFetchingResults: this.state.errorFetchingResults })
+	          errorFetchingResults: this.state.errorFetchingResults,
+	          searchUsersResultsList: this.state.searchUsersResultsList })
 	      );
 	    }
 	  }]);
@@ -20603,6 +20620,8 @@
 
 	var _searchUserInput2 = _interopRequireDefault(_searchUserInput);
 
+	__webpack_require__(184);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -20623,6 +20642,8 @@
 	  _createClass(SearchPage, [{
 	    key: 'render',
 	    value: function render() {
+	      var results = Array.isArray(this.props.searchUsersResultsList) ? this.props.searchUsersResultsList : [];
+	      console.log(results);
 	      return _react2.default.createElement(
 	        'main',
 	        null,
@@ -20636,7 +20657,10 @@
 	          'p',
 	          null,
 	          'Error loading results...'
-	        )
+	        ),
+	        results.map(function (result) {
+	          return _react2.default.createElement(SearchResult, { userResult: result });
+	        })
 	      );
 	    }
 	  }]);
@@ -20645,6 +20669,27 @@
 	}(_react2.default.Component);
 
 	exports.default = SearchPage;
+
+
+	function SearchResult(props) {
+	  var data = props.userResult;
+
+	  return _react2.default.createElement(
+	    'div',
+	    { key: data.id, className: 'search-result-row' },
+	    _react2.default.createElement('img', { src: data.images[50] }),
+	    _react2.default.createElement(
+	      'strong',
+	      null,
+	      data.display_name
+	    ),
+	    _react2.default.createElement(
+	      'span',
+	      null,
+	      data.location
+	    )
+	  );
+	}
 
 /***/ }),
 /* 167 */
@@ -20691,8 +20736,8 @@
 	  _createClass(SearchUserInput, [{
 	    key: 'handleSubmit',
 	    value: function handleSubmit(e) {
-	      this.props.onSubmit(this.state.userName);
 	      e.preventDefault();
+	      this.props.onSubmit(this.state.userName);
 	    }
 	  }, {
 	    key: 'handleChange',
@@ -22097,6 +22142,70 @@
 
 	// module
 	exports.push([module.id, "* {\n  font-family: sans-serif;\n}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(185);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../../node_modules/css-loader/index.js!./search-page.css", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!./search-page.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 185 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, ".search-result-row {\n  padding: 5px 10px;\n  border: 1px solid lightgrey;\n}\n\n.search-result-row:hover {\n  background: #eee;\n  cursor: pointer;\n}\n\n.search-result-row img {\n  width: 35px;\n  height: auto;\n}\n\n.search-result-row strong {\n  margin: 0 20px;\n}", ""]);
 
 	// exports
 

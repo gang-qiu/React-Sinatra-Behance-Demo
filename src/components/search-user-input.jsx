@@ -10,8 +10,8 @@ export default class SearchUserInput extends React.Component {
   }
 
   handleSubmit(e) {
-    this.props.onSubmit(this.state.userName);
     e.preventDefault();
+    this.props.onSubmit(this.state.userName);
   }
 
   handleChange(e) {
