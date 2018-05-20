@@ -20586,11 +20586,9 @@
 
 	var _searchUserInput2 = _interopRequireDefault(_searchUserInput);
 
-	var _searchResult = __webpack_require__(177);
+	var _usersList = __webpack_require__(177);
 
-	var _searchResult2 = _interopRequireDefault(_searchResult);
-
-	__webpack_require__(178);
+	var _usersList2 = _interopRequireDefault(_usersList);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20612,9 +20610,7 @@
 	  _createClass(SearchPage, [{
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-
-	      var results = Array.isArray(this.props.searchUsersResultsList) ? this.props.searchUsersResultsList : [];
+	      console.log(this.props.searchUsersResultsList);
 	      return _react2.default.createElement(
 	        'main',
 	        null,
@@ -20629,9 +20625,9 @@
 	          null,
 	          'Error loading results...'
 	        ),
-	        results.map(function (user) {
-	          return _react2.default.createElement(_searchResult2.default, { key: user.id, user: user, onSelectUser: _this2.props.onSelectUser });
-	        })
+	        this.props.searchUsersResultsList && _react2.default.createElement(_usersList2.default, {
+	          users: this.props.searchUsersResultsList,
+	          onSelectUser: this.props.onSelectUser })
 	      );
 	    }
 	  }]);
@@ -21721,7 +21717,7 @@
 /* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21733,6 +21729,12 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _propTypes = __webpack_require__(168);
+
+	var _propTypes2 = _interopRequireDefault(_propTypes);
+
+	__webpack_require__(178);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21741,49 +21743,77 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var SearchResult = function (_React$Component) {
-	  _inherits(SearchResult, _React$Component);
+	var UsersList = function (_React$Component) {
+	  _inherits(UsersList, _React$Component);
 
-	  function SearchResult(props) {
-	    _classCallCheck(this, SearchResult);
+	  function UsersList(props) {
+	    _classCallCheck(this, UsersList);
 
-	    var _this = _possibleConstructorReturn(this, (SearchResult.__proto__ || Object.getPrototypeOf(SearchResult)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (UsersList.__proto__ || Object.getPrototypeOf(UsersList)).call(this, props));
 
 	    _this.handleClick = _this.handleClick.bind(_this);
 	    return _this;
 	  }
 
-	  _createClass(SearchResult, [{
-	    key: "handleClick",
-	    value: function handleClick() {
-	      this.props.onSelectUser(this.props.user);
+	  _createClass(UsersList, [{
+	    key: 'handleClick',
+	    value: function handleClick(user) {
+	      this.props.onSelectUser && this.props.onSelectUser(user);
 	    }
 	  }, {
-	    key: "render",
-	    value: function render() {
-	      var user = this.props.user;
+	    key: 'renderUserListRow',
+	    value: function renderUserListRow(user) {
+	      // return a single user list row element
+	      var imgSrc = user.images && user.images[50] || null;
+
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "search-result-row", onClick: this.handleClick },
-	        _react2.default.createElement("img", { src: user.images[50] }),
+	        'div',
+	        { key: user.id, className: 'user-list-row', onClick: this.handleClick.bind(this, user) },
+	        imgSrc && _react2.default.createElement('img', { src: imgSrc }),
 	        _react2.default.createElement(
-	          "strong",
+	          'strong',
 	          null,
 	          user.display_name
 	        ),
 	        _react2.default.createElement(
-	          "span",
+	          'span',
 	          null,
 	          user.location
 	        )
 	      );
 	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var users = Array.isArray(this.props.users) ? this.props.users : [];
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'users-list' },
+	        users.map(function (user) {
+	          return _this2.renderUserListRow(user);
+	        })
+	      );
+	    }
 	  }]);
 
-	  return SearchResult;
+	  return UsersList;
 	}(_react2.default.Component);
 
-	exports.default = SearchResult;
+	exports.default = UsersList;
+
+
+	UsersList.propTypes = {
+	  onSelectUser: _propTypes2.default.func,
+	  users: _propTypes2.default.arrayOf(_propTypes2.default.shape({
+	    id: _propTypes2.default.number.isRequired,
+	    images: _propTypes2.default.object.isRequired,
+	    display_name: _propTypes2.default.string.isRequired,
+	    location: _propTypes2.default.string.isRequired
+	  })).isRequired
+	};
 
 /***/ }),
 /* 178 */
@@ -21809,8 +21839,8 @@
 	if(content.locals) module.exports = content.locals;
 
 	if(false) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js!./search-page.css", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js!./search-page.css");
+		module.hot.accept("!!../../node_modules/css-loader/index.js!./users-list.css", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!./users-list.css");
 
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 
@@ -21844,7 +21874,7 @@
 
 
 	// module
-	exports.push([module.id, ".search-result-row {\n  padding: 5px 10px;\n  border: 1px solid lightgrey;\n}\n\n.search-result-row:hover {\n  background: #eee;\n  cursor: pointer;\n}\n\n.search-result-row img {\n  width: 35px;\n  height: auto;\n}\n\n.search-result-row strong {\n  margin: 0 20px;\n}", ""]);
+	exports.push([module.id, ".user-list-row {\n  padding: 5px 10px;\n  border: 1px solid lightgrey;\n}\n\n.user-list-row:hover {\n  background: #eee;\n  cursor: pointer;\n}\n\n.user-list-row img {\n  width: 35px;\n  height: auto;\n}\n\n.user-list-row strong {\n  margin: 0 20px;\n}", ""]);
 
 	// exports
 
@@ -22086,9 +22116,9 @@
 	        website: this.props.userData.website,
 	        job: this.props.userData.occupation,
 	        location: this.props.userData.location,
-	        imgUrl: this.props.userData.images[50]
+	        imgUrl: this.props.userData.images && this.props.userData.images[50]
 	      };
-
+	      console.log(this.props.userData);
 	      var userStatsData = this.props.userData.stats;
 	      var workExperienceData = this.props.workExperienceData;
 
@@ -22139,7 +22169,7 @@
 	      null,
 	      props.data.website
 	    ),
-	    _react2.default.createElement('img', { src: props.data.imgUrl })
+	    props.data.imgUrl && _react2.default.createElement('img', { src: props.data.imgUrl })
 	  );
 	}
 

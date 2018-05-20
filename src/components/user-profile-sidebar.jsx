@@ -8,9 +8,9 @@ export default class UserProfileSideBar extends React.Component {
       website: this.props.userData.website,
       job: this.props.userData.occupation,
       location: this.props.userData.location,
-      imgUrl: this.props.userData.images[50]
+      imgUrl: this.props.userData.images && this.props.userData.images[50]
     }
-
+    console.log(this.props.userData)
     const userStatsData = this.props.userData.stats;
     const workExperienceData = this.props.workExperienceData;
 
@@ -38,7 +38,7 @@ function UserBasicInfo(props) {
       <p>{props.data.job}</p>
       <p>{props.data.location}</p>
       <p>{props.data.website}</p>
-      <img src={props.data.imgUrl}/>
+      {props.data.imgUrl && <img src={props.data.imgUrl}/>}
     </div>
   )
 }
