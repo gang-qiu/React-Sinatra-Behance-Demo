@@ -18,7 +18,10 @@ export default class UserProfileSideBar extends React.Component {
       <aside style={{float: 'left'}}>
         <UserBasicInfo data={userBasicInfoData}/>
         <hr/>
-        <UserStats data={userStatsData} onClickFollowersLink={this.props.onClickFollowersLink}/>
+        <UserStats 
+          data={userStatsData} 
+          onClickFollowersLink={this.props.onClickFollowersLink}
+          onClickFollowingLink={this.props.onClickFollowingLink}/>
         <hr/>
         <UserWorkExperience data={workExperienceData} />
       </aside>
@@ -44,7 +47,7 @@ function UserStats(props) {
       <p>Project Views {props.data.views}</p> 
       <p>Appreciations {props.data.appreciations}</p>
       <p onClick={props.onClickFollowersLink}>Followers {props.data.followers}</p>
-      <p>Following {props.data.following}</p>
+      <p onClick={props.onClickFollowingLink}>Following {props.data.following}</p>
     </div>
   )
 }

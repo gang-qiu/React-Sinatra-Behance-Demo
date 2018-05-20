@@ -48,6 +48,15 @@ get '/api/user/:name/followers' do |name|
   Mock::FOLLOWERS.to_json
 end
 
+# Fetch following users for one user
+get '/api/user/:name/following' do |name|
+  content_type :json
+  behance_url = "https://api.behance.net/v2/users/#{name}/following?client_id=#{CLIENT_ID}"
+  # res = Net::HTTP.get_response(URI(behance_url))
+  # _handleResponse(res)
+  Mock::FOLLOWING.to_json
+end
+
 def _handleResponse(response)
   # sleep(1.5)   # short delay to show loading states
   case response

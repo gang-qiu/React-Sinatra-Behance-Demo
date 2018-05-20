@@ -17,9 +17,13 @@ export default class UserProfilePage extends React.Component {
 
       isLoadingFollowersData: false,
       followersData: null,
+
+      isLoadingFollowingData: false,
+      followingData: null,
     };
 
     this.onClickFollowersLink = this.onClickFollowersLink.bind(this);
+    this.onClickFollowingLink = this.onClickFollowingLink.bind(this);
   }
 
   componentDidMount() {
@@ -32,6 +36,12 @@ export default class UserProfilePage extends React.Component {
     // fetch for user followers info when the "followers" link on the profile page is clicked
     this.setState({activeView: 'followers'});
     this._fetchUserFollowers(this.props.userData.username);
+  }
+
+  onClickFollowingLink() {
+    // fetch for user followers info when the "followers" link on the profile page is clicked
+    this.setState({activeView: 'following'});
+    this._fetchUserFollowings(this.props.userData.username);
   }
 
   /**
@@ -74,14 +84,33 @@ export default class UserProfilePage extends React.Component {
     });
   }
 
+  _fetchUserFollowings(userName) {
+    this.setState({isLoadingFollowingData: true});
+
+    return fetch(`/api/user/${userName}/following`).then(resp => {
+      return resp.json();
+    }).then(data => {
+      this.setState({followingData: data.following});
+    }).finally(() => {
+      this.setState({isLoadingFollowingData: false});
+    });
+  }
+
   render() {
     return (
       <div>
+        <p>{this.state.activeView}</p>
         <UserProfileSideBar 
           userData={this.props.userData}
+
           onClickFollowersLink={this.onClickFollowersLink}
           isLoadingFollowersData={this.state.isLoadingFollowersData}
           followersData={this.state.followersData}
+
+          onClickFollowingLink={this.onClickFollowingLink}
+          isLoadingFollowingData={this.state.isLoadingFollowingData}
+          followingData={this.state.followingData}
+
           isLoadingWorkExperienceData={this.state.isLoadingWorkExperienceData}
           workExperienceData={this.state.workExperienceData}/>
         <UserProfileMainView

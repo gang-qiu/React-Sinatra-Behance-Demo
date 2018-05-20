@@ -21901,10 +21901,14 @@
 	      projectsData: null,
 
 	      isLoadingFollowersData: false,
-	      followersData: null
+	      followersData: null,
+
+	      isLoadingFollowingData: false,
+	      followingData: null
 	    };
 
 	    _this.onClickFollowersLink = _this.onClickFollowersLink.bind(_this);
+	    _this.onClickFollowingLink = _this.onClickFollowingLink.bind(_this);
 	    return _this;
 	  }
 
@@ -21921,6 +21925,13 @@
 	      // fetch for user followers info when the "followers" link on the profile page is clicked
 	      this.setState({ activeView: 'followers' });
 	      this._fetchUserFollowers(this.props.userData.username);
+	    }
+	  }, {
+	    key: 'onClickFollowingLink',
+	    value: function onClickFollowingLink() {
+	      // fetch for user followers info when the "followers" link on the profile page is clicked
+	      this.setState({ activeView: 'following' });
+	      this._fetchUserFollowings(this.props.userData.username);
 	    }
 
 	    /**
@@ -21973,16 +21984,42 @@
 	      });
 	    }
 	  }, {
+	    key: '_fetchUserFollowings',
+	    value: function _fetchUserFollowings(userName) {
+	      var _this5 = this;
+
+	      this.setState({ isLoadingFollowingData: true });
+
+	      return fetch('/api/user/' + userName + '/following').then(function (resp) {
+	        return resp.json();
+	      }).then(function (data) {
+	        _this5.setState({ followingData: data.following });
+	      }).finally(function () {
+	        _this5.setState({ isLoadingFollowingData: false });
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.state.activeView
+	        ),
 	        _react2.default.createElement(_userProfileSidebar2.default, {
 	          userData: this.props.userData,
+
 	          onClickFollowersLink: this.onClickFollowersLink,
 	          isLoadingFollowersData: this.state.isLoadingFollowersData,
 	          followersData: this.state.followersData,
+
+	          onClickFollowingLink: this.onClickFollowingLink,
+	          isLoadingFollowingData: this.state.isLoadingFollowingData,
+	          followingData: this.state.followingData,
+
 	          isLoadingWorkExperienceData: this.state.isLoadingWorkExperienceData,
 	          workExperienceData: this.state.workExperienceData }),
 	        _react2.default.createElement(_userProfileMainView2.default, {
@@ -22050,7 +22087,10 @@
 	        { style: { float: 'left' } },
 	        _react2.default.createElement(UserBasicInfo, { data: userBasicInfoData }),
 	        _react2.default.createElement('hr', null),
-	        _react2.default.createElement(UserStats, { data: userStatsData, onClickFollowersLink: this.props.onClickFollowersLink }),
+	        _react2.default.createElement(UserStats, {
+	          data: userStatsData,
+	          onClickFollowersLink: this.props.onClickFollowersLink,
+	          onClickFollowingLink: this.props.onClickFollowingLink }),
 	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(UserWorkExperience, { data: workExperienceData })
 	      );
@@ -22115,7 +22155,7 @@
 	    ),
 	    _react2.default.createElement(
 	      'p',
-	      null,
+	      { onClick: props.onClickFollowingLink },
 	      'Following ',
 	      props.data.following
 	    )
