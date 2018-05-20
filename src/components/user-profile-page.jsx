@@ -110,13 +110,7 @@ export default class UserProfilePage extends React.Component {
         <UserProfileSideBar 
           userData={this.props.userData}
           onClickUserName={this.onClickUserName}
-
-          isLoadingFollowersData={this.state.isLoadingFollowersData}
-          followersData={this.state.followersData}
           onClickFollowersLink={this.onClickFollowersLink}
-
-          isLoadingFollowingData={this.state.isLoadingFollowingData}
-          followingData={this.state.followingData}
           onClickFollowingLink={this.onClickFollowingLink}
 
           isLoadingWorkExperienceData={this.state.isLoadingWorkExperienceData}
@@ -124,6 +118,13 @@ export default class UserProfilePage extends React.Component {
         <UserProfileMainView
           isLoadingProjectsData={this.state.isLoadingProjectsData}
           projectsData={this.state.projectsData} 
+
+          isLoadingFollowersData={this.state.isLoadingFollowersData}
+          followersData={this.state.followersData}
+          
+          isLoadingFollowingData={this.state.isLoadingFollowingData}
+          followingData={this.state.followingData}
+          
           activeView={this.state.activeView}/>
       </div>
     )

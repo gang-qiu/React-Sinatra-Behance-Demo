@@ -58,7 +58,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	__webpack_require__(185);
+	__webpack_require__(189);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21873,7 +21873,7 @@
 
 	var _userProfileMainView2 = _interopRequireDefault(_userProfileMainView);
 
-	__webpack_require__(183);
+	__webpack_require__(187);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22020,13 +22020,7 @@
 	        _react2.default.createElement(_userProfileSidebar2.default, {
 	          userData: this.props.userData,
 	          onClickUserName: this.onClickUserName,
-
-	          isLoadingFollowersData: this.state.isLoadingFollowersData,
-	          followersData: this.state.followersData,
 	          onClickFollowersLink: this.onClickFollowersLink,
-
-	          isLoadingFollowingData: this.state.isLoadingFollowingData,
-	          followingData: this.state.followingData,
 	          onClickFollowingLink: this.onClickFollowingLink,
 
 	          isLoadingWorkExperienceData: this.state.isLoadingWorkExperienceData,
@@ -22034,6 +22028,13 @@
 	        _react2.default.createElement(_userProfileMainView2.default, {
 	          isLoadingProjectsData: this.state.isLoadingProjectsData,
 	          projectsData: this.state.projectsData,
+
+	          isLoadingFollowersData: this.state.isLoadingFollowersData,
+	          followersData: this.state.followersData,
+
+	          isLoadingFollowingData: this.state.isLoadingFollowingData,
+	          followingData: this.state.followingData,
+
 	          activeView: this.state.activeView })
 	      );
 	    }
@@ -22220,11 +22221,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _userProfileProjectCard = __webpack_require__(187);
+	var _userProfileProjectCard = __webpack_require__(183);
 
 	var _userProfileProjectCard2 = _interopRequireDefault(_userProfileProjectCard);
 
-	__webpack_require__(188);
+	var _tabbedFollowersView = __webpack_require__(184);
+
+	var _tabbedFollowersView2 = _interopRequireDefault(_tabbedFollowersView);
+
+	__webpack_require__(185);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22247,34 +22252,28 @@
 	    key: 'render',
 	    value: function render() {
 	      var projects = Array.isArray(this.props.projectsData) ? this.props.projectsData : [];
+
 	      return _react2.default.createElement(
 	        'main',
 	        { className: 'projects-container' },
-	        function (activeView) {
-
-	          switch (activeView) {
+	        function (props) {
+	          switch (props.activeView) {
 	            case 'projects':
 	              return projects.map(function (project) {
 	                return _react2.default.createElement(_userProfileProjectCard2.default, { key: project.id, project: project });
 	              });
 	            case 'followers':
-	              return _react2.default.createElement(
-	                'h2',
-	                null,
-	                'followers'
-	              );
-
 	            case 'following':
-	              return _react2.default.createElement(
-	                'h2',
-	                null,
-	                'following'
-	              );
-
+	              return _react2.default.createElement(_tabbedFollowersView2.default, {
+	                activeView: props.activeView,
+	                followersData: props.followersData,
+	                isLoadingFollowersData: props.isLoadingFollowersData,
+	                followingData: props.followingData,
+	                isLoadingFollowingData: props.isLoadingFollowingData });
 	            default:
 	              return null;
 	          }
-	        }(this.props.activeView)
+	        }(this.props)
 	      );
 	    }
 	  }]);
@@ -22286,134 +22285,6 @@
 
 /***/ }),
 /* 183 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	var content = __webpack_require__(184);
-
-	if(typeof content === 'string') content = [[module.id, content, '']];
-
-	var transform;
-	var insertInto;
-
-
-
-	var options = {"hmr":true}
-
-	options.transform = transform
-	options.insertInto = undefined;
-
-	var update = __webpack_require__(164)(content, options);
-
-	if(content.locals) module.exports = content.locals;
-
-	if(false) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css");
-
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-			var locals = (function(a, b) {
-				var key, idx = 0;
-
-				for(key in a) {
-					if(!b || a[key] !== b[key]) return false;
-					idx++;
-				}
-
-				for(key in b) idx--;
-
-				return idx === 0;
-			}(content.locals, newContent.locals));
-
-			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-			update(newContent);
-		});
-
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
-/* 184 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)(false);
-	// imports
-
-
-	// module
-	exports.push([module.id, "aside {\n  width: 300px;\n  height: 100%;\n  background: lightgrey;\n}\n\n.work-experience-row {\n  padding: 5px 10px;\n  border-bottom: 1px solid #eee;\n}", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 185 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	var content = __webpack_require__(186);
-
-	if(typeof content === 'string') content = [[module.id, content, '']];
-
-	var transform;
-	var insertInto;
-
-
-
-	var options = {"hmr":true}
-
-	options.transform = transform
-	options.insertInto = undefined;
-
-	var update = __webpack_require__(164)(content, options);
-
-	if(content.locals) module.exports = content.locals;
-
-	if(false) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
-
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-			var locals = (function(a, b) {
-				var key, idx = 0;
-
-				for(key in a) {
-					if(!b || a[key] !== b[key]) return false;
-					idx++;
-				}
-
-				for(key in b) idx--;
-
-				return idx === 0;
-			}(content.locals, newContent.locals));
-
-			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-			update(newContent);
-		});
-
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
-/* 186 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)(false);
-	// imports
-
-
-	// module
-	exports.push([module.id, "* {\n  font-family: sans-serif;\n}", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22482,11 +22353,60 @@
 	exports.default = UserProfileProjectCard;
 
 /***/ }),
-/* 188 */
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TabbedFollowersView = function (_React$Component) {
+	  _inherits(TabbedFollowersView, _React$Component);
+
+	  function TabbedFollowersView(props) {
+	    _classCallCheck(this, TabbedFollowersView);
+
+	    return _possibleConstructorReturn(this, (TabbedFollowersView.__proto__ || Object.getPrototypeOf(TabbedFollowersView)).call(this, props));
+	  }
+
+	  _createClass(TabbedFollowersView, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'h2',
+	        null,
+	        this.props.activeView
+	      );
+	    }
+	  }]);
+
+	  return TabbedFollowersView;
+	}(_react2.default.Component);
+
+	exports.default = TabbedFollowersView;
+
+/***/ }),
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	var content = __webpack_require__(189);
+	var content = __webpack_require__(186);
 
 	if(typeof content === 'string') content = [[module.id, content, '']];
 
@@ -22532,7 +22452,7 @@
 	}
 
 /***/ }),
-/* 189 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(163)(false);
@@ -22541,6 +22461,134 @@
 
 	// module
 	exports.push([module.id, ".projects-container {\n  float: left;\n  width: 750px;\n}\n\n.projects-container::after {\n  content: '';\n  clear: both;\n  display: block;\n}\n\n.project-card {\n  background: lightgrey;\n  margin: 10px 20px;\n  width: 200px;\n  height: 300px;\n  float: left;\n  cursor: pointer;\n}\n\n.project-card:hover {\n  background: #eee\n}\n\n.project-card img {\n  width: 200px;\n  height: auto;\n}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 187 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(188);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 188 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, "aside {\n  width: 300px;\n  height: 100%;\n  background: lightgrey;\n}\n\n.work-experience-row {\n  padding: 5px 10px;\n  border-bottom: 1px solid #eee;\n}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(190);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 190 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, "* {\n  font-family: sans-serif;\n}", ""]);
 
 	// exports
 
