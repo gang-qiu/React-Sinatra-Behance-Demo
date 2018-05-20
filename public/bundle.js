@@ -58,7 +58,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	__webpack_require__(189);
+	__webpack_require__(185);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20610,7 +20610,6 @@
 	  _createClass(SearchPage, [{
 	    key: 'render',
 	    value: function render() {
-	      console.log(this.props.searchUsersResultsList);
 	      return _react2.default.createElement(
 	        'main',
 	        null,
@@ -21751,6 +21750,7 @@
 
 	    var _this = _possibleConstructorReturn(this, (UsersList.__proto__ || Object.getPrototypeOf(UsersList)).call(this, props));
 
+	    _this.users = Array.isArray(_this.props.users) ? _this.props.users : [];
 	    _this.handleClick = _this.handleClick.bind(_this);
 	    return _this;
 	  }
@@ -21787,12 +21787,10 @@
 	    value: function render() {
 	      var _this2 = this;
 
-	      var users = Array.isArray(this.props.users) ? this.props.users : [];
-
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'users-list' },
-	        users.map(function (user) {
+	        this.users.map(function (user) {
 	          return _this2.renderUserListRow(user);
 	        })
 	      );
@@ -21903,7 +21901,7 @@
 
 	var _userProfileMainView2 = _interopRequireDefault(_userProfileMainView);
 
-	__webpack_require__(187);
+	__webpack_require__(183);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21937,6 +21935,8 @@
 	      followingData: null
 	    };
 
+	    _this.userName = props.userData.username;
+
 	    _this.onClickFollowersLink = _this.onClickFollowersLink.bind(_this);
 	    _this.onClickFollowingLink = _this.onClickFollowingLink.bind(_this);
 	    _this.onClickUserName = _this.onClickUserName.bind(_this);
@@ -21947,29 +21947,31 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      // immediately fire off requests for additional user info
-	      this._fetchUserWorkExperience(this.props.userData.username);
-	      this._fetchUserProjects(this.props.userData.username);
+	      this._fetchUserWorkExperience(this.username);
+	      this._fetchUserProjects(this.username);
+	      this._fetchUserFollowers(this.username);
+	      this._fetchUserFollowing(this.username);
 	    }
 	  }, {
 	    key: 'onClickUserName',
 	    value: function onClickUserName() {
 	      // fetch for user projects
 	      this.setState({ activeView: 'projects' });
-	      this._fetchUserProjects(this.props.userData.username);
+	      this._fetchUserProjects(this.username);
 	    }
 	  }, {
 	    key: 'onClickFollowersLink',
 	    value: function onClickFollowersLink() {
 	      // fetch for user followers info when the "followers" link on the profile page is clicked
 	      this.setState({ activeView: 'followers' });
-	      this._fetchUserFollowers(this.props.userData.username);
+	      this._fetchUserFollowers(this.username);
 	    }
 	  }, {
 	    key: 'onClickFollowingLink',
 	    value: function onClickFollowingLink() {
 	      // fetch for user followers info when the "followers" link on the profile page is clicked
 	      this.setState({ activeView: 'following' });
-	      this._fetchUserFollowings(this.props.userData.username);
+	      this._fetchUserFollowings(this.username);
 	    }
 
 	    /**
@@ -22118,7 +22120,7 @@
 	        location: this.props.userData.location,
 	        imgUrl: this.props.userData.images && this.props.userData.images[50]
 	      };
-	      console.log(this.props.userData);
+
 	      var userStatsData = this.props.userData.stats;
 	      var workExperienceData = this.props.workExperienceData;
 
@@ -22251,15 +22253,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _userProfileProjectCard = __webpack_require__(183);
+	var _userProfileProjectCard = __webpack_require__(187);
 
 	var _userProfileProjectCard2 = _interopRequireDefault(_userProfileProjectCard);
 
-	var _tabbedFollowersView = __webpack_require__(184);
+	var _tabbedFollowersView = __webpack_require__(188);
 
 	var _tabbedFollowersView2 = _interopRequireDefault(_tabbedFollowersView);
 
-	__webpack_require__(185);
+	__webpack_require__(189);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22272,10 +22274,10 @@
 	var UserProfileMainView = function (_React$Component) {
 	  _inherits(UserProfileMainView, _React$Component);
 
-	  function UserProfileMainView() {
+	  function UserProfileMainView(props) {
 	    _classCallCheck(this, UserProfileMainView);
 
-	    return _possibleConstructorReturn(this, (UserProfileMainView.__proto__ || Object.getPrototypeOf(UserProfileMainView)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (UserProfileMainView.__proto__ || Object.getPrototypeOf(UserProfileMainView)).call(this, props));
 	  }
 
 	  _createClass(UserProfileMainView, [{
@@ -22286,24 +22288,15 @@
 	      return _react2.default.createElement(
 	        'main',
 	        { className: 'projects-container' },
-	        function (props) {
-	          switch (props.activeView) {
-	            case 'projects':
-	              return projects.map(function (project) {
-	                return _react2.default.createElement(_userProfileProjectCard2.default, { key: project.id, project: project });
-	              });
-	            case 'followers':
-	            case 'following':
-	              return _react2.default.createElement(_tabbedFollowersView2.default, {
-	                activeView: props.activeView,
-	                followersData: props.followersData,
-	                isLoadingFollowersData: props.isLoadingFollowersData,
-	                followingData: props.followingData,
-	                isLoadingFollowingData: props.isLoadingFollowingData });
-	            default:
-	              return null;
-	          }
-	        }(this.props)
+	        this.props.activeView === 'projects' && projects.map(function (project) {
+	          return _react2.default.createElement(_userProfileProjectCard2.default, { key: project.id, project: project });
+	        }),
+	        (this.props.activeView === 'followers' || this.props.activeView === 'followers') && _react2.default.createElement(_tabbedFollowersView2.default, {
+	          activeView: this.props.activeView,
+	          followersData: this.props.followersData,
+	          isLoadingFollowersData: this.props.isLoadingFollowersData,
+	          followingData: this.props.followingData,
+	          isLoadingFollowingData: this.props.isLoadingFollowingData })
 	      );
 	    }
 	  }]);
@@ -22315,6 +22308,134 @@
 
 /***/ }),
 /* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(184);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css", function() {
+			var newContent = require("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, "aside {\n  width: 300px;\n  height: 100%;\n  background: lightgrey;\n}\n\n.work-experience-row {\n  padding: 5px 10px;\n  border-bottom: 1px solid #eee;\n}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 185 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(186);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 186 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, "* {\n  font-family: sans-serif;\n}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22383,7 +22504,7 @@
 	exports.default = UserProfileProjectCard;
 
 /***/ }),
-/* 184 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22397,6 +22518,10 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _usersList = __webpack_require__(177);
+
+	var _usersList2 = _interopRequireDefault(_usersList);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22412,16 +22537,25 @@
 	  function TabbedFollowersView(props) {
 	    _classCallCheck(this, TabbedFollowersView);
 
-	    return _possibleConstructorReturn(this, (TabbedFollowersView.__proto__ || Object.getPrototypeOf(TabbedFollowersView)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (TabbedFollowersView.__proto__ || Object.getPrototypeOf(TabbedFollowersView)).call(this, props));
+
+	    _this.followers = Array.isArray(props.followersData) ? props.followersData : [];
+	    return _this;
 	  }
 
 	  _createClass(TabbedFollowersView, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'h2',
+	        'div',
 	        null,
-	        this.props.activeView
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'FOLLOWERS ',
+	          this.followers.length
+	        ),
+	        _react2.default.createElement(_usersList2.default, { users: this.followers })
 	      );
 	    }
 	  }]);
@@ -22432,11 +22566,11 @@
 	exports.default = TabbedFollowersView;
 
 /***/ }),
-/* 185 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	var content = __webpack_require__(186);
+	var content = __webpack_require__(190);
 
 	if(typeof content === 'string') content = [[module.id, content, '']];
 
@@ -22482,134 +22616,6 @@
 	}
 
 /***/ }),
-/* 186 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)(false);
-	// imports
-
-
-	// module
-	exports.push([module.id, ".projects-container {\n  float: left;\n  width: 750px;\n}\n\n.projects-container::after {\n  content: '';\n  clear: both;\n  display: block;\n}\n\n.project-card {\n  background: lightgrey;\n  margin: 10px 20px;\n  width: 200px;\n  height: 300px;\n  float: left;\n  cursor: pointer;\n}\n\n.project-card:hover {\n  background: #eee\n}\n\n.project-card img {\n  width: 200px;\n  height: auto;\n}", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 187 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	var content = __webpack_require__(188);
-
-	if(typeof content === 'string') content = [[module.id, content, '']];
-
-	var transform;
-	var insertInto;
-
-
-
-	var options = {"hmr":true}
-
-	options.transform = transform
-	options.insertInto = undefined;
-
-	var update = __webpack_require__(164)(content, options);
-
-	if(content.locals) module.exports = content.locals;
-
-	if(false) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css");
-
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-			var locals = (function(a, b) {
-				var key, idx = 0;
-
-				for(key in a) {
-					if(!b || a[key] !== b[key]) return false;
-					idx++;
-				}
-
-				for(key in b) idx--;
-
-				return idx === 0;
-			}(content.locals, newContent.locals));
-
-			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-			update(newContent);
-		});
-
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
-/* 188 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)(false);
-	// imports
-
-
-	// module
-	exports.push([module.id, "aside {\n  width: 300px;\n  height: 100%;\n  background: lightgrey;\n}\n\n.work-experience-row {\n  padding: 5px 10px;\n  border-bottom: 1px solid #eee;\n}", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 189 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	var content = __webpack_require__(190);
-
-	if(typeof content === 'string') content = [[module.id, content, '']];
-
-	var transform;
-	var insertInto;
-
-
-
-	var options = {"hmr":true}
-
-	options.transform = transform
-	options.insertInto = undefined;
-
-	var update = __webpack_require__(164)(content, options);
-
-	if(content.locals) module.exports = content.locals;
-
-	if(false) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
-
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-			var locals = (function(a, b) {
-				var key, idx = 0;
-
-				for(key in a) {
-					if(!b || a[key] !== b[key]) return false;
-					idx++;
-				}
-
-				for(key in b) idx--;
-
-				return idx === 0;
-			}(content.locals, newContent.locals));
-
-			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-			update(newContent);
-		});
-
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
 /* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22618,7 +22624,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\n  font-family: sans-serif;\n}", ""]);
+	exports.push([module.id, ".projects-container {\n  float: left;\n  width: 750px;\n}\n\n.projects-container::after {\n  content: '';\n  clear: both;\n  display: block;\n}\n\n.project-card {\n  background: lightgrey;\n  margin: 10px 20px;\n  width: 200px;\n  height: 300px;\n  float: left;\n  cursor: pointer;\n}\n\n.project-card:hover {\n  background: #eee\n}\n\n.project-card img {\n  width: 200px;\n  height: auto;\n}", ""]);
 
 	// exports
 

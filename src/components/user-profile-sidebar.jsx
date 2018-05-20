@@ -10,7 +10,7 @@ export default class UserProfileSideBar extends React.Component {
       location: this.props.userData.location,
       imgUrl: this.props.userData.images && this.props.userData.images[50]
     }
-    console.log(this.props.userData)
+    
     const userStatsData = this.props.userData.stats;
     const workExperienceData = this.props.workExperienceData;
 

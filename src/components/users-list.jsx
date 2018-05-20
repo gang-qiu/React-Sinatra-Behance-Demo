@@ -5,6 +5,7 @@ import './users-list.css';
 export default class UsersList extends React.Component {
   constructor(props) {
     super(props);
+    this.users = Array.isArray(this.props.users) ? this.props.users : [];
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -26,11 +27,9 @@ export default class UsersList extends React.Component {
   }
 
   render() {
-    const users = Array.isArray(this.props.users) ? this.props.users : [];
-
     return (
       <div className="users-list">
-        {users.map(user => this.renderUserListRow(user))}
+        {this.users.map(user => this.renderUserListRow(user))}
       </div>
     )
   }

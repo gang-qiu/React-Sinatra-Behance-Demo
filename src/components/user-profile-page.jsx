@@ -22,6 +22,8 @@ export default class UserProfilePage extends React.Component {
       followingData: null,
     };
 
+    this.userName = props.userData.username;
+
     this.onClickFollowersLink = this.onClickFollowersLink.bind(this);
     this.onClickFollowingLink = this.onClickFollowingLink.bind(this);
     this.onClickUserName = this.onClickUserName.bind(this);
@@ -29,26 +31,28 @@ export default class UserProfilePage extends React.Component {
 
   componentDidMount() {
     // immediately fire off requests for additional user info
-    this._fetchUserWorkExperience(this.props.userData.username);
-    this._fetchUserProjects(this.props.userData.username);
+    this._fetchUserWorkExperience(this.username);
+    this._fetchUserProjects(this.username);
+    this._fetchUserFollowers(this.username)
+    this._fetchUserFollowing(this.username)
   }
 
   onClickUserName() {
     // fetch for user projects
     this.setState({activeView: 'projects'});
-    this._fetchUserProjects(this.props.userData.username);
+    this._fetchUserProjects(this.username);
   }
 
   onClickFollowersLink() {
     // fetch for user followers info when the "followers" link on the profile page is clicked
     this.setState({activeView: 'followers'});
-    this._fetchUserFollowers(this.props.userData.username);
+    this._fetchUserFollowers(this.username);
   }
 
   onClickFollowingLink() {
     // fetch for user followers info when the "followers" link on the profile page is clicked
     this.setState({activeView: 'following'});
-    this._fetchUserFollowings(this.props.userData.username);
+    this._fetchUserFollowings(this.username);
   }
 
   /**
@@ -115,6 +119,7 @@ export default class UserProfilePage extends React.Component {
 
           isLoadingWorkExperienceData={this.state.isLoadingWorkExperienceData}
           workExperienceData={this.state.workExperienceData}/>
+
         <UserProfileMainView
           isLoadingProjectsData={this.state.isLoadingProjectsData}
           projectsData={this.state.projectsData} 
@@ -124,7 +129,7 @@ export default class UserProfilePage extends React.Component {
           
           isLoadingFollowingData={this.state.isLoadingFollowingData}
           followingData={this.state.followingData}
-          
+
           activeView={this.state.activeView}/>
       </div>
     )

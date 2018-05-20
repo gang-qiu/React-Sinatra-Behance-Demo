@@ -7,7 +7,6 @@ export default class SearchPage extends React.Component {
     super(props);
   }
   render() {
-    console.log(this.props.searchUsersResultsList)
     return (
       <main>
         <h1>Search for users...</h1>
