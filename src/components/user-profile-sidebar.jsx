@@ -2,6 +2,36 @@ import React from 'react';
 import UserProfileSideBarBasicInfo from './user-profile-sidebar-basic-info';
 
 export default class UserProfileSideBar extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    };
+  }
+
+  /**
+    The following helper methods return promises
+  */
+
+  _fetchUserInfo(userName) {
+    return fetch(`/api/user/${userName}`).then(resp => {
+      return resp.json();
+    }).then(data => {
+      this.setState({userInfoData: data.user});
+    });
+  }
+
+  _fetchUserWorkExperience(userName) {
+    return fetch(`/api/user/${userName}/work_experience`).then(resp => {
+      return resp.json();
+    }).then(data => {
+      console.log(data)
+      this.setState({userWorkExperienceData: data.work_experience});
+    });
+  }
+
+
   render() {
     console.log(this.props.userData)
     const userBasicInfoData = {

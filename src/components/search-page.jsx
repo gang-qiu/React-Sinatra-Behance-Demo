@@ -3,8 +3,6 @@ import SearchUserInput from './search-user-input';
 import SearchResult from './search-result';
 import './search-page.css';
 
-
-
 export default class SearchPage extends React.Component {
   constructor(props) {
     super(props);

@@ -7,13 +7,10 @@ export default class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
+      errorFetchingResults: false,
       searchUsersResultsList: null,     // list of users from the initial search of users
       selectedUser: null,               // the user that was selected from the query
                                         // when defined, the profile page will be shown
-      userInfoData: null,
-      userWorkExperienceData: null,
-      errorFetchingResults: false,
-      isFinishedFetchingData: false,
     };
 
     this.onSubmitUserSearchForm = this.onSubmitUserSearchForm.bind(this);
@@ -25,7 +22,6 @@ export default class App extends React.Component {
     // search for users based on user name
     this.setState({
       errorFetchingResults: false,
-      isFinishedFetchingData: false,
     });
 
     return fetch(`/api/user/${userName}/search`).then(resp => {
@@ -34,20 +30,7 @@ export default class App extends React.Component {
       this.setState({searchUsersResultsList: data.users});
     }).catch(error => {
       this.setState({errorFetchingResults: true});
-    }).finally(() => {
-      this.setState({isFinishedFetchingData: true});
     });
-
-    // Promise.all([
-    //   this._fetchUserInfo(userName),
-    //   this._fetchUserWorkExperience(userName),
-    // ]).catch(err => {
-    //   // all requests have failed with 
-    //   this.setState({errorFetchingResults: true});
-    //   console.log(err);
-    // }).finally(() => {
-    //   this.setState({isFinishedFetchingData: true});
-    // });
   }
 
   /**
@@ -58,32 +41,10 @@ export default class App extends React.Component {
     this.setState({selectedUser: user});
   }
 
-  /**
-    The following helper methods return promises
-  */
-
-  _fetchUserInfo(userName) {
-    return fetch(`/api/user/${userName}`).then(resp => {
-      return resp.json();
-    }).then(data => {
-      this.setState({userInfoData: data.user});
-    });
-  }
-
-  _fetchUserWorkExperience(userName) {
-    return fetch(`/api/user/${userName}/work_experience`).then(resp => {
-      return resp.json();
-    }).then(data => {
-      console.log(data)
-      this.setState({userWorkExperienceData: data.work_experience});
-    });
-  }
-
-
-
   clearUserSearchResults() {
     this.setState({
-      userInfoData: null,
+      selectedUser: null,
+      searchUsersResultsList: null,
       errorFetchingResults: false,
     })
   }

@@ -19807,13 +19807,10 @@
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
 	    _this.state = {
-	      searchUsersResultsList: null, // list of users from the initial search of users
-	      selectedUser: null, // the user that was selected from the query
-	      // when defined, the profile page will be shown
-	      userInfoData: null,
-	      userWorkExperienceData: null,
 	      errorFetchingResults: false,
-	      isFinishedFetchingData: false
+	      searchUsersResultsList: null, // list of users from the initial search of users
+	      selectedUser: null // the user that was selected from the query
+	      // when defined, the profile page will be shown
 	    };
 
 	    _this.onSubmitUserSearchForm = _this.onSubmitUserSearchForm.bind(_this);
@@ -19829,8 +19826,7 @@
 
 	      // search for users based on user name
 	      this.setState({
-	        errorFetchingResults: false,
-	        isFinishedFetchingData: false
+	        errorFetchingResults: false
 	      });
 
 	      return fetch('/api/user/' + userName + '/search').then(function (resp) {
@@ -19839,20 +19835,7 @@
 	        _this2.setState({ searchUsersResultsList: data.users });
 	      }).catch(function (error) {
 	        _this2.setState({ errorFetchingResults: true });
-	      }).finally(function () {
-	        _this2.setState({ isFinishedFetchingData: true });
 	      });
-
-	      // Promise.all([
-	      //   this._fetchUserInfo(userName),
-	      //   this._fetchUserWorkExperience(userName),
-	      // ]).catch(err => {
-	      //   // all requests have failed with 
-	      //   this.setState({errorFetchingResults: true});
-	      //   console.log(err);
-	      // }).finally(() => {
-	      //   this.setState({isFinishedFetchingData: true});
-	      // });
 	    }
 
 	    /**
@@ -19865,39 +19848,12 @@
 	    value: function onSelectUser(user) {
 	      this.setState({ selectedUser: user });
 	    }
-
-	    /**
-	      The following helper methods return promises
-	    */
-
-	  }, {
-	    key: '_fetchUserInfo',
-	    value: function _fetchUserInfo(userName) {
-	      var _this3 = this;
-
-	      return fetch('/api/user/' + userName).then(function (resp) {
-	        return resp.json();
-	      }).then(function (data) {
-	        _this3.setState({ userInfoData: data.user });
-	      });
-	    }
-	  }, {
-	    key: '_fetchUserWorkExperience',
-	    value: function _fetchUserWorkExperience(userName) {
-	      var _this4 = this;
-
-	      return fetch('/api/user/' + userName + '/work_experience').then(function (resp) {
-	        return resp.json();
-	      }).then(function (data) {
-	        console.log(data);
-	        _this4.setState({ userWorkExperienceData: data.work_experience });
-	      });
-	    }
 	  }, {
 	    key: 'clearUserSearchResults',
 	    value: function clearUserSearchResults() {
 	      this.setState({
-	        userInfoData: null,
+	        selectedUser: null,
+	        searchUsersResultsList: null,
 	        errorFetchingResults: false
 	      });
 	    }
@@ -21806,11 +21762,6 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(
-	          'button',
-	          { onClick: this.props.handleBackBtnClick },
-	          'Back to Search'
-	        ),
 	        _react2.default.createElement(_userProfileSidebar2.default, { userData: this.props.userData })
 	      );
 	    }
@@ -21852,13 +21803,43 @@
 	var UserProfileSideBar = function (_React$Component) {
 	  _inherits(UserProfileSideBar, _React$Component);
 
-	  function UserProfileSideBar() {
+	  function UserProfileSideBar(props) {
 	    _classCallCheck(this, UserProfileSideBar);
 
-	    return _possibleConstructorReturn(this, (UserProfileSideBar.__proto__ || Object.getPrototypeOf(UserProfileSideBar)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (UserProfileSideBar.__proto__ || Object.getPrototypeOf(UserProfileSideBar)).call(this, props));
+
+	    _this.state = {};
+	    return _this;
 	  }
 
+	  /**
+	    The following helper methods return promises
+	  */
+
 	  _createClass(UserProfileSideBar, [{
+	    key: '_fetchUserInfo',
+	    value: function _fetchUserInfo(userName) {
+	      var _this2 = this;
+
+	      return fetch('/api/user/' + userName).then(function (resp) {
+	        return resp.json();
+	      }).then(function (data) {
+	        _this2.setState({ userInfoData: data.user });
+	      });
+	    }
+	  }, {
+	    key: '_fetchUserWorkExperience',
+	    value: function _fetchUserWorkExperience(userName) {
+	      var _this3 = this;
+
+	      return fetch('/api/user/' + userName + '/work_experience').then(function (resp) {
+	        return resp.json();
+	      }).then(function (data) {
+	        console.log(data);
+	        _this3.setState({ userWorkExperienceData: data.work_experience });
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      console.log(this.props.userData);

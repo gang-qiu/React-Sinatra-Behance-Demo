@@ -6,7 +6,6 @@ export default class UserProfilePage extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.props.handleBackBtnClick}>Back to Search</button>
         <UserProfileSideBar userData={this.props.userData}/>
       </div>
     )
