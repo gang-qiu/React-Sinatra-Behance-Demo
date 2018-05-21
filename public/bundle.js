@@ -21921,23 +21921,13 @@
 
 	    _this.state = {
 	      activeView: 'projects', // can be 'projects', 'followers', 'following'
-
-	      isLoadingWorkExperienceData: false,
-	      workExperienceData: null,
-
-	      isLoadingProjectsData: false,
-	      projectsData: null,
-
-	      isLoadingFollowersData: false,
-	      followersData: null,
-
-	      isLoadingFollowingData: false,
-	      followingData: null
+	      workExperienceData: [],
+	      projectsData: [],
+	      followersData: [],
+	      followingData: []
 	    };
 
-	    _this.onClickFollowersLink = _this.onClickFollowersLink.bind(_this);
-	    _this.onClickFollowingLink = _this.onClickFollowingLink.bind(_this);
-	    _this.onClickUserName = _this.onClickUserName.bind(_this);
+	    _this.setActiveView = _this.setActiveView.bind(_this);
 	    return _this;
 	  }
 
@@ -21951,22 +21941,12 @@
 	      this._fetchUserFollowing();
 	    }
 	  }, {
-	    key: 'onClickUserName',
-	    value: function onClickUserName() {
-	      console.log('clicked user name!');
-	      this.setState({ activeView: 'projects' });
-	    }
-	  }, {
-	    key: 'onClickFollowersLink',
-	    value: function onClickFollowersLink() {
-	      console.log('clicked followers!');
-	      this.setState({ activeView: 'followers' });
-	    }
-	  }, {
-	    key: 'onClickFollowingLink',
-	    value: function onClickFollowingLink() {
-	      console.log('clicked following!');
-	      this.setState({ activeView: 'following' });
+	    key: 'setActiveView',
+	    value: function setActiveView(view) {
+	      console.log('SETTING VIEW ', view);
+	      if (['projects', 'followers', 'following'].includes(view)) {
+	        this.setState({ activeView: view });
+	      }
 	    }
 
 	    /**
@@ -21978,14 +21958,10 @@
 	    value: function _fetchUserWorkExperience() {
 	      var _this2 = this;
 
-	      this.setState({ isLoadingWorkExperienceData: true });
-
 	      return fetch('/api/user/' + this.props.userData.username + '/work_experience').then(function (resp) {
 	        return resp.json();
 	      }).then(function (data) {
 	        _this2.setState({ workExperienceData: data.work_experience });
-	      }).finally(function () {
-	        _this2.setState({ isLoadingWorkExperienceData: false });
 	      });
 	    }
 	  }, {
@@ -21993,14 +21969,10 @@
 	    value: function _fetchUserProjects() {
 	      var _this3 = this;
 
-	      this.setState({ isLoadingProjectsData: true });
-
 	      return fetch('/api/user/' + this.props.userData.username + '/projects').then(function (resp) {
 	        return resp.json();
 	      }).then(function (data) {
 	        _this3.setState({ projectsData: data.projects });
-	      }).finally(function () {
-	        _this3.setState({ isLoadingProjectsData: false });
 	      });
 	    }
 	  }, {
@@ -22008,14 +21980,10 @@
 	    value: function _fetchUserFollowers() {
 	      var _this4 = this;
 
-	      this.setState({ isLoadingFollowersData: true });
-
 	      return fetch('/api/user/' + this.props.userData.username + '/followers').then(function (resp) {
 	        return resp.json();
 	      }).then(function (data) {
 	        _this4.setState({ followersData: data.followers });
-	      }).finally(function () {
-	        _this4.setState({ isLoadingFollowersData: false });
 	      });
 	    }
 	  }, {
@@ -22023,15 +21991,11 @@
 	    value: function _fetchUserFollowing() {
 	      var _this5 = this;
 
-	      this.setState({ isLoadingFollowingData: true });
-
 	      return fetch('/api/user/' + this.props.userData.username + '/following').then(function (resp) {
 	        return resp.json();
 	      }).then(function (data) {
 	        console.log('fetch following', data.following);
 	        _this5.setState({ followingData: data.following });
-	      }).finally(function () {
-	        _this5.setState({ isLoadingFollowingData: false });
 	      });
 	    }
 	  }, {
@@ -22047,24 +22011,13 @@
 	        ),
 	        _react2.default.createElement(_userProfileSidebar2.default, {
 	          userData: this.props.userData,
-	          onClickUserName: this.onClickUserName,
-	          onClickFollowersLink: this.onClickFollowersLink,
-	          onClickFollowingLink: this.onClickFollowingLink,
-
-	          isLoadingWorkExperienceData: this.state.isLoadingWorkExperienceData,
+	          setActiveView: this.setActiveView,
 	          workExperienceData: this.state.workExperienceData }),
 	        _react2.default.createElement(_userProfileMainView2.default, {
-	          isLoadingProjectsData: this.state.isLoadingProjectsData,
 	          projectsData: this.state.projectsData,
-
-	          isLoadingFollowersData: this.state.isLoadingFollowersData,
 	          followersData: this.state.followersData,
-
-	          isLoadingFollowingData: this.state.isLoadingFollowingData,
 	          followingData: this.state.followingData,
-
-	          onClickFollowersLink: this.onClickFollowersLink,
-	          onClickFollowingLink: this.onClickFollowingLink,
+	          setActiveView: this.setActiveView,
 	          activeView: this.state.activeView })
 	      );
 	    }
@@ -22111,6 +22064,8 @@
 	  _createClass(UserProfileSideBar, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      var userBasicInfoData = {
 	        name: this.props.userData.display_name,
 	        website: this.props.userData.website,
@@ -22127,12 +22082,18 @@
 	        { style: { float: 'left' } },
 	        _react2.default.createElement(UserBasicInfo, {
 	          data: userBasicInfoData,
-	          onClickUserName: this.props.onClickUserName }),
+	          onClickUserName: function onClickUserName() {
+	            return _this2.props.setActiveView('projects');
+	          } }),
 	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(UserStats, {
 	          data: userStatsData,
-	          onClickFollowersLink: this.props.onClickFollowersLink,
-	          onClickFollowingLink: this.props.onClickFollowingLink }),
+	          onClickFollowersLink: function onClickFollowersLink() {
+	            return _this2.props.setActiveView('followers');
+	          },
+	          onClickFollowingLink: function onClickFollowingLink() {
+	            return _this2.props.setActiveView('following');
+	          } }),
 	        _react2.default.createElement('hr', null),
 	        _react2.default.createElement(UserWorkExperience, { data: workExperienceData })
 	      );
@@ -22289,15 +22250,11 @@
 	        this.props.activeView === 'projects' && projects.map(function (project) {
 	          return _react2.default.createElement(_userProfileProjectCard2.default, { key: project.id, project: project });
 	        }),
-	        (this.props.activeView === 'followers' || this.props.activeView === 'following') && _react2.default.createElement(_tabbedFollowersView2.default, {
+	        ['followers', 'following'].includes(this.props.activeView) && _react2.default.createElement(_tabbedFollowersView2.default, {
 	          activeView: this.props.activeView,
-	          onClickFollowersLink: this.props.onClickFollowersLink,
-	          onClickFollowingLink: this.props.onClickFollowingLink,
-
+	          setActiveView: this.props.setActiveView,
 	          followersData: this.props.followersData,
-	          isLoadingFollowersData: this.props.isLoadingFollowersData,
-	          followingData: this.props.followingData,
-	          isLoadingFollowingData: this.props.isLoadingFollowingData })
+	          followingData: this.props.followingData })
 	      );
 	    }
 	  }]);
@@ -22407,35 +22364,23 @@
 	var TabbedFollowersView = function (_React$Component) {
 	  _inherits(TabbedFollowersView, _React$Component);
 
-	  function TabbedFollowersView(props) {
+	  function TabbedFollowersView() {
 	    _classCallCheck(this, TabbedFollowersView);
 
-	    var _this = _possibleConstructorReturn(this, (TabbedFollowersView.__proto__ || Object.getPrototypeOf(TabbedFollowersView)).call(this, props));
-
-	    _this.state = { users: [] };
-	    _this.onChangeTab = _this.onChangeTab.bind(_this);
-	    return _this;
+	    return _possibleConstructorReturn(this, (TabbedFollowersView.__proto__ || Object.getPrototypeOf(TabbedFollowersView)).apply(this, arguments));
 	  }
 
 	  _createClass(TabbedFollowersView, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.onChangeTab(this.state.activeView);
-	    }
-	  }, {
-	    key: 'onChangeTab',
-	    value: function onChangeTab(view) {
-	      var users = void 0;
-
-	      if (view === 'followers') {
-	        users = this.props.followersData;
-	        this.props.onClickFollowersLink();
-	      } else {
-	        users = this.props.followingData;
-	        this.props.onClickFollowingLink();
+	    key: 'getUsers',
+	    value: function getUsers() {
+	      switch (this.props.activeView) {
+	        case 'followers':
+	          return this.props.followersData;
+	        case 'following':
+	          return this.props.followingData;
+	        default:
+	          return [];
 	      }
-
-	      this.setState({ users: users });
 	    }
 	  }, {
 	    key: 'render',
@@ -22448,23 +22393,23 @@
 	          null,
 	          this.props.activeView.toUpperCase(),
 	          ' ',
-	          this.state.users.length
+	          this.getUsers().length
 	        ),
 	        _react2.default.createElement(
 	          'ul',
 	          null,
 	          _react2.default.createElement(
 	            'li',
-	            { className: 'clickable', onClick: this.onChangeTab.bind(this, 'followers') },
+	            { className: 'clickable', onClick: this.props.setActiveView.bind(this, 'followers') },
 	            'Followers'
 	          ),
 	          _react2.default.createElement(
 	            'li',
-	            { className: 'clickable', onClick: this.onChangeTab.bind(this, 'following') },
+	            { className: 'clickable', onClick: this.props.setActiveView.bind(this, 'following') },
 	            'Following'
 	          )
 	        ),
-	        _react2.default.createElement(_usersList2.default, { users: this.state.users })
+	        _react2.default.createElement(_usersList2.default, { users: this.getUsers() })
 	      );
 	    }
 	  }]);

@@ -10,7 +10,7 @@ export default class UserProfileSideBar extends React.Component {
       location: this.props.userData.location,
       imgUrl: this.props.userData.images && this.props.userData.images[50]
     }
-    
+
     const userStatsData = this.props.userData.stats;
     const workExperienceData = this.props.workExperienceData;
 
@@ -18,12 +18,12 @@ export default class UserProfileSideBar extends React.Component {
       <aside style={{float: 'left'}}>
         <UserBasicInfo 
           data={userBasicInfoData}
-          onClickUserName={this.props.onClickUserName}/>
+          onClickUserName={() => this.props.setActiveView('projects')}/>
         <hr/>
         <UserStats 
           data={userStatsData} 
-          onClickFollowersLink={this.props.onClickFollowersLink}
-          onClickFollowingLink={this.props.onClickFollowingLink}/>
+          onClickFollowersLink={() => this.props.setActiveView('followers')}
+          onClickFollowingLink={() => this.props.setActiveView('following')}/>
         <hr/>
         <UserWorkExperience data={workExperienceData} />
       </aside>

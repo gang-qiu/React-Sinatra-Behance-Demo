@@ -16,16 +16,12 @@ export default class UserProfileMainView extends React.Component {
         }
 
         {
-          (this.props.activeView === 'followers' || this.props.activeView === 'following') &&
+          ['followers', 'following'].includes(this.props.activeView) &&
             <TabbedFollowersView 
               activeView={this.props.activeView}
-              onClickFollowersLink={this.props.onClickFollowersLink}
-              onClickFollowingLink={this.props.onClickFollowingLink}
-
+              setActiveView={this.props.setActiveView}
               followersData={this.props.followersData}
-              isLoadingFollowersData={this.props.isLoadingFollowersData}
-              followingData={this.props.followingData}
-              isLoadingFollowingData={this.props.isLoadingFollowingData}/>
+              followingData={this.props.followingData} />
         }
       </main>
     )
