@@ -4,7 +4,7 @@ import UserProfileMainView from './user-profile-main-view';
 import './user-profile-sidebar.css';
 
 export default class UserProfilePage extends React.Component {
-  constructor(props) {
+  constructor(props, context) {
     super(props);
     this.state = {
       activeView: 'projects',    // can be 'projects', 'followers', 'following'
@@ -22,8 +22,6 @@ export default class UserProfilePage extends React.Component {
       followingData: null,
     };
 
-    this.userName = props.userData.username;
-
     this.onClickFollowersLink = this.onClickFollowersLink.bind(this);
     this.onClickFollowingLink = this.onClickFollowingLink.bind(this);
     this.onClickUserName = this.onClickUserName.bind(this);
@@ -31,38 +29,35 @@ export default class UserProfilePage extends React.Component {
 
   componentDidMount() {
     // immediately fire off requests for additional user info
-    this._fetchUserWorkExperience(this.username);
-    this._fetchUserProjects(this.username);
-    this._fetchUserFollowers(this.username)
-    this._fetchUserFollowing(this.username)
+    this._fetchUserWorkExperience();
+    this._fetchUserProjects();
+    this._fetchUserFollowers()
+    this._fetchUserFollowing()
   }
 
   onClickUserName() {
-    // fetch for user projects
+    console.log('clicked user name!');
     this.setState({activeView: 'projects'});
-    this._fetchUserProjects(this.username);
   }
 
   onClickFollowersLink() {
-    // fetch for user followers info when the "followers" link on the profile page is clicked
+    console.log('clicked followers!');
     this.setState({activeView: 'followers'});
-    this._fetchUserFollowers(this.username);
   }
 
   onClickFollowingLink() {
-    // fetch for user followers info when the "followers" link on the profile page is clicked
+    console.log('clicked following!');
     this.setState({activeView: 'following'});
-    this._fetchUserFollowings(this.username);
   }
 
   /**
     The following helper methods return promises
   */
 
-  _fetchUserWorkExperience(userName) {
+  _fetchUserWorkExperience() {
     this.setState({isLoadingWorkExperienceData: true});
 
-    return fetch(`/api/user/${userName}/work_experience`).then(resp => {
+    return fetch(`/api/user/${this.props.userData.username}/work_experience`).then(resp => {
       return resp.json();
     }).then(data => {
       this.setState({workExperienceData: data.work_experience});
@@ -71,10 +66,10 @@ export default class UserProfilePage extends React.Component {
     });
   }
 
-  _fetchUserProjects(userName) {
+  _fetchUserProjects() {
     this.setState({isLoadingProjectsData: true});
 
-    return fetch(`/api/user/${userName}/projects`).then(resp => {
+    return fetch(`/api/user/${this.props.userData.username}/projects`).then(resp => {
       return resp.json();
     }).then(data => {
       this.setState({projectsData: data.projects});
@@ -83,10 +78,10 @@ export default class UserProfilePage extends React.Component {
     });
   }
 
-  _fetchUserFollowers(userName) {
+  _fetchUserFollowers() {
     this.setState({isLoadingFollowersData: true});
 
-    return fetch(`/api/user/${userName}/followers`).then(resp => {
+    return fetch(`/api/user/${this.props.userData.username}/followers`).then(resp => {
       return resp.json();
     }).then(data => {
       this.setState({followersData: data.followers});
@@ -95,12 +90,13 @@ export default class UserProfilePage extends React.Component {
     });
   }
 
-  _fetchUserFollowings(userName) {
+  _fetchUserFollowing() {
     this.setState({isLoadingFollowingData: true});
 
-    return fetch(`/api/user/${userName}/following`).then(resp => {
+    return fetch(`/api/user/${this.props.userData.username}/following`).then(resp => {
       return resp.json();
     }).then(data => {
+      console.log('fetch following', data.following);
       this.setState({followingData: data.following});
     }).finally(() => {
       this.setState({isLoadingFollowingData: false});
@@ -130,6 +126,8 @@ export default class UserProfilePage extends React.Component {
           isLoadingFollowingData={this.state.isLoadingFollowingData}
           followingData={this.state.followingData}
 
+          onClickFollowersLink={this.onClickFollowersLink}
+          onClickFollowingLink={this.onClickFollowingLink}
           activeView={this.state.activeView}/>
       </div>
     )

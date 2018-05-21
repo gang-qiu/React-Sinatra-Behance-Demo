@@ -4,10 +4,6 @@ import TabbedFollowersView from './tabbed-followers-view/tabbed-followers-view';
 import './user-profile-main-view.css';
 
 export default class UserProfileMainView extends React.Component {
-  constructor(props) {
-    super(props);
-
-  }
 
   render() {
     const projects = Array.isArray(this.props.projectsData) ? this.props.projectsData : [];
@@ -20,9 +16,12 @@ export default class UserProfileMainView extends React.Component {
         }
 
         {
-          (this.props.activeView === 'followers' || this.props.activeView === 'followers') &&
+          (this.props.activeView === 'followers' || this.props.activeView === 'following') &&
             <TabbedFollowersView 
               activeView={this.props.activeView}
+              onClickFollowersLink={this.props.onClickFollowersLink}
+              onClickFollowingLink={this.props.onClickFollowingLink}
+
               followersData={this.props.followersData}
               isLoadingFollowersData={this.props.isLoadingFollowersData}
               followingData={this.props.followingData}

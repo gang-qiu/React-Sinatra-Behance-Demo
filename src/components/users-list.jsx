@@ -29,7 +29,7 @@ export default class UsersList extends React.Component {
   render() {
     return (
       <div className="users-list">
-        {this.users.map(user => this.renderUserListRow(user))}
+        {this.props.users.map(user => this.renderUserListRow(user))}
       </div>
     )
   }
