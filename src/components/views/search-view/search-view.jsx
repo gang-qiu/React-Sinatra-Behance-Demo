@@ -1,16 +1,18 @@
 import React from 'react';
-import SearchUserInput from './search-user-input';
-import UsersList from './users-list';
+import TextInput from '../../common/text-input';
+import UsersList from '../../common/users-list';
 
-export default class SearchPage extends React.Component {
+export default class SearchView extends React.Component {
   constructor(props) {
     super(props);
+    this.textInputPlaceholder = 'Mike';
   }
+
   render() {
     return (
       <main>
         <h1>Search for users...</h1>
-        <SearchUserInput onSubmit={this.props.handleSubmit}/>
+        <TextInput placeholder={this.textInputPlaceholder} onSubmit={this.props.handleSubmit}/>
         {this.props.errorFetchingResults && <p>Error loading results...</p>}
         {this.props.searchUsersResultsList && 
           <UsersList 

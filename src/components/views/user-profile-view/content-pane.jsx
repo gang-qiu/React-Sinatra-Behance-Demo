@@ -9,7 +9,8 @@ export default class UserProfileMainView extends React.Component {
     return (
       <main className="projects-container">
         {
-          this.props.activeView === 'projects' && <UserProfileProjectsView projects={this.props.projectsData} />
+          this.props.activeView === 'projects' && 
+            <UserProfileProjectsView projects={this.props.projectsData} />
         }
         {
           ['followers', 'following'].includes(this.props.activeView) &&

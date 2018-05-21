@@ -1,5 +1,5 @@
 import React from 'react';
-import UsersList from '../users-list';
+import UsersList from '../../../common/users-list';
 
 export default class TabbedFollowersView extends React.Component {
   getUsers() {

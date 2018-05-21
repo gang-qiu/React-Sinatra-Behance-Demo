@@ -58,7 +58,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	__webpack_require__(188);
+	__webpack_require__(189);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19782,13 +19782,13 @@
 
 	var _header2 = _interopRequireDefault(_header);
 
-	var _searchPage = __webpack_require__(166);
+	var _searchView = __webpack_require__(166);
 
-	var _searchPage2 = _interopRequireDefault(_searchPage);
+	var _searchView2 = _interopRequireDefault(_searchView);
 
-	var _userProfilePage = __webpack_require__(180);
+	var _userProfileView = __webpack_require__(180);
 
-	var _userProfilePage2 = _interopRequireDefault(_userProfilePage);
+	var _userProfileView2 = _interopRequireDefault(_userProfileView);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19864,7 +19864,7 @@
 	        'div',
 	        null,
 	        _react2.default.createElement(_header2.default, { onClickLogo: this.clearUserSearchResults }),
-	        this.state.selectedUser ? _react2.default.createElement(_userProfilePage2.default, { userData: this.state.selectedUser }) : _react2.default.createElement(_searchPage2.default, {
+	        this.state.selectedUser ? _react2.default.createElement(_userProfileView2.default, { userData: this.state.selectedUser }) : _react2.default.createElement(_searchView2.default, {
 	          handleSubmit: this.onSubmitUserSearchForm,
 	          errorFetchingResults: this.state.errorFetchingResults,
 	          searchUsersResultsList: this.state.searchUsersResultsList,
@@ -19963,8 +19963,8 @@
 	if(content.locals) module.exports = content.locals;
 
 	if(false) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js!./header.css", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js!./header.css");
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!./header.css", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!./header.css");
 
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 
@@ -20582,9 +20582,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _searchUserInput = __webpack_require__(167);
+	var _textInput = __webpack_require__(167);
 
-	var _searchUserInput2 = _interopRequireDefault(_searchUserInput);
+	var _textInput2 = _interopRequireDefault(_textInput);
 
 	var _usersList = __webpack_require__(177);
 
@@ -20598,16 +20598,19 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var SearchPage = function (_React$Component) {
-	  _inherits(SearchPage, _React$Component);
+	var SearchView = function (_React$Component) {
+	  _inherits(SearchView, _React$Component);
 
-	  function SearchPage(props) {
-	    _classCallCheck(this, SearchPage);
+	  function SearchView(props) {
+	    _classCallCheck(this, SearchView);
 
-	    return _possibleConstructorReturn(this, (SearchPage.__proto__ || Object.getPrototypeOf(SearchPage)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (SearchView.__proto__ || Object.getPrototypeOf(SearchView)).call(this, props));
+
+	    _this.textInputPlaceholder = 'Mike';
+	    return _this;
 	  }
 
-	  _createClass(SearchPage, [{
+	  _createClass(SearchView, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -20618,7 +20621,7 @@
 	          null,
 	          'Search for users...'
 	        ),
-	        _react2.default.createElement(_searchUserInput2.default, { onSubmit: this.props.handleSubmit }),
+	        _react2.default.createElement(_textInput2.default, { placeholder: this.textInputPlaceholder, onSubmit: this.props.handleSubmit }),
 	        this.props.errorFetchingResults && _react2.default.createElement(
 	          'p',
 	          null,
@@ -20631,10 +20634,10 @@
 	    }
 	  }]);
 
-	  return SearchPage;
+	  return SearchView;
 	}(_react2.default.Component);
 
-	exports.default = SearchPage;
+	exports.default = SearchView;
 
 /***/ }),
 /* 167 */
@@ -20664,30 +20667,30 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var SearchUserInput = function (_React$Component) {
-	  _inherits(SearchUserInput, _React$Component);
+	var TextInput = function (_React$Component) {
+	  _inherits(TextInput, _React$Component);
 
-	  function SearchUserInput(props) {
-	    _classCallCheck(this, SearchUserInput);
+	  function TextInput(props) {
+	    _classCallCheck(this, TextInput);
 
-	    var _this = _possibleConstructorReturn(this, (SearchUserInput.__proto__ || Object.getPrototypeOf(SearchUserInput)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (TextInput.__proto__ || Object.getPrototypeOf(TextInput)).call(this, props));
 
-	    _this.state = { userName: null };
+	    _this.state = { value: null };
 	    _this.handleSubmit = _this.handleSubmit.bind(_this);
 	    _this.handleChange = _this.handleChange.bind(_this);
 	    return _this;
 	  }
 
-	  _createClass(SearchUserInput, [{
+	  _createClass(TextInput, [{
 	    key: 'handleSubmit',
 	    value: function handleSubmit(e) {
 	      e.preventDefault();
-	      this.props.onSubmit(this.state.userName);
+	      this.props.onSubmit(this.state.value);
 	    }
 	  }, {
 	    key: 'handleChange',
 	    value: function handleChange(e) {
-	      this.setState({ userName: e.target.value });
+	      this.setState({ value: e.target.value });
 	    }
 	  }, {
 	    key: 'render',
@@ -20702,7 +20705,7 @@
 	            'label',
 	            null,
 	            _react2.default.createElement('input', {
-	              placeholder: 'user mcGee',
+	              placeholder: this.props.placeholder,
 	              value: this.state.userName,
 	              onChange: this.handleChange })
 	          )
@@ -20711,10 +20714,16 @@
 	    }
 	  }]);
 
-	  return SearchUserInput;
+	  return TextInput;
 	}(_react2.default.Component);
 
-	exports.default = SearchUserInput;
+	exports.default = TextInput;
+
+
+	TextInput.PropTypes = {
+	  placeholder: _propTypes2.default.string,
+	  handleSubmit: _propTypes2.default.func.isRequired
+	};
 
 /***/ }),
 /* 168 */
@@ -21837,8 +21846,8 @@
 	if(content.locals) module.exports = content.locals;
 
 	if(false) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js!./users-list.css", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js!./users-list.css");
+		module.hot.accept("!!../../../node_modules/css-loader/index.js!./users-list.css", function() {
+			var newContent = require("!!../../../node_modules/css-loader/index.js!./users-list.css");
 
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 
@@ -21901,7 +21910,7 @@
 
 	var _userProfileMainView2 = _interopRequireDefault(_userProfileMainView);
 
-	__webpack_require__(186);
+	__webpack_require__(187);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21911,13 +21920,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var UserProfilePage = function (_React$Component) {
-	  _inherits(UserProfilePage, _React$Component);
+	var UserProfileView = function (_React$Component) {
+	  _inherits(UserProfileView, _React$Component);
 
-	  function UserProfilePage(props, context) {
-	    _classCallCheck(this, UserProfilePage);
+	  function UserProfileView(props, context) {
+	    _classCallCheck(this, UserProfileView);
 
-	    var _this = _possibleConstructorReturn(this, (UserProfilePage.__proto__ || Object.getPrototypeOf(UserProfilePage)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (UserProfileView.__proto__ || Object.getPrototypeOf(UserProfileView)).call(this, props));
 
 	    _this.state = {
 	      activeView: 'projects', // can be 'projects', 'followers', 'following'
@@ -21931,7 +21940,7 @@
 	    return _this;
 	  }
 
-	  _createClass(UserProfilePage, [{
+	  _createClass(UserProfileView, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      // immediately fire off requests for additional user info
@@ -22023,10 +22032,10 @@
 	    }
 	  }]);
 
-	  return UserProfilePage;
+	  return UserProfileView;
 	}(_react2.default.Component);
 
-	exports.default = UserProfilePage;
+	exports.default = UserProfileView;
 
 /***/ }),
 /* 181 */
@@ -22212,15 +22221,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _userProfileProjectsView = __webpack_require__(190);
+	var _userProfileProjectsView = __webpack_require__(183);
 
 	var _userProfileProjectsView2 = _interopRequireDefault(_userProfileProjectsView);
 
-	var _tabbedFollowersView = __webpack_require__(183);
+	var _tabbedFollowersView = __webpack_require__(184);
 
 	var _tabbedFollowersView2 = _interopRequireDefault(_tabbedFollowersView);
 
-	__webpack_require__(184);
+	__webpack_require__(185);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22262,6 +22271,83 @@
 
 /***/ }),
 /* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var UserProfileProjectsView = function (_React$Component) {
+	  _inherits(UserProfileProjectsView, _React$Component);
+
+	  function UserProfileProjectsView() {
+	    _classCallCheck(this, UserProfileProjectsView);
+
+	    return _possibleConstructorReturn(this, (UserProfileProjectsView.__proto__ || Object.getPrototypeOf(UserProfileProjectsView)).apply(this, arguments));
+	  }
+
+	  _createClass(UserProfileProjectsView, [{
+	    key: "handleClick",
+	    value: function handleClick() {
+	      window.location.href = this.props.project.url;
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      var _this2 = this;
+
+	      var projects = Array.isArray(this.props.projects) && this.props.projects || [];
+
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "project-cards-view" },
+	        projects.map(function (project) {
+	          return _react2.default.createElement(
+	            "div",
+	            { key: project.id, className: "project-card", onClick: _this2.handleClick.bind(_this2) },
+	            _react2.default.createElement("img", { src: project.covers[230] }),
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              project.name
+	            ),
+	            _react2.default.createElement(
+	              "p",
+	              null,
+	              "Likes ",
+	              project.stats.appreciations,
+	              " | Views ",
+	              project.stats.views
+	            )
+	          );
+	        })
+	      );
+	    }
+	  }]);
+
+	  return UserProfileProjectsView;
+	}(_react2.default.Component);
+
+	exports.default = UserProfileProjectsView;
+
+/***/ }),
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22347,11 +22433,11 @@
 	exports.default = TabbedFollowersView;
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	var content = __webpack_require__(185);
+	var content = __webpack_require__(186);
 
 	if(typeof content === 'string') content = [[module.id, content, '']];
 
@@ -22370,8 +22456,8 @@
 	if(content.locals) module.exports = content.locals;
 
 	if(false) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js!./user-profile-main-view.css", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js!./user-profile-main-view.css");
+		module.hot.accept("!!../../../../node_modules/css-loader/index.js!./user-profile-main-view.css", function() {
+			var newContent = require("!!../../../../node_modules/css-loader/index.js!./user-profile-main-view.css");
 
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 
@@ -22397,7 +22483,7 @@
 	}
 
 /***/ }),
-/* 185 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(163)(false);
@@ -22411,11 +22497,11 @@
 
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	var content = __webpack_require__(187);
+	var content = __webpack_require__(188);
 
 	if(typeof content === 'string') content = [[module.id, content, '']];
 
@@ -22434,8 +22520,8 @@
 	if(content.locals) module.exports = content.locals;
 
 	if(false) {
-		module.hot.accept("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css", function() {
-			var newContent = require("!!../../node_modules/css-loader/index.js!./user-profile-sidebar.css");
+		module.hot.accept("!!../../../../node_modules/css-loader/index.js!./user-profile-sidebar.css", function() {
+			var newContent = require("!!../../../../node_modules/css-loader/index.js!./user-profile-sidebar.css");
 
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 
@@ -22461,7 +22547,7 @@
 	}
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(163)(false);
@@ -22475,11 +22561,11 @@
 
 
 /***/ }),
-/* 188 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	
-	var content = __webpack_require__(189);
+	var content = __webpack_require__(190);
 
 	if(typeof content === 'string') content = [[module.id, content, '']];
 
@@ -22525,7 +22611,7 @@
 	}
 
 /***/ }),
-/* 189 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(163)(false);
@@ -22537,83 +22623,6 @@
 
 	// exports
 
-
-/***/ }),
-/* 190 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var UserProfileProjectsView = function (_React$Component) {
-	  _inherits(UserProfileProjectsView, _React$Component);
-
-	  function UserProfileProjectsView() {
-	    _classCallCheck(this, UserProfileProjectsView);
-
-	    return _possibleConstructorReturn(this, (UserProfileProjectsView.__proto__ || Object.getPrototypeOf(UserProfileProjectsView)).apply(this, arguments));
-	  }
-
-	  _createClass(UserProfileProjectsView, [{
-	    key: "handleClick",
-	    value: function handleClick() {
-	      window.location.href = this.props.project.url;
-	    }
-	  }, {
-	    key: "render",
-	    value: function render() {
-	      var _this2 = this;
-
-	      var projects = Array.isArray(this.props.projects) && this.props.projects || [];
-
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "project-cards-view" },
-	        projects.map(function (project) {
-	          return _react2.default.createElement(
-	            "div",
-	            { key: project.id, className: "project-card", onClick: _this2.handleClick.bind(_this2) },
-	            _react2.default.createElement("img", { src: project.covers[230] }),
-	            _react2.default.createElement(
-	              "p",
-	              null,
-	              project.name
-	            ),
-	            _react2.default.createElement(
-	              "p",
-	              null,
-	              "Likes ",
-	              project.stats.appreciations,
-	              " | Views ",
-	              project.stats.views
-	            )
-	          );
-	        })
-	      );
-	    }
-	  }]);
-
-	  return UserProfileProjectsView;
-	}(_react2.default.Component);
-
-	exports.default = UserProfileProjectsView;
 
 /***/ })
 /******/ ]);

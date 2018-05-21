@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default class SearchUserInput extends React.Component {
+export default class TextInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {userName: null};
+    this.state = {value: null};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.onSubmit(this.state.userName);
+    this.props.onSubmit(this.state.value);
   }
 
   handleChange(e) {
-    this.setState({userName: e.target.value});
+    this.setState({value: e.target.value});
   }
 
   render() {
@@ -24,7 +24,7 @@ export default class SearchUserInput extends React.Component {
         <div>
           <label>
             <input
-              placeholder="user mcGee" 
+              placeholder={this.props.placeholder} 
               value={this.state.userName}
               onChange={this.handleChange}/>
           </label>
@@ -32,5 +32,10 @@ export default class SearchUserInput extends React.Component {
       </form>
     )
   }
+}
+
+TextInput.PropTypes = {
+  placeholder: PropTypes.string,
+  handleSubmit: PropTypes.func.isRequired,
 }
 

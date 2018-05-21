@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from './header';
-import SearchPage from './search-page';
-import UserProfilePage from './user-profile-page';
+import Header from './common/header';
+import SearchView from './views/search-view/search-view';
+import UserProfileView from './views/user-profile-view/user-profile-view';
 
 export default class App extends React.Component {
   constructor (props) {
@@ -55,8 +55,8 @@ export default class App extends React.Component {
         <Header onClickLogo={this.clearUserSearchResults}/>
         {
           this.state.selectedUser
-          ? <UserProfilePage userData={this.state.selectedUser} />
-          : <SearchPage 
+          ? <UserProfileView userData={this.state.selectedUser} />
+          : <SearchView 
               handleSubmit={this.onSubmitUserSearchForm} 
               errorFetchingResults={this.state.errorFetchingResults}
               searchUsersResultsList={this.state.searchUsersResultsList}
