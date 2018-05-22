@@ -9,7 +9,7 @@ export default class SideBar extends React.Component {
       website: this.props.userData.website,
       job: this.props.userData.occupation,
       location: this.props.userData.location,
-      imgUrl: this.props.userData.images && this.props.userData.images[50]
+      imgUrl: this.props.userData.images && this.props.userData.images[138]
     }
 
     const userStatsData = this.props.userData.stats;
@@ -35,11 +35,27 @@ export default class SideBar extends React.Component {
 function UserBasicInfo(props) {
   return (
     <div>
-      <p className="lead" onClick={props.onClickUserName}>{props.data.name}</p> 
-      <p>{props.data.job}</p>
-      <p>{props.data.location}</p>
-      <p>{props.data.website}</p>
-      {props.data.imgUrl && <img src={props.data.imgUrl}/>}
+      <div className="text-center">
+        <p className="lead" onClick={props.onClickUserName}>
+          <a>{props.data.name}</a>
+        </p> 
+        {props.data.imgUrl && 
+          <img className="img-circle clickable" 
+            onClick={props.onClickUserName}
+            src={props.data.imgUrl}/>
+        }
+        <p>{props.data.job}</p>
+        <p>
+          <a href={'https:www.google.com/maps?=' + props.data.location.replace(' ', '+')}>
+            <span className="glyphicon glyphicon-globe"></span> &nbsp;
+            {props.data.location}
+          </a>
+        </p>
+        <p>
+          <a href={props.data.website}>{props.data.website}</a>
+        </p>
+            
+      </div>
     </div>
   )
 }
@@ -47,10 +63,22 @@ function UserBasicInfo(props) {
 function UserStats(props) {
   return (
     <div>
-      <p>Project Views {props.data.views}</p> 
-      <p>Appreciations {props.data.appreciations}</p>
-      <p onClick={props.onClickFollowersLink}>Followers {props.data.followers}</p>
-      <p onClick={props.onClickFollowingLink}>Following {props.data.following}</p>
+      <p className="clearfix">
+        <span className="pull-left">Project Views</span> 
+        <span className="pull-right">{props.data.views}</span>
+      </p> 
+      <p className="clearfix">
+        <span className="pull-left">Appreciations</span> 
+        <span className="pull-right">{props.data.appreciations}</span>
+      </p>
+      <p className="clearfix" onClick={props.onClickFollowersLink}>
+        <a className="pull-left">Followers</a> 
+        <span className="pull-right">{props.data.followers}</span>
+      </p>
+      <p className="clearfix" onClick={props.onClickFollowingLink}>
+        <a className="pull-left">Following</a> 
+        <span className="pull-right">{props.data.following}</span>
+      </p>
     </div>
   )
 }

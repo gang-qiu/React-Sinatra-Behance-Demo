@@ -20002,7 +20002,7 @@
 
 
 	// module
-	exports.push([module.id, "header {\n  border-bottom: 1px solid #ddd;\n}\n\n.logo-text {\n  font-weight: bold;\n  font-size: 24px;\n}\n\n.logo-text:hover {\n  cursor: pointer;\n}\n\n", ""]);
+	exports.push([module.id, "header {\n  border-bottom: 1px solid #ddd;\n  background: #333 !important;\n}\n\n.logo-text {\n  font-weight: bold;\n  font-size: 24px;\n  color: white !important;\n}\n\n.logo-text:hover {\n  cursor: pointer;\n}\n\n", ""]);
 
 	// exports
 
@@ -22141,7 +22141,7 @@
 	        website: this.props.userData.website,
 	        job: this.props.userData.occupation,
 	        location: this.props.userData.location,
-	        imgUrl: this.props.userData.images && this.props.userData.images[50]
+	        imgUrl: this.props.userData.images && this.props.userData.images[138]
 	      };
 
 	      var userStatsData = this.props.userData.stats;
@@ -22181,26 +22181,46 @@
 	    'div',
 	    null,
 	    _react2.default.createElement(
-	      'p',
-	      { className: 'lead', onClick: props.onClickUserName },
-	      props.data.name
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      props.data.job
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      props.data.location
-	    ),
-	    _react2.default.createElement(
-	      'p',
-	      null,
-	      props.data.website
-	    ),
-	    props.data.imgUrl && _react2.default.createElement('img', { src: props.data.imgUrl })
+	      'div',
+	      { className: 'text-center' },
+	      _react2.default.createElement(
+	        'p',
+	        { className: 'lead', onClick: props.onClickUserName },
+	        _react2.default.createElement(
+	          'a',
+	          null,
+	          props.data.name
+	        )
+	      ),
+	      props.data.imgUrl && _react2.default.createElement('img', { className: 'img-circle clickable',
+	        onClick: props.onClickUserName,
+	        src: props.data.imgUrl }),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        props.data.job
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        _react2.default.createElement(
+	          'a',
+	          { href: 'https:www.google.com/maps?=' + props.data.location.replace(' ', '+') },
+	          _react2.default.createElement('span', { className: 'glyphicon glyphicon-globe' }),
+	          ' \xA0',
+	          props.data.location
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        _react2.default.createElement(
+	          'a',
+	          { href: props.data.website },
+	          props.data.website
+	        )
+	      )
+	    )
 	  );
 	}
 
@@ -22210,27 +22230,59 @@
 	    null,
 	    _react2.default.createElement(
 	      'p',
-	      null,
-	      'Project Views ',
-	      props.data.views
+	      { className: 'clearfix' },
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'pull-left' },
+	        'Project Views'
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'pull-right' },
+	        props.data.views
+	      )
 	    ),
 	    _react2.default.createElement(
 	      'p',
-	      null,
-	      'Appreciations ',
-	      props.data.appreciations
+	      { className: 'clearfix' },
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'pull-left' },
+	        'Appreciations'
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'pull-right' },
+	        props.data.appreciations
+	      )
 	    ),
 	    _react2.default.createElement(
 	      'p',
-	      { onClick: props.onClickFollowersLink },
-	      'Followers ',
-	      props.data.followers
+	      { className: 'clearfix', onClick: props.onClickFollowersLink },
+	      _react2.default.createElement(
+	        'a',
+	        { className: 'pull-left' },
+	        'Followers'
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'pull-right' },
+	        props.data.followers
+	      )
 	    ),
 	    _react2.default.createElement(
 	      'p',
-	      { onClick: props.onClickFollowingLink },
-	      'Following ',
-	      props.data.following
+	      { className: 'clearfix', onClick: props.onClickFollowingLink },
+	      _react2.default.createElement(
+	        'a',
+	        { className: 'pull-left' },
+	        'Following'
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'pull-right' },
+	        props.data.following
+	      )
 	    )
 	  );
 	}
@@ -22325,7 +22377,7 @@
 
 
 	// module
-	exports.push([module.id, "aside {\n  background: lightgrey;\n  \n}\n\n.work-experience-row {\n  padding: 5px 10px;\n  border-bottom: 1px solid #eee;\n}", ""]);
+	exports.push([module.id, "aside {\n  background: #e1e1e1;\n  padding: 20px 20px;\n}\n\naside img {\n  margin: 10px 0px;\n}\n\n.work-experience-row {\n  padding: 5px 10px;\n}", ""]);
 
 	// exports
 
@@ -22701,7 +22753,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\n  font-family: sans-serif;\n}\n\np {\n  margin-bottom: 5px !important;\n}\n\n.clickable:hover {\n  cursor: pointer;\n}\n\nli.clickable:hover {\n  background: #f8f8f8;\n}\n\n.width-350 {\n  width: 350px;\n}\n\n.margin-right-10 {\n  margin-right: 10px;\n}", ""]);
+	exports.push([module.id, "* {\n  font-family: sans-serif;\n}\n\nbody {\n  background: #f2f2f2;\n}\n\np {\n  margin-bottom: 5px !important;\n}\n\na:hover {\n  cursor: pointer !important;\n}\n\n.clickable:hover {\n  cursor: pointer;\n}\n\nli.clickable:hover {\n  background: #f8f8f8;\n}\n\n.width-350 {\n  width: 350px;\n}\n\n.margin-right-10 {\n  margin-right: 10px;\n}", ""]);
 
 	// exports
 
@@ -22765,7 +22817,7 @@
 
 
 	// module
-	exports.push([module.id, ".project-card {\n  margin: 5px 10px;\n  width: 180px;\n  min-height: 250px;\n  float: left;\n  background-color: #f8f8f8;\n  border: 1px solid #f1f1f1;\n  border-radius: 10px;\n  overflow: hidden;\n  position: relative;\n}\n\n.project-card:hover {\n  background: #f3f3f3;\n}\n\n.project-card img {\n  width: 200px;\n  height: auto;\n}\n\n.project-card-details {\n  padding: 5px 10px;\n}\n\n.project-stats {\n  position: absolute;\n  bottom: 0px;\n  left: 10px;\n}", ""]);
+	exports.push([module.id, ".project-card {\n  margin: 5px 10px;\n  width: 180px;\n  min-height: 250px;\n  float: left;\n  border: 1px solid #ccc;\n  border-radius: 10px;\n  overflow: hidden;\n  position: relative;\n}\n\n.project-card:hover {\n  background: #f8f8f8;\n}\n\n.project-card img {\n  width: 200px;\n  height: auto;\n}\n\n.project-card-details {\n  padding: 5px 10px;\n}\n\n.project-stats {\n  position: absolute;\n  bottom: 0px;\n  left: 10px;\n}", ""]);
 
 	// exports
 

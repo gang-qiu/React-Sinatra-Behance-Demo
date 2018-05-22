@@ -1,9 +1,12 @@
 aside {
-  background: lightgrey;
-  
+  background: #e1e1e1;
+  padding: 20px 20px;
+}
+
+aside img {
+  margin: 10px 0px;
 }
 
 .work-experience-row {
   padding: 5px 10px;
-  border-bottom: 1px solid #eee;
 }

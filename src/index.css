@@ -2,8 +2,16 @@
   font-family: sans-serif;
 }
 
+body {
+  background: #f2f2f2;
+}
+
 p {
   margin-bottom: 5px !important;
+}
+
+a:hover {
+  cursor: pointer !important;
 }
 
 .clickable:hover {
