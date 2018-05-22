@@ -2,8 +2,8 @@ import React from 'react';
 import './projects-view.css';
 
 export default class ProjectsView extends React.Component {
-  handleClick() {
-    window.location.href = this.props.project.url;
+  handleClick(project) {
+    window.location.href = project.url;
   }
 
   render() {
@@ -14,7 +14,7 @@ export default class ProjectsView extends React.Component {
         {
           projects.map(project => {
             return (
-              <div key={project.id} className="project-card clickable" onClick={this.handleClick.bind(this)}>
+              <div key={project.id} className="project-card clickable" onClick={this.handleClick.bind(this, project)}>
                 <img src={project.covers[230] || project.covers[200]} />
                 <div className="project-card-details">
                   <p><strong>{project.name}</strong></p>

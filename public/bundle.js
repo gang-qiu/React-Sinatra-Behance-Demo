@@ -22485,8 +22485,8 @@
 
 	  _createClass(ProjectsView, [{
 	    key: 'handleClick',
-	    value: function handleClick() {
-	      window.location.href = this.props.project.url;
+	    value: function handleClick(project) {
+	      window.location.href = project.url;
 	    }
 	  }, {
 	    key: 'render',
@@ -22501,7 +22501,7 @@
 	        projects.map(function (project) {
 	          return _react2.default.createElement(
 	            'div',
-	            { key: project.id, className: 'project-card clickable', onClick: _this2.handleClick.bind(_this2) },
+	            { key: project.id, className: 'project-card clickable', onClick: _this2.handleClick.bind(_this2, project) },
 	            _react2.default.createElement('img', { src: project.covers[230] || project.covers[200] }),
 	            _react2.default.createElement(
 	              'div',
