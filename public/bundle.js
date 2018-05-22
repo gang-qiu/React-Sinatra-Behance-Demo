@@ -22660,6 +22660,11 @@
 	      }
 	    }
 	  }, {
+	    key: 'onSelectUser',
+	    value: function onSelectUser(user) {
+	      window.location.href = user.url;
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -22687,7 +22692,7 @@
 	            )
 	          )
 	        ),
-	        _react2.default.createElement(_usersList2.default, { users: this.getUsers() })
+	        _react2.default.createElement(_usersList2.default, { users: this.getUsers(), onSelectUser: this.onSelectUser.bind(this) })
 	      );
 	    }
 	  }]);

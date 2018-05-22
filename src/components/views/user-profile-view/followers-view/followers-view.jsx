@@ -10,6 +10,10 @@ export default class FollowersView extends React.Component {
     }
   }
 
+  onSelectUser(user) {
+    window.location.href = user.url;
+  }
+
   render() {
     return (
       <div>
@@ -21,7 +25,7 @@ export default class FollowersView extends React.Component {
             <a onClick={this.props.setActiveView.bind(this, 'following')}>Following</a>
           </li>
         </ul>
-        <UsersList users={this.getUsers()} />
+        <UsersList users={this.getUsers()} onSelectUser={this.onSelectUser.bind(this)}/>
       </div>
     )
   }
