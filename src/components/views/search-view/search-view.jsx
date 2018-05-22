@@ -10,7 +10,7 @@ export default class SearchView extends React.Component {
 
   render() {
     return (
-      <main>
+      <main className="container-fluid">
         <h1>Search for users...</h1>
         <TextInput placeholder={this.textInputPlaceholder} onSubmit={this.props.handleSubmit}/>
         {this.props.errorFetchingResults && <p>Error loading results...</p>}

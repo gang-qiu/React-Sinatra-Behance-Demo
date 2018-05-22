@@ -19918,16 +19918,20 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'header',
-	        null,
+	        { className: 'navbar navbar-default' },
 	        _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'container-fluid' },
 	          _react2.default.createElement(
-	            'span',
-	            {
-	              className: 'logo-text',
-	              onClick: this.props.onClickLogo },
-	            'Dealer Behanced'
+	            'div',
+	            { className: 'navbar-header' },
+	            _react2.default.createElement(
+	              'a',
+	              {
+	                className: 'logo-text clickable navbar-brand',
+	                onClick: this.props.onClickLogo },
+	              'Dealer Behanced'
+	            )
 	          )
 	        )
 	      );
@@ -20615,7 +20619,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'main',
-	        null,
+	        { className: 'container-fluid' },
 	        _react2.default.createElement(
 	          'h1',
 	          null,

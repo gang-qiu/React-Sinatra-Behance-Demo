@@ -4,13 +4,15 @@ import './header.css';
 export default class Header extends React.Component {
   render() {
     return (
-      <header>
-        <div>
-          <span 
-            className="logo-text"
-            onClick={this.props.onClickLogo}>
-            Dealer Behanced
-          </span>
+      <header className="navbar navbar-default">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <a 
+              className="logo-text clickable navbar-brand"
+              onClick={this.props.onClickLogo}>
+              Dealer Behanced
+            </a>
+          </div>
         </div>
       </header>
     )
