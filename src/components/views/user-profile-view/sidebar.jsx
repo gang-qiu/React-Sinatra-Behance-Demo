@@ -72,11 +72,15 @@ function UserStats(props) {
         <span className="pull-right">{props.data.appreciations}</span>
       </p>
       <p className="clearfix" onClick={props.onClickFollowersLink}>
-        <a className="pull-left">Followers</a> 
+        <a className="pull-left">
+          Followers <span className="glyphicon glyphicon-log-in"></span>
+        </a> 
         <span className="pull-right">{props.data.followers}</span>
       </p>
       <p className="clearfix" onClick={props.onClickFollowingLink}>
-        <a className="pull-left">Following</a> 
+        <a className="pull-left">
+          Following <span className="glyphicon glyphicon-log-in"></span>
+        </a> 
         <span className="pull-right">{props.data.following}</span>
       </p>
     </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ProjectsView from './projects-view/projects-view';
-import TabbedFollowersView from './tabbed-followers-view/tabbed-followers-view';
+import FollowersView from './followers-view/followers-view';
 import './content-pane.css';
 
 export default class ContentPane extends React.Component {
@@ -14,7 +14,7 @@ export default class ContentPane extends React.Component {
         }
         {
           ['followers', 'following'].includes(this.props.activeView) &&
-            <TabbedFollowersView 
+            <FollowersView 
               activeView={this.props.activeView}
               setActiveView={this.props.setActiveView}
               followersData={this.props.followersData}

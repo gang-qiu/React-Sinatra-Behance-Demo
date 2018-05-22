@@ -58,7 +58,7 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
-	__webpack_require__(189);
+	__webpack_require__(191);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22262,7 +22262,8 @@
 	      _react2.default.createElement(
 	        'a',
 	        { className: 'pull-left' },
-	        'Followers'
+	        'Followers ',
+	        _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' })
 	      ),
 	      _react2.default.createElement(
 	        'span',
@@ -22276,7 +22277,8 @@
 	      _react2.default.createElement(
 	        'a',
 	        { className: 'pull-left' },
-	        'Following'
+	        'Following ',
+	        _react2.default.createElement('span', { className: 'glyphicon glyphicon-log-in' })
 	      ),
 	      _react2.default.createElement(
 	        'span',
@@ -22402,11 +22404,11 @@
 
 	var _projectsView2 = _interopRequireDefault(_projectsView);
 
-	var _tabbedFollowersView = __webpack_require__(186);
+	var _followersView = __webpack_require__(188);
 
-	var _tabbedFollowersView2 = _interopRequireDefault(_tabbedFollowersView);
+	var _followersView2 = _interopRequireDefault(_followersView);
 
-	__webpack_require__(187);
+	__webpack_require__(189);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22432,7 +22434,7 @@
 	        'main',
 	        { className: 'projects-container' },
 	        this.props.activeView === 'projects' && _react2.default.createElement(_projectsView2.default, { projects: this.props.projectsData }),
-	        ['followers', 'following'].includes(this.props.activeView) && _react2.default.createElement(_tabbedFollowersView2.default, {
+	        ['followers', 'following'].includes(this.props.activeView) && _react2.default.createElement(_followersView2.default, {
 	          activeView: this.props.activeView,
 	          setActiveView: this.props.setActiveView,
 	          followersData: this.props.followersData,
@@ -22462,7 +22464,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	__webpack_require__(191);
+	__webpack_require__(186);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22548,222 +22550,8 @@
 /* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _usersList = __webpack_require__(177);
-
-	var _usersList2 = _interopRequireDefault(_usersList);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var TabbedFollowersView = function (_React$Component) {
-	  _inherits(TabbedFollowersView, _React$Component);
-
-	  function TabbedFollowersView() {
-	    _classCallCheck(this, TabbedFollowersView);
-
-	    return _possibleConstructorReturn(this, (TabbedFollowersView.__proto__ || Object.getPrototypeOf(TabbedFollowersView)).apply(this, arguments));
-	  }
-
-	  _createClass(TabbedFollowersView, [{
-	    key: 'getUsers',
-	    value: function getUsers() {
-	      switch (this.props.activeView) {
-	        case 'followers':
-	          return this.props.followersData;
-	        case 'following':
-	          return this.props.followingData;
-	        default:
-	          return [];
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'h2',
-	          null,
-	          this.props.activeView.toUpperCase(),
-	          ' ',
-	          this.getUsers().length
-	        ),
-	        _react2.default.createElement(
-	          'ul',
-	          null,
-	          _react2.default.createElement(
-	            'li',
-	            { className: 'clickable', onClick: this.props.setActiveView.bind(this, 'followers') },
-	            'Followers'
-	          ),
-	          _react2.default.createElement(
-	            'li',
-	            { className: 'clickable', onClick: this.props.setActiveView.bind(this, 'following') },
-	            'Following'
-	          )
-	        ),
-	        _react2.default.createElement(_usersList2.default, { users: this.getUsers() })
-	      );
-	    }
-	  }]);
-
-	  return TabbedFollowersView;
-	}(_react2.default.Component);
-
-	exports.default = TabbedFollowersView;
-
-/***/ }),
-/* 187 */
-/***/ (function(module, exports, __webpack_require__) {
-
 	
-	var content = __webpack_require__(188);
-
-	if(typeof content === 'string') content = [[module.id, content, '']];
-
-	var transform;
-	var insertInto;
-
-
-
-	var options = {"hmr":true}
-
-	options.transform = transform
-	options.insertInto = undefined;
-
-	var update = __webpack_require__(164)(content, options);
-
-	if(content.locals) module.exports = content.locals;
-
-	if(false) {
-		module.hot.accept("!!../../../../node_modules/css-loader/index.js!./content-pane.css", function() {
-			var newContent = require("!!../../../../node_modules/css-loader/index.js!./content-pane.css");
-
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-			var locals = (function(a, b) {
-				var key, idx = 0;
-
-				for(key in a) {
-					if(!b || a[key] !== b[key]) return false;
-					idx++;
-				}
-
-				for(key in b) idx--;
-
-				return idx === 0;
-			}(content.locals, newContent.locals));
-
-			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-			update(newContent);
-		});
-
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
-/* 188 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)(false);
-	// imports
-
-
-	// module
-	exports.push([module.id, "\n", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 189 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	var content = __webpack_require__(190);
-
-	if(typeof content === 'string') content = [[module.id, content, '']];
-
-	var transform;
-	var insertInto;
-
-
-
-	var options = {"hmr":true}
-
-	options.transform = transform
-	options.insertInto = undefined;
-
-	var update = __webpack_require__(164)(content, options);
-
-	if(content.locals) module.exports = content.locals;
-
-	if(false) {
-		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
-			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
-
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-			var locals = (function(a, b) {
-				var key, idx = 0;
-
-				for(key in a) {
-					if(!b || a[key] !== b[key]) return false;
-					idx++;
-				}
-
-				for(key in b) idx--;
-
-				return idx === 0;
-			}(content.locals, newContent.locals));
-
-			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-			update(newContent);
-		});
-
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
-/* 190 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)(false);
-	// imports
-
-
-	// module
-	exports.push([module.id, "* {\n  font-family: sans-serif;\n}\n\nbody {\n  background: #f2f2f2;\n}\n\np {\n  margin-bottom: 5px !important;\n}\n\na:hover {\n  cursor: pointer !important;\n}\n\n.clickable:hover {\n  cursor: pointer;\n}\n\nli.clickable:hover {\n  background: #f8f8f8;\n}\n\n.width-350 {\n  width: 350px;\n}\n\n.margin-right-10 {\n  margin-right: 10px;\n}", ""]);
-
-	// exports
-
-
-/***/ }),
-/* 191 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	var content = __webpack_require__(192);
+	var content = __webpack_require__(187);
 
 	if(typeof content === 'string') content = [[module.id, content, '']];
 
@@ -22809,7 +22597,7 @@
 	}
 
 /***/ }),
-/* 192 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(163)(false);
@@ -22818,6 +22606,221 @@
 
 	// module
 	exports.push([module.id, ".project-card {\n  margin: 5px 10px;\n  width: 180px;\n  min-height: 250px;\n  float: left;\n  border: 1px solid #ccc;\n  border-radius: 10px;\n  overflow: hidden;\n  position: relative;\n}\n\n.project-card:hover {\n  background: #f8f8f8;\n}\n\n.project-card img {\n  width: 200px;\n  height: auto;\n}\n\n.project-card-details {\n  padding: 5px 10px;\n}\n\n.project-stats {\n  position: absolute;\n  bottom: 0px;\n  left: 10px;\n}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 188 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _usersList = __webpack_require__(177);
+
+	var _usersList2 = _interopRequireDefault(_usersList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FollowersView = function (_React$Component) {
+	  _inherits(FollowersView, _React$Component);
+
+	  function FollowersView() {
+	    _classCallCheck(this, FollowersView);
+
+	    return _possibleConstructorReturn(this, (FollowersView.__proto__ || Object.getPrototypeOf(FollowersView)).apply(this, arguments));
+	  }
+
+	  _createClass(FollowersView, [{
+	    key: 'getUsers',
+	    value: function getUsers() {
+	      switch (this.props.activeView) {
+	        case 'followers':
+	          return this.props.followersData;
+	        case 'following':
+	          return this.props.followingData;
+	        default:
+	          return [];
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'ul',
+	          { className: 'nav nav-pills margin-bottom-10' },
+	          _react2.default.createElement(
+	            'li',
+	            { className: this.props.activeView === 'followers' ? 'active' : '' },
+	            _react2.default.createElement(
+	              'a',
+	              { onClick: this.props.setActiveView.bind(this, 'followers') },
+	              'Followers'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            { className: this.props.activeView === 'following' ? 'active' : '' },
+	            _react2.default.createElement(
+	              'a',
+	              { onClick: this.props.setActiveView.bind(this, 'following') },
+	              'Following'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(_usersList2.default, { users: this.getUsers() })
+	      );
+	    }
+	  }]);
+
+	  return FollowersView;
+	}(_react2.default.Component);
+
+	exports.default = FollowersView;
+
+/***/ }),
+/* 189 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(190);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../../../../node_modules/css-loader/index.js!./content-pane.css", function() {
+			var newContent = require("!!../../../../node_modules/css-loader/index.js!./content-pane.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 190 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, "\n", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 191 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(192);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../node_modules/css-loader/index.js!./index.css", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js!./index.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 192 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, "* {\n  font-family: sans-serif;\n}\n\nbody {\n  background: #f2f2f2;\n}\n\np {\n  margin-bottom: 5px !important;\n}\n\na:hover {\n  cursor: pointer !important;\n}\n\n.clickable:hover {\n  cursor: pointer;\n}\n\nli.clickable:hover {\n  background: #f8f8f8;\n}\n\n.width-350 {\n  width: 350px;\n}\n\n.margin-right-10 {\n  margin-right: 10px;\n}\n\n.margin-bottom-10 {\n  margin-bottom: 10px !important;\n}", ""]);
 
 	// exports
 
