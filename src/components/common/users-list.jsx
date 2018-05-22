@@ -15,22 +15,36 @@ export default class UsersList extends React.Component {
 
   renderUserListRow(user) {
     // return a single user list row element
-    const imgSrc = user.images && user.images[50] || null;
+    const imgSrc = user.images && (user.images[100] || user.images[50] || null);
 
     return (
-      <div key={user.id} className="user-list-row" onClick={this.handleClick.bind(this, user)}>
-        {imgSrc && <img src={imgSrc} />}
-        <strong>{user.display_name}</strong>
-        <span>{user.location}</span>
-      </div>
+      <li key={user.id} 
+        className="user-list-row list-group-item clearfix clickable" 
+        onClick={this.handleClick.bind(this, user)}>
+          {imgSrc && <img src={imgSrc} className="pull-left img-rounded"/>}
+          <div className="pull-left">
+            <p><strong className="lead">{user.display_name}</strong></p>
+            <p><span>{user.location}</span></p>
+            {user.stats && 
+              <p>
+                <span className="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                <span className="margin-right-10"> {user.stats.appreciations} </span>
+                <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                <span className="margin-right-10"> {user.stats.views}</span>
+                <span className="glyphicon glyphicon-user" aria-hidden="true"></span>
+                <span className="margin-right-10"> {user.stats.followers}</span>
+              </p>
+            }
+          </div>
+      </li>
     )
   }
 
   render() {
     return (
-      <div className="users-list">
+      <ul className="users-list list-group">
         {this.props.users.map(user => this.renderUserListRow(user))}
-      </div>
+      </ul>
     )
   }
 }
@@ -42,5 +56,10 @@ UsersList.propTypes = {
     images: PropTypes.object.isRequired,
     display_name: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
+    stats: PropTypes.shape({
+      appreciations: PropTypes.number,
+      views: PropTypes.number,
+      followers: PropTypes.number,
+    })
   })).isRequired
 }

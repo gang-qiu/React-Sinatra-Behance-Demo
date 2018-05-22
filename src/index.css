@@ -2,6 +2,22 @@
   font-family: sans-serif;
 }
 
+p {
+  margin-bottom: 5px !important;
+}
+
 .clickable:hover {
   cursor: pointer;
+}
+
+li.clickable:hover {
+  background: #f8f8f8;
+}
+
+.width-350 {
+  width: 350px;
+}
+
+.margin-right-10 {
+  margin-right: 10px;
 }

@@ -21,9 +21,10 @@ export default class TextInput extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <div>
+        <div className="form-group">
           <label>
             <input
+              className="form-control input-lg width-350"
               placeholder={this.props.placeholder} 
               value={this.state.userName}
               onChange={this.handleChange}/>

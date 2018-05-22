@@ -20622,14 +20622,18 @@
 	        { className: 'container-fluid' },
 	        _react2.default.createElement(
 	          'h1',
-	          null,
+	          { className: 'text-center' },
 	          'Search for users...'
 	        ),
-	        _react2.default.createElement(_textInput2.default, { placeholder: this.textInputPlaceholder, onSubmit: this.props.handleSubmit }),
-	        this.props.errorFetchingResults && _react2.default.createElement(
-	          'p',
-	          null,
-	          'Error loading results...'
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'text-center' },
+	          _react2.default.createElement(_textInput2.default, { placeholder: this.textInputPlaceholder, onSubmit: this.props.handleSubmit }),
+	          this.props.errorFetchingResults && _react2.default.createElement(
+	            'p',
+	            { className: 'alert alert-warning' },
+	            'Error loading results...'
+	          )
 	        ),
 	        this.props.searchUsersResultsList && _react2.default.createElement(_usersList2.default, {
 	          users: this.props.searchUsersResultsList,
@@ -20704,11 +20708,12 @@
 	        { onSubmit: this.handleSubmit },
 	        _react2.default.createElement(
 	          'div',
-	          null,
+	          { className: 'form-group' },
 	          _react2.default.createElement(
 	            'label',
 	            null,
 	            _react2.default.createElement('input', {
+	              className: 'form-control input-lg width-350',
 	              placeholder: this.props.placeholder,
 	              value: this.state.userName,
 	              onChange: this.handleChange })
@@ -21777,21 +21782,61 @@
 	    key: 'renderUserListRow',
 	    value: function renderUserListRow(user) {
 	      // return a single user list row element
-	      var imgSrc = user.images && user.images[50] || null;
+	      var imgSrc = user.images && (user.images[100] || user.images[50] || null);
 
 	      return _react2.default.createElement(
-	        'div',
-	        { key: user.id, className: 'user-list-row', onClick: this.handleClick.bind(this, user) },
-	        imgSrc && _react2.default.createElement('img', { src: imgSrc }),
+	        'li',
+	        { key: user.id,
+	          className: 'user-list-row list-group-item clearfix clickable',
+	          onClick: this.handleClick.bind(this, user) },
+	        imgSrc && _react2.default.createElement('img', { src: imgSrc, className: 'pull-left img-rounded' }),
 	        _react2.default.createElement(
-	          'strong',
-	          null,
-	          user.display_name
-	        ),
-	        _react2.default.createElement(
-	          'span',
-	          null,
-	          user.location
+	          'div',
+	          { className: 'pull-left' },
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            _react2.default.createElement(
+	              'strong',
+	              { className: 'lead' },
+	              user.display_name
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            _react2.default.createElement(
+	              'span',
+	              null,
+	              user.location
+	            )
+	          ),
+	          user.stats && _react2.default.createElement(
+	            'p',
+	            null,
+	            _react2.default.createElement('span', { className: 'glyphicon glyphicon-thumbs-up', 'aria-hidden': 'true' }),
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'margin-right-10' },
+	              ' ',
+	              user.stats.appreciations,
+	              ' '
+	            ),
+	            _react2.default.createElement('span', { className: 'glyphicon glyphicon-eye-open', 'aria-hidden': 'true' }),
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'margin-right-10' },
+	              ' ',
+	              user.stats.views
+	            ),
+	            _react2.default.createElement('span', { className: 'glyphicon glyphicon-user', 'aria-hidden': 'true' }),
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'margin-right-10' },
+	              ' ',
+	              user.stats.followers
+	            )
+	          )
 	        )
 	      );
 	    }
@@ -21801,8 +21846,8 @@
 	      var _this2 = this;
 
 	      return _react2.default.createElement(
-	        'div',
-	        { className: 'users-list' },
+	        'ul',
+	        { className: 'users-list list-group' },
 	        this.props.users.map(function (user) {
 	          return _this2.renderUserListRow(user);
 	        })
@@ -21822,7 +21867,12 @@
 	    id: _propTypes2.default.number.isRequired,
 	    images: _propTypes2.default.object.isRequired,
 	    display_name: _propTypes2.default.string.isRequired,
-	    location: _propTypes2.default.string.isRequired
+	    location: _propTypes2.default.string.isRequired,
+	    stats: _propTypes2.default.shape({
+	      appreciations: _propTypes2.default.number,
+	      views: _propTypes2.default.number,
+	      followers: _propTypes2.default.number
+	    })
 	  })).isRequired
 	};
 
@@ -21885,7 +21935,7 @@
 
 
 	// module
-	exports.push([module.id, ".user-list-row {\n  padding: 5px 10px;\n  border: 1px solid lightgrey;\n}\n\n.user-list-row:hover {\n  background: #eee;\n  cursor: pointer;\n}\n\n.user-list-row img {\n  width: 35px;\n  height: auto;\n}\n\n.user-list-row strong {\n  margin: 0 20px;\n}", ""]);
+	exports.push([module.id, ".user-list-row {\n  padding: 10px 20px;\n  border: 1px solid lightgrey;\n}\n\n.user-list-row img {\n  width: 75px;\n  height: auto;\n  margin-right: 20px;\n}\n\n", ""]);
 
 	// exports
 
@@ -22623,7 +22673,7 @@
 
 
 	// module
-	exports.push([module.id, "* {\n  font-family: sans-serif;\n}\n\n.clickable:hover {\n  cursor: pointer;\n}", ""]);
+	exports.push([module.id, "* {\n  font-family: sans-serif;\n}\n\np {\n  margin-bottom: 5px !important;\n}\n\n.clickable:hover {\n  cursor: pointer;\n}\n\nli.clickable:hover {\n  background: #f8f8f8;\n}\n\n.width-350 {\n  width: 350px;\n}\n\n.margin-right-10 {\n  margin-right: 10px;\n}", ""]);
 
 	// exports
 
