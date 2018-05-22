@@ -16,7 +16,7 @@ export default class SideBar extends React.Component {
     const workExperienceData = this.props.workExperienceData;
 
     return (
-      <aside style={{float: 'left'}}>
+      <aside>
         <UserBasicInfo 
           data={userBasicInfoData}
           onClickUserName={() => this.props.setActiveView('projects')}/>
@@ -35,7 +35,7 @@ export default class SideBar extends React.Component {
 function UserBasicInfo(props) {
   return (
     <div>
-      <h3 onClick={props.onClickUserName}>{props.data.name}</h3> 
+      <p className="lead" onClick={props.onClickUserName}>{props.data.name}</p> 
       <p>{props.data.job}</p>
       <p>{props.data.location}</p>
       <p>{props.data.website}</p>
@@ -61,9 +61,9 @@ function UserWorkExperience(props) {
   return (
     <div>
       <p>{workExperiences.length > 0 ? 'Work Experience: ' : 'No work experience'}</p>
-      {workExperiences.map(workExperiece => {
+      {workExperiences.map((workExperiece, idx) => {
         return (
-          <div key={workExperiece.start_date} className="work-experience-row">
+          <div key={workExperiece.start_date + idx} className="work-experience-row">
             <em>{workExperiece.start_date}</em> {workExperiece.location}
             <br />
             {workExperiece.organization}

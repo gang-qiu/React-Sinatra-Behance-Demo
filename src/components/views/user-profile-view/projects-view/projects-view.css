@@ -1,0 +1,30 @@
+.project-card {
+  margin: 5px 10px;
+  width: 180px;
+  min-height: 250px;
+  float: left;
+  background-color: #f8f8f8;
+  border: 1px solid #f1f1f1;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.project-card:hover {
+  background: #f3f3f3;
+}
+
+.project-card img {
+  width: 200px;
+  height: auto;
+}
+
+.project-card-details {
+  padding: 5px 10px;
+}
+
+.project-stats {
+  position: absolute;
+  bottom: 0px;
+  left: 10px;
+}

@@ -5,7 +5,7 @@ export default class Header extends React.Component {
   render() {
     return (
       <header className="navbar navbar-default">
-        <div className="container-fluid">
+        <div className="container">
           <div className="navbar-header">
             <a 
               className="logo-text clickable navbar-brand"

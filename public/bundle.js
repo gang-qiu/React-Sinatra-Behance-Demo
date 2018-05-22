@@ -19921,7 +19921,7 @@
 	        { className: 'navbar navbar-default' },
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'container-fluid' },
+	          { className: 'container' },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'navbar-header' },
@@ -20619,7 +20619,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'main',
-	        { className: 'container-fluid' },
+	        { className: 'container' },
 	        _react2.default.createElement(
 	          'h1',
 	          { className: 'text-center' },
@@ -22064,22 +22064,29 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'container' },
 	        _react2.default.createElement(
-	          'p',
-	          null,
-	          this.state.activeView
-	        ),
-	        _react2.default.createElement(UserProfileSideBar, {
-	          userData: this.props.userData,
-	          setActiveView: this.setActiveView,
-	          workExperienceData: this.state.workExperienceData }),
-	        _react2.default.createElement(UserProfileMainView, {
-	          projectsData: this.state.projectsData,
-	          followersData: this.state.followersData,
-	          followingData: this.state.followingData,
-	          setActiveView: this.setActiveView,
-	          activeView: this.state.activeView })
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-4 col-lg-3' },
+	            _react2.default.createElement(_sidebar2.default, {
+	              userData: this.props.userData,
+	              setActiveView: this.setActiveView,
+	              workExperienceData: this.state.workExperienceData })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-sm-8 col-lg-9' },
+	            _react2.default.createElement(_contentPane2.default, {
+	              projectsData: this.state.projectsData,
+	              followersData: this.state.followersData,
+	              followingData: this.state.followingData,
+	              setActiveView: this.setActiveView,
+	              activeView: this.state.activeView })
+	          )
+	        )
 	      );
 	    }
 	  }]);
@@ -22142,7 +22149,7 @@
 
 	      return _react2.default.createElement(
 	        'aside',
-	        { style: { float: 'left' } },
+	        null,
 	        _react2.default.createElement(UserBasicInfo, {
 	          data: userBasicInfoData,
 	          onClickUserName: function onClickUserName() {
@@ -22174,8 +22181,8 @@
 	    'div',
 	    null,
 	    _react2.default.createElement(
-	      'h3',
-	      { onClick: props.onClickUserName },
+	      'p',
+	      { className: 'lead', onClick: props.onClickUserName },
 	      props.data.name
 	    ),
 	    _react2.default.createElement(
@@ -22239,10 +22246,10 @@
 	      null,
 	      workExperiences.length > 0 ? 'Work Experience: ' : 'No work experience'
 	    ),
-	    workExperiences.map(function (workExperiece) {
+	    workExperiences.map(function (workExperiece, idx) {
 	      return _react2.default.createElement(
 	        'div',
-	        { key: workExperiece.start_date, className: 'work-experience-row' },
+	        { key: workExperiece.start_date + idx, className: 'work-experience-row' },
 	        _react2.default.createElement(
 	          'em',
 	          null,
@@ -22318,7 +22325,7 @@
 
 
 	// module
-	exports.push([module.id, "aside {\n  width: 300px;\n  height: 100%;\n  background: lightgrey;\n}\n\n.work-experience-row {\n  padding: 5px 10px;\n  border-bottom: 1px solid #eee;\n}", ""]);
+	exports.push([module.id, "aside {\n  background: lightgrey;\n  \n}\n\n.work-experience-row {\n  padding: 5px 10px;\n  border-bottom: 1px solid #eee;\n}", ""]);
 
 	// exports
 
@@ -22357,22 +22364,22 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var MainView = function (_React$Component) {
-	  _inherits(MainView, _React$Component);
+	var ContentPane = function (_React$Component) {
+	  _inherits(ContentPane, _React$Component);
 
-	  function MainView() {
-	    _classCallCheck(this, MainView);
+	  function ContentPane() {
+	    _classCallCheck(this, ContentPane);
 
-	    return _possibleConstructorReturn(this, (MainView.__proto__ || Object.getPrototypeOf(MainView)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (ContentPane.__proto__ || Object.getPrototypeOf(ContentPane)).apply(this, arguments));
 	  }
 
-	  _createClass(MainView, [{
+	  _createClass(ContentPane, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'main',
 	        { className: 'projects-container' },
-	        this.props.activeView === 'projects' && _react2.default.createElement(UserProfileProjectsView, { projects: this.props.projectsData }),
+	        this.props.activeView === 'projects' && _react2.default.createElement(_projectsView2.default, { projects: this.props.projectsData }),
 	        ['followers', 'following'].includes(this.props.activeView) && _react2.default.createElement(_tabbedFollowersView2.default, {
 	          activeView: this.props.activeView,
 	          setActiveView: this.props.setActiveView,
@@ -22382,16 +22389,16 @@
 	    }
 	  }]);
 
-	  return MainView;
+	  return ContentPane;
 	}(_react2.default.Component);
 
-	exports.default = MainView;
+	exports.default = ContentPane;
 
 /***/ }),
 /* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -22402,6 +22409,8 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	__webpack_require__(191);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22421,37 +22430,56 @@
 	  }
 
 	  _createClass(ProjectsView, [{
-	    key: "handleClick",
+	    key: 'handleClick',
 	    value: function handleClick() {
 	      window.location.href = this.props.project.url;
 	    }
 	  }, {
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
 	      var projects = Array.isArray(this.props.projects) && this.props.projects || [];
 
 	      return _react2.default.createElement(
-	        "div",
-	        { className: "project-cards-view" },
+	        'div',
+	        { className: 'project-cards-view' },
 	        projects.map(function (project) {
 	          return _react2.default.createElement(
-	            "div",
-	            { key: project.id, className: "project-card", onClick: _this2.handleClick.bind(_this2) },
-	            _react2.default.createElement("img", { src: project.covers[230] }),
+	            'div',
+	            { key: project.id, className: 'project-card clickable', onClick: _this2.handleClick.bind(_this2) },
+	            _react2.default.createElement('img', { src: project.covers[230] || project.covers[200] }),
 	            _react2.default.createElement(
-	              "p",
-	              null,
-	              project.name
-	            ),
-	            _react2.default.createElement(
-	              "p",
-	              null,
-	              "Likes ",
-	              project.stats.appreciations,
-	              " | Views ",
-	              project.stats.views
+	              'div',
+	              { className: 'project-card-details' },
+	              _react2.default.createElement(
+	                'p',
+	                null,
+	                _react2.default.createElement(
+	                  'strong',
+	                  null,
+	                  project.name
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'p',
+	                { className: 'project-stats' },
+	                _react2.default.createElement('span', { className: 'glyphicon glyphicon-thumbs-up', 'aria-hidden': 'true' }),
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'margin-right-10' },
+	                  ' ',
+	                  project.stats.appreciations,
+	                  ' '
+	                ),
+	                _react2.default.createElement('span', { className: 'glyphicon glyphicon-eye-open', 'aria-hidden': 'true' }),
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'margin-right-10' },
+	                  ' ',
+	                  project.stats.views
+	                )
+	              )
 	            )
 	          );
 	        })
@@ -22609,7 +22637,7 @@
 
 
 	// module
-	exports.push([module.id, ".projects-container {\n  float: left;\n  width: 750px;\n}\n\n.projects-container::after {\n  content: '';\n  clear: both;\n  display: block;\n}\n\n.project-card {\n  background: lightgrey;\n  margin: 10px 20px;\n  width: 200px;\n  height: 300px;\n  float: left;\n  cursor: pointer;\n}\n\n.project-card:hover {\n  background: #eee\n}\n\n.project-card img {\n  width: 200px;\n  height: auto;\n}", ""]);
+	exports.push([module.id, "\n", ""]);
 
 	// exports
 
@@ -22674,6 +22702,70 @@
 
 	// module
 	exports.push([module.id, "* {\n  font-family: sans-serif;\n}\n\np {\n  margin-bottom: 5px !important;\n}\n\n.clickable:hover {\n  cursor: pointer;\n}\n\nli.clickable:hover {\n  background: #f8f8f8;\n}\n\n.width-350 {\n  width: 350px;\n}\n\n.margin-right-10 {\n  margin-right: 10px;\n}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 191 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	
+	var content = __webpack_require__(192);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../../../../../node_modules/css-loader/index.js!./projects-view.css", function() {
+			var newContent = require("!!../../../../../node_modules/css-loader/index.js!./projects-view.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 192 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, ".project-card {\n  margin: 5px 10px;\n  width: 180px;\n  min-height: 250px;\n  float: left;\n  background-color: #f8f8f8;\n  border: 1px solid #f1f1f1;\n  border-radius: 10px;\n  overflow: hidden;\n  position: relative;\n}\n\n.project-card:hover {\n  background: #f3f3f3;\n}\n\n.project-card img {\n  width: 200px;\n  height: auto;\n}\n\n.project-card-details {\n  padding: 5px 10px;\n}\n\n.project-stats {\n  position: absolute;\n  bottom: 0px;\n  left: 10px;\n}", ""]);
 
 	// exports
 

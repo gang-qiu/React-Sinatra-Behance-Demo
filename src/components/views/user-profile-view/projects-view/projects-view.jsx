@@ -1,4 +1,5 @@
 import React from 'react';
+import './projects-view.css';
 
 export default class ProjectsView extends React.Component {
   handleClick() {
@@ -13,13 +14,17 @@ export default class ProjectsView extends React.Component {
         {
           projects.map(project => {
             return (
-              <div key={project.id} className="project-card" onClick={this.handleClick.bind(this)}>
-                <img src={project.covers[230]} />
-                <p>{project.name}</p>
-                <p>
-                  Likes {project.stats.appreciations} | 
-                  Views {project.stats.views}
-                </p>
+              <div key={project.id} className="project-card clickable" onClick={this.handleClick.bind(this)}>
+                <img src={project.covers[230] || project.covers[200]} />
+                <div className="project-card-details">
+                  <p><strong>{project.name}</strong></p>
+                  <p className="project-stats">
+                    <span className="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    <span className="margin-right-10"> {project.stats.appreciations} </span>
+                    <span className="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                    <span className="margin-right-10"> {project.stats.views}</span>
+                  </p>
+                </div>
               </div>
             )
           })

@@ -1,6 +1,6 @@
 import React from 'react';
 import SideBar from './sidebar';
-import MainView from './content-pane';
+import ContentPane from './content-pane';
 
 export default class UserProfileView extends React.Component {
   constructor(props, context) {
@@ -70,19 +70,24 @@ export default class UserProfileView extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>{this.state.activeView}</p>
-        <UserProfileSideBar 
-          userData={this.props.userData}
-          setActiveView={this.setActiveView}
-          workExperienceData={this.state.workExperienceData}/>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-4 col-lg-3">
+            <SideBar 
+              userData={this.props.userData}
+              setActiveView={this.setActiveView}
+              workExperienceData={this.state.workExperienceData}/>
+          </div>
 
-        <UserProfileMainView
-          projectsData={this.state.projectsData} 
-          followersData={this.state.followersData}          
-          followingData={this.state.followingData}
-          setActiveView={this.setActiveView}
-          activeView={this.state.activeView}/>
+          <div className="col-sm-8 col-lg-9">
+            <ContentPane
+              projectsData={this.state.projectsData} 
+              followersData={this.state.followersData}          
+              followingData={this.state.followingData}
+              setActiveView={this.setActiveView}
+              activeView={this.state.activeView}/>
+          </div>
+        </div>
       </div>
     )
   }

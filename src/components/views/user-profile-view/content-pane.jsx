@@ -3,14 +3,14 @@ import ProjectsView from './projects-view/projects-view';
 import TabbedFollowersView from './tabbed-followers-view/tabbed-followers-view';
 import './content-pane.css';
 
-export default class MainView extends React.Component {
+export default class ContentPane extends React.Component {
 
   render() {
     return (
       <main className="projects-container">
         {
           this.props.activeView === 'projects' && 
-            <UserProfileProjectsView projects={this.props.projectsData} />
+            <ProjectsView projects={this.props.projectsData} />
         }
         {
           ['followers', 'following'].includes(this.props.activeView) &&
