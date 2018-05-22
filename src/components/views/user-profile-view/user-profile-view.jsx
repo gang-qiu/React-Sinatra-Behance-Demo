@@ -1,7 +1,6 @@
 import React from 'react';
-import UserProfileSideBar from './user-profile-sidebar';
-import UserProfileMainView from './user-profile-main-view';
-import './user-profile-sidebar.css';
+import SideBar from './sidebar';
+import MainView from './content-pane';
 
 export default class UserProfileView extends React.Component {
   constructor(props, context) {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class UserProfileProjectsView extends React.Component {
+export default class ProjectsView extends React.Component {
   handleClick() {
     window.location.href = this.props.project.url;
   }

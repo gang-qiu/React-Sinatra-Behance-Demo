@@ -1,9 +1,9 @@
 import React from 'react';
-import UserProfileProjectsView from './user-profile-projects-view';
+import ProjectsView from './projects-view/projects-view';
 import TabbedFollowersView from './tabbed-followers-view/tabbed-followers-view';
-import './user-profile-main-view.css';
+import './content-pane.css';
 
-export default class UserProfileMainView extends React.Component {
+export default class MainView extends React.Component {
 
   render() {
     return (

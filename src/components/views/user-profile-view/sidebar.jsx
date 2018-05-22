@@ -1,6 +1,7 @@
 import React from 'react';
+import './sidebar.css';
 
-export default class UserProfileSideBar extends React.Component {
+export default class SideBar extends React.Component {
 
   render() {
     const userBasicInfoData = {

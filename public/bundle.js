@@ -54,15 +54,15 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _App = __webpack_require__(159);
+	var _app = __webpack_require__(159);
 
-	var _App2 = _interopRequireDefault(_App);
+	var _app2 = _interopRequireDefault(_app);
 
 	__webpack_require__(189);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('root'));
+	_reactDom2.default.render(_react2.default.createElement(_app2.default, null), document.getElementById('root'));
 
 /***/ }),
 /* 1 */
@@ -21902,15 +21902,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _userProfileSidebar = __webpack_require__(181);
+	var _sidebar = __webpack_require__(181);
 
-	var _userProfileSidebar2 = _interopRequireDefault(_userProfileSidebar);
+	var _sidebar2 = _interopRequireDefault(_sidebar);
 
-	var _userProfileMainView = __webpack_require__(182);
+	var _contentPane = __webpack_require__(184);
 
-	var _userProfileMainView2 = _interopRequireDefault(_userProfileMainView);
-
-	__webpack_require__(187);
+	var _contentPane2 = _interopRequireDefault(_contentPane);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22018,11 +22016,11 @@
 	          null,
 	          this.state.activeView
 	        ),
-	        _react2.default.createElement(_userProfileSidebar2.default, {
+	        _react2.default.createElement(UserProfileSideBar, {
 	          userData: this.props.userData,
 	          setActiveView: this.setActiveView,
 	          workExperienceData: this.state.workExperienceData }),
-	        _react2.default.createElement(_userProfileMainView2.default, {
+	        _react2.default.createElement(UserProfileMainView, {
 	          projectsData: this.state.projectsData,
 	          followersData: this.state.followersData,
 	          followingData: this.state.followingData,
@@ -22053,6 +22051,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	__webpack_require__(182);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22061,16 +22061,16 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var UserProfileSideBar = function (_React$Component) {
-	  _inherits(UserProfileSideBar, _React$Component);
+	var SideBar = function (_React$Component) {
+	  _inherits(SideBar, _React$Component);
 
-	  function UserProfileSideBar() {
-	    _classCallCheck(this, UserProfileSideBar);
+	  function SideBar() {
+	    _classCallCheck(this, SideBar);
 
-	    return _possibleConstructorReturn(this, (UserProfileSideBar.__proto__ || Object.getPrototypeOf(UserProfileSideBar)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (SideBar.__proto__ || Object.getPrototypeOf(SideBar)).apply(this, arguments));
 	  }
 
-	  _createClass(UserProfileSideBar, [{
+	  _createClass(SideBar, [{
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -22109,10 +22109,10 @@
 	    }
 	  }]);
 
-	  return UserProfileSideBar;
+	  return SideBar;
 	}(_react2.default.Component);
 
-	exports.default = UserProfileSideBar;
+	exports.default = SideBar;
 
 
 	function UserBasicInfo(props) {
@@ -22209,6 +22209,70 @@
 /* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	
+	var content = __webpack_require__(183);
+
+	if(typeof content === 'string') content = [[module.id, content, '']];
+
+	var transform;
+	var insertInto;
+
+
+
+	var options = {"hmr":true}
+
+	options.transform = transform
+	options.insertInto = undefined;
+
+	var update = __webpack_require__(164)(content, options);
+
+	if(content.locals) module.exports = content.locals;
+
+	if(false) {
+		module.hot.accept("!!../../../../node_modules/css-loader/index.js!./sidebar.css", function() {
+			var newContent = require("!!../../../../node_modules/css-loader/index.js!./sidebar.css");
+
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+			var locals = (function(a, b) {
+				var key, idx = 0;
+
+				for(key in a) {
+					if(!b || a[key] !== b[key]) return false;
+					idx++;
+				}
+
+				for(key in b) idx--;
+
+				return idx === 0;
+			}(content.locals, newContent.locals));
+
+			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+			update(newContent);
+		});
+
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ }),
+/* 183 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(163)(false);
+	// imports
+
+
+	// module
+	exports.push([module.id, "aside {\n  width: 300px;\n  height: 100%;\n  background: lightgrey;\n}\n\n.work-experience-row {\n  padding: 5px 10px;\n  border-bottom: 1px solid #eee;\n}", ""]);
+
+	// exports
+
+
+/***/ }),
+/* 184 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -22221,15 +22285,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _userProfileProjectsView = __webpack_require__(183);
+	var _projectsView = __webpack_require__(185);
 
-	var _userProfileProjectsView2 = _interopRequireDefault(_userProfileProjectsView);
+	var _projectsView2 = _interopRequireDefault(_projectsView);
 
-	var _tabbedFollowersView = __webpack_require__(184);
+	var _tabbedFollowersView = __webpack_require__(186);
 
 	var _tabbedFollowersView2 = _interopRequireDefault(_tabbedFollowersView);
 
-	__webpack_require__(185);
+	__webpack_require__(187);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22239,22 +22303,22 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var UserProfileMainView = function (_React$Component) {
-	  _inherits(UserProfileMainView, _React$Component);
+	var MainView = function (_React$Component) {
+	  _inherits(MainView, _React$Component);
 
-	  function UserProfileMainView() {
-	    _classCallCheck(this, UserProfileMainView);
+	  function MainView() {
+	    _classCallCheck(this, MainView);
 
-	    return _possibleConstructorReturn(this, (UserProfileMainView.__proto__ || Object.getPrototypeOf(UserProfileMainView)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (MainView.__proto__ || Object.getPrototypeOf(MainView)).apply(this, arguments));
 	  }
 
-	  _createClass(UserProfileMainView, [{
+	  _createClass(MainView, [{
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'main',
 	        { className: 'projects-container' },
-	        this.props.activeView === 'projects' && _react2.default.createElement(_userProfileProjectsView2.default, { projects: this.props.projectsData }),
+	        this.props.activeView === 'projects' && _react2.default.createElement(UserProfileProjectsView, { projects: this.props.projectsData }),
 	        ['followers', 'following'].includes(this.props.activeView) && _react2.default.createElement(_tabbedFollowersView2.default, {
 	          activeView: this.props.activeView,
 	          setActiveView: this.props.setActiveView,
@@ -22264,13 +22328,13 @@
 	    }
 	  }]);
 
-	  return UserProfileMainView;
+	  return MainView;
 	}(_react2.default.Component);
 
-	exports.default = UserProfileMainView;
+	exports.default = MainView;
 
 /***/ }),
-/* 183 */
+/* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -22293,16 +22357,16 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var UserProfileProjectsView = function (_React$Component) {
-	  _inherits(UserProfileProjectsView, _React$Component);
+	var ProjectsView = function (_React$Component) {
+	  _inherits(ProjectsView, _React$Component);
 
-	  function UserProfileProjectsView() {
-	    _classCallCheck(this, UserProfileProjectsView);
+	  function ProjectsView() {
+	    _classCallCheck(this, ProjectsView);
 
-	    return _possibleConstructorReturn(this, (UserProfileProjectsView.__proto__ || Object.getPrototypeOf(UserProfileProjectsView)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (ProjectsView.__proto__ || Object.getPrototypeOf(ProjectsView)).apply(this, arguments));
 	  }
 
-	  _createClass(UserProfileProjectsView, [{
+	  _createClass(ProjectsView, [{
 	    key: "handleClick",
 	    value: function handleClick() {
 	      window.location.href = this.props.project.url;
@@ -22341,13 +22405,13 @@
 	    }
 	  }]);
 
-	  return UserProfileProjectsView;
+	  return ProjectsView;
 	}(_react2.default.Component);
 
-	exports.default = UserProfileProjectsView;
+	exports.default = ProjectsView;
 
 /***/ }),
-/* 184 */
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22433,70 +22497,6 @@
 	exports.default = TabbedFollowersView;
 
 /***/ }),
-/* 185 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	
-	var content = __webpack_require__(186);
-
-	if(typeof content === 'string') content = [[module.id, content, '']];
-
-	var transform;
-	var insertInto;
-
-
-
-	var options = {"hmr":true}
-
-	options.transform = transform
-	options.insertInto = undefined;
-
-	var update = __webpack_require__(164)(content, options);
-
-	if(content.locals) module.exports = content.locals;
-
-	if(false) {
-		module.hot.accept("!!../../../../node_modules/css-loader/index.js!./user-profile-main-view.css", function() {
-			var newContent = require("!!../../../../node_modules/css-loader/index.js!./user-profile-main-view.css");
-
-			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-			var locals = (function(a, b) {
-				var key, idx = 0;
-
-				for(key in a) {
-					if(!b || a[key] !== b[key]) return false;
-					idx++;
-				}
-
-				for(key in b) idx--;
-
-				return idx === 0;
-			}(content.locals, newContent.locals));
-
-			if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-			update(newContent);
-		});
-
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ }),
-/* 186 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(163)(false);
-	// imports
-
-
-	// module
-	exports.push([module.id, ".projects-container {\n  float: left;\n  width: 750px;\n}\n\n.projects-container::after {\n  content: '';\n  clear: both;\n  display: block;\n}\n\n.project-card {\n  background: lightgrey;\n  margin: 10px 20px;\n  width: 200px;\n  height: 300px;\n  float: left;\n  cursor: pointer;\n}\n\n.project-card:hover {\n  background: #eee\n}\n\n.project-card img {\n  width: 200px;\n  height: auto;\n}", ""]);
-
-	// exports
-
-
-/***/ }),
 /* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22520,8 +22520,8 @@
 	if(content.locals) module.exports = content.locals;
 
 	if(false) {
-		module.hot.accept("!!../../../../node_modules/css-loader/index.js!./user-profile-sidebar.css", function() {
-			var newContent = require("!!../../../../node_modules/css-loader/index.js!./user-profile-sidebar.css");
+		module.hot.accept("!!../../../../node_modules/css-loader/index.js!./content-pane.css", function() {
+			var newContent = require("!!../../../../node_modules/css-loader/index.js!./content-pane.css");
 
 			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 
@@ -22555,7 +22555,7 @@
 
 
 	// module
-	exports.push([module.id, "aside {\n  width: 300px;\n  height: 100%;\n  background: lightgrey;\n}\n\n.work-experience-row {\n  padding: 5px 10px;\n  border-bottom: 1px solid #eee;\n}", ""]);
+	exports.push([module.id, ".projects-container {\n  float: left;\n  width: 750px;\n}\n\n.projects-container::after {\n  content: '';\n  clear: both;\n  display: block;\n}\n\n.project-card {\n  background: lightgrey;\n  margin: 10px 20px;\n  width: 200px;\n  height: 300px;\n  float: left;\n  cursor: pointer;\n}\n\n.project-card:hover {\n  background: #eee\n}\n\n.project-card img {\n  width: 200px;\n  height: auto;\n}", ""]);
 
 	// exports
 
